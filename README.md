@@ -44,16 +44,16 @@ A fully featured multi-tenant admin dashboard built with:
 ```bash
 git clone https://github.com/your-username/your-project.git
 cd your-project
-2. Install PHP Dependencies
+1. Install PHP Dependencies
 
 composer install
 
-3. Copy .env and Generate Key
+2. Copy .env and Generate Key
 
 cp .env.example .env
 php artisan key:generate
 
-4. Configure .env
+3. Configure .env
 
 APP_NAME=MyAdmin
 APP_URL=http://localhost
@@ -63,14 +63,14 @@ DB_DATABASE=myadmin
 DB_USERNAME=root
 DB_PASSWORD=
 
-5. Install Node Modules & Build Frontend
+4. Install Node Modules & Build Frontend
 
 npm install
 npm run dev     # for development
 # or
 npm run build   # for production
 
-6. Run Migrations & Seeders
+5. Run Migrations & Seeders
 
 php artisan migrate --seed
 
