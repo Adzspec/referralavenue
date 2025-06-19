@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NModal, NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 // const props = defineProps<{
@@ -10,8 +10,14 @@ const props = defineProps<{
     show: boolean;
     roles: Array<{ id: number; name: string }>;
 }>();
-const emit = defineEmits(['close']);
-
+const emit = defineEmits<{
+    (e: 'update:show', value: boolean): void;
+    (e: 'close'): void;
+}>();
+const localShow = computed({
+    get: () => props.show,
+    set: (val: boolean) => emit('update:show', val),
+});
 const form = ref({
     name: '',
     email: '',
@@ -39,10 +45,14 @@ const handleSubmit = () => {
         }
     });
 };
+const handleClose = () => {
+    emit('update:show', false);
+    emit('close');
+};
 </script>
 
 <template>
-    <n-modal v-model:show="props.show" title="Create User" preset="dialog" :auto-focus="false" @close="emit('close')">
+    <n-modal v-model:show="localShow" title="Create User" preset="dialog" :auto-focus="false" @after-leave="handleClose">
         <n-form :model="form" label-placement="top">
             <n-form-item label="Name">
                 <n-input v-model:value="form.name" placeholder="Enter Name Here" />
