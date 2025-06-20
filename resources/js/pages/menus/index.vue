@@ -11,7 +11,7 @@
                 :columns="columns"
                 :data="props.menus"
                 :pagination="false"
-                class="bg-white rounded shadow"
+                class="rounded shadow"
             />
 
             <CreateMenuModal
