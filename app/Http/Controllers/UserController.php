@@ -15,6 +15,11 @@ class UserController extends Controller
         return Inertia::render('users/index', [
             'users' => User::with('roles')->paginate(10),
             'roles' => Role::select('id', 'name')->get(),
+            'can' => [
+                'create' => auth()->user()->can('create users'),
+                'edit' => auth()->user()->can('edit users'),
+                'delete' => auth()->user()->can('delete users'),
+            ],
         ]);
     }
 

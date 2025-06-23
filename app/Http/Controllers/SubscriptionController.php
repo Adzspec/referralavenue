@@ -14,6 +14,11 @@ class SubscriptionController extends Controller
         $subscriptions = Subscription::paginate(10);
         return Inertia::render('subscriptions/index', [
             'subscriptions' => $subscriptions,
+            'can' => [
+                'create' => auth()->user()->can('create subscriptions'),
+                'edit' => auth()->user()->can('edit subscriptions'),
+                'delete' => auth()->user()->can('delete subscriptions'),
+            ],
         ]);
     }
 
@@ -58,4 +63,4 @@ class SubscriptionController extends Controller
         $subscription->delete();
         return redirect()->route('subscriptions.index')->with('success', 'Subscription plan deleted.');
     }
-} 
+}

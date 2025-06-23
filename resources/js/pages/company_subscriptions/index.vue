@@ -1,3 +1,49 @@
+<template>
+    <Head title="Company Subscriptions" />
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-semibold">Company Subscriptions</h1>
+                <n-button v-if="props.can.create" type="primary" @click="openCreateModal">Add Subscription</n-button>
+            </div>
+
+            <n-data-table
+                :columns="columns"
+                :data="props.companySubscriptions.data"
+                :pagination="false"
+                class="rounded shadow dark:bg-gray-900"
+            />
+
+            <div class="mt-6 flex justify-end">
+                <n-pagination
+                    :page="props.companySubscriptions.current_page"
+                    :page-count="props.companySubscriptions.last_page"
+                    @update:page="page => $inertia.get('/company-subscriptions', { page })"
+                />
+            </div>
+
+            <!-- Create Modal -->
+            <CreateCompanySubscriptionModal
+                v-if="showCreateModal"
+                :show="showCreateModal"
+                :companies="props.companies"
+                :subscriptions="props.subscriptions"
+                @close="closeModals"
+            />
+
+            <!-- Edit Modal -->
+            <EditCompanySubscriptionModal
+                v-if="showEditModal"
+                :show="showEditModal"
+                :companies="props.companies"
+                :subscriptions="props.subscriptions"
+                :subscription-record="selectedSubscription"
+                @close="closeModals"
+            />
+        </div>
+    </AppLayout>
+</template>
+
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
@@ -21,6 +67,7 @@ const props = defineProps<{
     };
     companies: Array<{ id: number; name: string }>;
     subscriptions: Array<{ id: number; name: string; price: string }>;
+    can: { create: boolean; edit: boolean; delete: boolean };
 }>();
 
 const dialog = useDialog();
@@ -90,6 +137,7 @@ const columns = [
         key: 'actions',
         render(row: any) {
             return h('div', { class: 'flex gap-2' }, [
+                props.can.edit &&
                 h(
                     NButton,
                     {
@@ -99,6 +147,7 @@ const columns = [
                     },
                     { default: () => 'Edit' }
                 ),
+                props.can.delete &&
                 h(
                     NButton,
                     {
@@ -118,48 +167,4 @@ const breadcrumbs: BreadcrumbItemType[] = [
 ];
 </script>
 
-<template>
-    <Head title="Company Subscriptions" />
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h1 class="text-2xl font-semibold">Company Subscriptions</h1>
-                <n-button type="primary" @click="openCreateModal">Add Subscription</n-button>
-            </div>
 
-            <n-data-table
-                :columns="columns"
-                :data="props.companySubscriptions.data"
-                :pagination="false"
-                class="rounded shadow dark:bg-gray-900"
-            />
-
-            <div class="mt-6 flex justify-end">
-                <n-pagination
-                    :page="props.companySubscriptions.current_page"
-                    :page-count="props.companySubscriptions.last_page"
-                    @update:page="page => $inertia.get('/company-subscriptions', { page })"
-                />
-            </div>
-
-            <!-- Create Modal -->
-            <CreateCompanySubscriptionModal
-                v-if="showCreateModal"
-                :show="showCreateModal"
-                :companies="props.companies"
-                :subscriptions="props.subscriptions"
-                @close="closeModals"
-            />
-
-            <!-- Edit Modal -->
-            <EditCompanySubscriptionModal
-                v-if="showEditModal"
-                :show="showEditModal"
-                :companies="props.companies"
-                :subscriptions="props.subscriptions"
-                :subscription-record="selectedSubscription"
-                @close="closeModals"
-            />
-        </div>
-    </AppLayout>
-</template>

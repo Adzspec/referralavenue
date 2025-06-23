@@ -19,6 +19,11 @@ class CompanyController extends Controller
 
         return Inertia::render('companies/index', [
             'companies' => $companies,
+            'can' => [
+                'create' => auth()->user()->can('create companies'),
+                'edit' => auth()->user()->can('edit companies'),
+                'delete' => auth()->user()->can('delete companies'),
+            ],
         ]);
     }
 

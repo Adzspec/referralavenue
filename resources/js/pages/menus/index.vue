@@ -4,7 +4,7 @@
         <div class="p-6">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-xl font-bold">Menus</h1>
-                <NButton type="primary" @click="openCreate">Add Menu</NButton>
+                <NButton v-if="props.can.create" type="primary" @click="openCreate">Add Menu</NButton>
             </div>
 
             <n-data-table
@@ -44,6 +44,7 @@ import CreateMenuModal from '@/components/menus/CreateMenuModal.vue';
 const props = defineProps<{
     menus: Array<any>;
     parentMenus: Array<{ id: number; title: string }>;
+    can: { create: boolean; edit: boolean; delete: boolean };
 }>();
 
 const dialog = useDialog();
@@ -112,7 +113,7 @@ const columns = [
         key: 'actions',
         render(row: any) {
             return h('div', { class: 'flex gap-2' }, [
-                h(
+                props.can.edit && h(
                     NButton,
                     {
                         type: 'primary',
@@ -121,7 +122,7 @@ const columns = [
                     },
                     { default: () => 'Edit' }
                 ),
-                h(
+                props.can.edit && h(
                     NButton,
                     {
                         type: 'error',

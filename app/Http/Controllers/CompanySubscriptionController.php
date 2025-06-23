@@ -17,6 +17,11 @@ class CompanySubscriptionController extends Controller
             'companySubscriptions' => CompanySubscription::with(['company', 'subscription'])->paginate(10),
             'companies' => Company::all(['id', 'name']),
             'subscriptions' => Subscription::all(['id', 'name', 'price']),
+            'can' => [
+                'create' => auth()->user()->can('create company subscriptions'),
+                'edit' => auth()->user()->can('edit company subscriptions'),
+                'delete' => auth()->user()->can('delete company subscriptions'),
+            ],
         ]);
     }
 

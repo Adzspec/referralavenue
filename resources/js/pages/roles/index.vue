@@ -2,12 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, h } from 'vue';
-import {
-    NButton,
-    NDataTable,
-    NPagination,
-    useDialog,
-} from 'naive-ui';
+import { NButton, NDataTable, NPagination, useDialog } from 'naive-ui';
 import CreateRoleModal from '@/components/roles/CreateRoleModal.vue';
 import EditRoleModal from '@/components/roles/EditRoleModal.vue';
 
@@ -43,11 +38,7 @@ const selectedRole = ref<{
 } | null>(null);
 
 const openCreate = () => (showCreateModal.value = true);
-const openEdit = (role: {
-    id: number;
-    name: string;
-    permissions: { name: string }[];
-}) => {
+const openEdit = (role: { id: number; name: string; permissions: { name: string }[] }) => {
     selectedRole.value = role;
     showEditModal.value = true;
 };
@@ -87,25 +78,25 @@ const columns = [
         render(row: any) {
             return h('div', { class: 'flex gap-2' }, [
                 props.can.edit &&
-                h(
-                    NButton,
-                    {
-                        size: 'small',
-                        type: 'primary',
-                        onClick: () => openEdit(row),
-                    },
-                    { default: () => 'Edit' }
-                ),
+                    h(
+                        NButton,
+                        {
+                            size: 'small',
+                            type: 'primary',
+                            onClick: () => openEdit(row),
+                        },
+                        { default: () => 'Edit' },
+                    ),
                 props.can.delete &&
-                h(
-                    NButton,
-                    {
-                        size: 'small',
-                        type: 'error',
-                        onClick: () => handleDelete(row.id),
-                    },
-                    { default: () => 'Delete' }
-                ),
+                    h(
+                        NButton,
+                        {
+                            size: 'small',
+                            type: 'error',
+                            onClick: () => handleDelete(row.id),
+                        },
+                        { default: () => 'Delete' },
+                    ),
             ]);
         },
     },
@@ -116,32 +107,19 @@ const columns = [
     <Head title="Roles" />
     <AppLayout>
         <div class="p-6">
-            <div class="flex justify-between items-center pb-4">
+            <div class="flex items-center justify-between pb-4">
                 <h1 class="text-2xl font-semibold">Roles</h1>
                 <n-button v-if="props.can.create" type="primary" @click="openCreate">Add Role</n-button>
             </div>
 
-            <n-data-table
-                :columns="columns"
-                :data="props.roles.data"
-                :pagination="false"
-                class="bg-white rounded shadow"
-            />
+            <n-data-table :columns="columns" :data="props.roles.data" :pagination="false" class="rounded bg-white shadow" />
 
             <div class="mt-6 flex justify-end">
-                <n-pagination
-                    :page="props.roles.current_page"
-                    :page-count="props.roles.last_page"
-                />
+                <n-pagination :page="props.roles.current_page" :page-count="props.roles.last_page" />
             </div>
         </div>
 
-        <CreateRoleModal
-            v-if="showCreateModal"
-            :show="showCreateModal"
-            :permissions="props.permissions"
-            @close="closeModals"
-        />
+        <CreateRoleModal v-if="showCreateModal" :show="showCreateModal" :permissions="props.permissions" @close="closeModals" />
 
         <EditRoleModal
             v-if="showEditModal && selectedRole"

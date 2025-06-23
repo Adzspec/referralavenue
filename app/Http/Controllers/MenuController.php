@@ -16,6 +16,11 @@ class MenuController extends Controller
                 ->orderBy('order')
                 ->get(),
             'parentMenus' => Menu::whereNull('parent_id')->get(), // For dropdown
+            'can' => [
+                'create' => auth()->user()->can('create menus'),
+                'edit' => auth()->user()->can('edit menus'),
+                'delete' => auth()->user()->can('delete menus'),
+            ],
         ]);
     }
 

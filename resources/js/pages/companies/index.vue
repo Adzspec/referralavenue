@@ -4,7 +4,7 @@
         <div class="p-6">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-semibold">Companies</h1>
-                <n-button type="primary" @click="openCreateModal">Add Company</n-button>
+                <n-button v-if="props.can.create" type="primary" @click="openCreateModal">Add Company</n-button>
             </div>
 
             <n-data-table
@@ -62,6 +62,7 @@ const props = defineProps<{
         current_page: number;
         last_page: number;
     };
+    can: { create: boolean; edit: boolean; delete: boolean };
 }>();
 
 const breadcrumbs: BreadcrumbItemType[] = [

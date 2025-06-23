@@ -1,3 +1,43 @@
+<template>
+    <Head title="Users" />
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="p-6">
+            <div class="flex justify-between items-center pb-2">
+                <h1 class="text-2xl font-semibold">Users</h1>
+                <n-button v-if="props.can.create" type="primary" @click="openCreateModal">Add User</n-button>
+            </div>
+            <n-data-table
+                :columns="columns"
+                :data="props.users.data"
+                :pagination="false"
+                striped
+                class="bg-white rounded-lg shadow"
+            />
+
+            <div class="mt-6 flex justify-end">
+                <n-pagination
+                    :page="props.users.current_page"
+                    :page-count="props.users.last_page"
+                    @update:page="handlePageChange"
+                />
+            </div>
+            <EditUserModal
+                :show="showEditModal"
+                :roles="props.roles"
+                :user="selectedUser"
+                @close="closeEditModal"
+            />
+            <CreateUserModal
+                v-if="showCreateModal"
+                :show="showCreateModal"
+                :roles="props.roles"
+                @close="closeCreateModal"
+                @created="handleUserCreated"
+            />
+        </div>
+    </AppLayout>
+</template>
+
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
@@ -25,6 +65,7 @@ const props = defineProps<{
         to: number;
     };
     roles: Array<{ id: number; name: string }>;
+    can: { create: boolean; edit: boolean; delete: boolean };
 }>();
 const showEditModal = ref(false);
 const selectedUser = ref(null);
@@ -73,6 +114,7 @@ const columns = [
         key: 'actions',
         render(row: any) {
             return h('div', { class: 'gap-2 flex items-center' }, [
+                props.can.edit &&
                 h(
                     NButton,
                     {
@@ -82,6 +124,7 @@ const columns = [
                     },
                     { default: () => 'Edit' }
                 ),
+                props.can.delete &&
                 h(
                     NButton,
                     {
@@ -130,42 +173,4 @@ const handleUserCreated = (newUser:any) => {
 
 </script>
 
-<template>
-    <Head title="Users" />
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p-6">
-                <div class="flex justify-between items-center pb-2">
-                    <h1 class="text-2xl font-semibold">Users</h1>
-                    <n-button type="primary" @click="openCreateModal">Add User</n-button>
-                </div>
-            <n-data-table
-                :columns="columns"
-                :data="props.users.data"
-                :pagination="false"
-                striped
-                class="bg-white rounded-lg shadow"
-            />
 
-            <div class="mt-6 flex justify-end">
-                <n-pagination
-                    :page="props.users.current_page"
-                    :page-count="props.users.last_page"
-                    @update:page="handlePageChange"
-                />
-            </div>
-            <EditUserModal
-                :show="showEditModal"
-                :roles="props.roles"
-                :user="selectedUser"
-                @close="closeEditModal"
-            />
-            <CreateUserModal
-                v-if="showCreateModal"
-                :show="showCreateModal"
-                :roles="props.roles"
-                @close="closeCreateModal"
-                @created="handleUserCreated"
-            />
-        </div>
-    </AppLayout>
-</template>

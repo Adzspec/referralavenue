@@ -1,3 +1,34 @@
+<template>
+    <Head title="Permissions" />
+    <AppLayout>
+        <div class="p-6">
+            <div class="flex justify-between items-center pb-4">
+                <h1 class="text-2xl font-semibold">Permissions</h1>
+                <n-button v-if="props.can.create" type="primary" @click="openCreate">Add Permission</n-button>
+            </div>
+
+            <n-data-table :columns="columns" :data="props.permissions.data" class="bg-white rounded shadow" />
+            <div class="mt-6 flex justify-end">
+                <n-pagination
+                    :page="props.permissions.current_page"
+                    :page-count="props.permissions.last_page"
+                    @update:page="handlePageChange"
+                />
+            </div>
+
+            <n-modal v-model:show="showModal" preset="dialog" title="Permission">
+                <div class="space-y-4">
+                    <n-input v-model:value="form.name" placeholder="Permission name" />
+                    <div class="flex justify-end gap-2">
+                        <n-button @click="showModal = false">Cancel</n-button>
+                        <n-button type="primary" @click="save">{{ editing ? 'Update' : 'Create' }}</n-button>
+                    </div>
+                </div>
+            </n-modal>
+        </div>
+    </AppLayout>
+</template>
+
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
@@ -99,33 +130,4 @@ const handlePageChange = (newPage: number) => {
 };
 </script>
 
-<template>
-    <Head title="Permissions" />
-    <AppLayout>
-        <div class="p-6">
-            <div class="flex justify-between items-center pb-4">
-                <h1 class="text-2xl font-semibold">Permissions</h1>
-                <n-button v-if="props.can.create" type="primary" @click="openCreate">Add Permission</n-button>
-            </div>
 
-            <n-data-table :columns="columns" :data="props.permissions.data" class="bg-white rounded shadow" />
-            <div class="mt-6 flex justify-end">
-                <n-pagination
-                    :page="props.permissions.current_page"
-                    :page-count="props.permissions.last_page"
-                    @update:page="handlePageChange"
-                />
-            </div>
-
-            <n-modal v-model:show="showModal" preset="dialog" title="Permission">
-                <div class="space-y-4">
-                    <n-input v-model:value="form.name" placeholder="Permission name" />
-                    <div class="flex justify-end gap-2">
-                        <n-button @click="showModal = false">Cancel</n-button>
-                        <n-button type="primary" @click="save">{{ editing ? 'Update' : 'Create' }}</n-button>
-                    </div>
-                </div>
-            </n-modal>
-        </div>
-    </AppLayout>
-</template>
