@@ -96,7 +96,7 @@ const columns = [
     { title: 'Title', key: 'title' },
     { title: 'Href', key: 'href' },
     { title: 'Icon', key: 'icon' },
-    { title: 'Role', key: 'role' },
+    // { title: 'Role', key: 'role' },
     { title: 'Permission', key: 'permission' },
     {
         title: 'Parent',
