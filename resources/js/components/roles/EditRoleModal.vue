@@ -44,7 +44,7 @@ const submit = () => {
 };
 </script>
 <template>
-    <n-modal :show="show" @update:show="emit('close')" preset="dialog" title="Edit Role">
+    <n-modal style="width: 600px" :show="show" @update:show="emit('close')" preset="card" title="Edit Role">
         <n-form @submit.prevent="submit">
             <n-form-item label="Role Name">
                 <n-input v-model:value="name" placeholder="Enter role name" />

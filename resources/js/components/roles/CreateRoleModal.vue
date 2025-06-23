@@ -33,7 +33,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <n-modal :show="props.show" @update:show="emit('close')" preset="dialog" title="Create Role">
+    <n-modal :show="props.show" @close="emit('close')" preset="dialog" title="Create Role">
         <n-card>
             <n-form label-placement="top" class="space-y-4">
                 <n-form-item label="Role Name">

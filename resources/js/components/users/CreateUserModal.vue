@@ -52,7 +52,7 @@ const handleClose = () => {
 </script>
 
 <template>
-    <n-modal v-model:show="localShow" title="Create User" preset="dialog" :auto-focus="false" @after-leave="handleClose">
+    <n-modal style="width: 600px" v-model:show="localShow" @update:show="emit('close')" title="Create User" preset="card" :auto-focus="false" @after-leave="handleClose">
         <n-form :model="form" label-placement="top">
             <n-form-item label="Name">
                 <n-input v-model:value="form.name" placeholder="Enter Name Here" />

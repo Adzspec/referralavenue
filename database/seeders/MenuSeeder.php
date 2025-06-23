@@ -44,14 +44,33 @@ class MenuSeeder extends Seeder
             'icon' => 'Menu',
             'permission' => 'manage menus'
         ]);
+        Menu::create([
+            'title' => 'Companies',
+            'href' => '/companies',
+            'icon' => 'Building2',
+            'permission' => 'manage companies'
+        ]);
+        $subscriptions = Menu::create([
+            'title' => 'Subscriptions',
+            'href' => '/subscriptions',
+            'icon' => 'CalendarSync',
+            'permission' => 'manage subscriptions'
+        ]);
 
-//        $users->children()->createMany([
-//            [
-//                'title' => 'All Users',
-//                'href' => '/users',
-//                'permission' => 'manage users',
-//            ],
-//        ]);
+        $subscriptions->children()->createMany([
+            [
+                'title' => 'Subscriptions List',
+                'href' => '/subscriptions',
+                'icon' => 'List',
+                'permission' => 'manage subscriptions',
+            ],
+            [
+                'title' => 'Company Subscriptions	',
+                'href' => '/company_subscriptions',
+                'icon' => 'NotebookTabs',
+                'permission' => 'manage company subscriptions',
+            ],
+        ]);
 
     }
 }

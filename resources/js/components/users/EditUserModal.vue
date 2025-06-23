@@ -58,7 +58,7 @@ const submit = () => {
 </script>
 
 <template>
-    <n-modal v-model:show="localShow" preset="dialog" title="Edit User" @after-leave="handleClose">
+    <n-modal v-model:show="localShow" preset="dialog" @close="emit('close')"  title="Edit User" @after-leave="handleClose">
         <n-form :model="form" label-placement="top">
             <n-form-item label="Name" path="name">
                 <n-input v-model:value="form.name" />

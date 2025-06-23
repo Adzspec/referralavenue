@@ -31,6 +31,18 @@ class PermissionSeeder extends Seeder
             'create menus',
             'edit menus',
             'delete menus',
+            'manage companies',
+            'create companies',
+            'edit companies',
+            'delete companies',
+            'manage subscriptions',
+            'create subscriptions',
+            'edit subscriptions',
+            'delete subscriptions',
+            'manage company subscriptions',
+            'create company subscriptions',
+            'edit company subscriptions',
+            'delete company subscriptions',
         ];
 
         foreach ($permissions as $permission) {
