@@ -26,10 +26,13 @@ class SuperAdminSeeder extends Seeder
 
         // 2. Create Admin Role
         $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        $companyRole = Role::firstOrCreate(['name' => 'company admin', 'guard_name' => 'web']);
 
         // 3. Give All Permissions to Admin Role
         $permissions = Permission::all();
         $adminRole->syncPermissions($permissions);
+
+        $companyRole->syncPermissions(['manage dashboard','manage subscriptions','manage company subscriptions']);
 
         // 4. Assign Role to User
         $user->assignRole($adminRole);

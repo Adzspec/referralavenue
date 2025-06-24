@@ -36,6 +36,7 @@ class PermissionSeeder extends Seeder
             'edit companies',
             'delete companies',
             'manage subscriptions',
+            'manage subscriptions list',
             'create subscriptions',
             'edit subscriptions',
             'delete subscriptions',
