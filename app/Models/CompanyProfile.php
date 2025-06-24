@@ -13,6 +13,7 @@ class CompanyProfile extends Model
         'company_id',
         'phone',
         'address',
+        'country',
         'zipcode',
         'city',
         'state',

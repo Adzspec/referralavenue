@@ -14,9 +14,17 @@ import { type BreadcrumbItem, type User } from '@/types';
 interface Props {
     mustVerifyEmail: boolean;
     status?: string;
+    companyProfile?: {
+        phone: string | null;
+        zipcode: string | null;
+        country: string | null;
+        city: string | null;
+        state: string | null;
+    } | null;
+    canUpdateCompanyProfile: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -31,8 +39,12 @@ const user = page.props.auth.user as User;
 const form = useForm({
     name: user.name,
     email: user.email,
+    phone: props.companyProfile?.phone ?? '',
+    zipcode: props.companyProfile?.zipcode ?? '',
+    country: props.companyProfile?.country ?? '',
+    city: props.companyProfile?.city ?? '',
+    state: props.companyProfile?.state ?? '',
 });
-
 const submit = () => {
     form.patch(route('profile.update'), {
         preserveScroll: true,
@@ -86,6 +98,40 @@ const submit = () => {
                             A new verification link has been sent to your email address.
                         </div>
                     </div>
+                    <div v-if="canUpdateCompanyProfile" class="grid gap-4">
+                        <HeadingSmall title="Company Profile" description="Update company contact details" />
+
+                        <div class="grid gap-2">
+                            <Label for="phone">Phone</Label>
+                            <Input id="phone" v-model="form.phone" />
+                            <InputError :message="form.errors.phone" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="zipcode">Zipcode</Label>
+                            <Input id="zipcode" v-model="form.zipcode" />
+                            <InputError :message="form.errors.zipcode" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="country">Country</Label>
+                            <Input id="country" v-model="form.country" />
+                            <InputError :message="form.errors.country" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="city">City</Label>
+                            <Input id="city" v-model="form.city" />
+                            <InputError :message="form.errors.city" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="state">State</Label>
+                            <Input id="state" v-model="form.state" />
+                            <InputError :message="form.errors.state" />
+                        </div>
+                    </div>
+
 
                     <div class="flex items-center gap-4">
                         <Button :disabled="form.processing">Save</Button>

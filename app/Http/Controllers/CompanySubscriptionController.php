@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\CompanySubscription;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -14,7 +15,11 @@ class CompanySubscriptionController extends Controller
     public function index()
     {
         return Inertia::render('company_subscriptions/index', [
-            'companySubscriptions' => CompanySubscription::with(['company', 'subscription'])->paginate(10),
+            'companySubscriptions' => CompanySubscription::with(['company', 'subscription'])
+                ->when(Auth::user()->company_id, function ($query) {
+                    $query->where('company_id', Auth::user()->company_id);
+                })
+                ->paginate(10),
             'companies' => Company::all(['id', 'name']),
             'subscriptions' => Subscription::all(['id', 'name', 'price']),
             'can' => [
