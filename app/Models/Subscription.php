@@ -14,6 +14,7 @@ class Subscription extends Model
         'price',
         'duration',
         'features',
+        'status',
     ];
 
     protected $casts = [
@@ -26,4 +27,4 @@ class Subscription extends Model
             ->withPivot(['start_date', 'end_date', 'status'])
             ->withTimestamps();
     }
-} 
+}

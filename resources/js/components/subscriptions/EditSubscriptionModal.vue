@@ -9,12 +9,16 @@
                 </n-grid-item>
                 <n-grid-item>
                     <n-form-item label="Price" path="price">
-                        <n-input v-model:value="form.price" type="number" />
+                        <n-input-number :min="20" v-model:value="form.price">
+                        <template #prefix>
+                            $
+                        </template>
+                        </n-input-number>
                     </n-form-item>
                 </n-grid-item>
                 <n-grid-item>
-                    <n-form-item label="Duration" path="duration">
-                        <n-input v-model:value="form.duration" />
+                    <n-form-item label="Duration (in days)" path="duration">
+                        <n-input-number v-model:value="form.duration" placeholder="In days,e.g., 30,60,90,120,365" />
                     </n-form-item>
                 </n-grid-item>
                 <n-grid-item>
@@ -42,15 +46,57 @@ const emit = defineEmits(['close']);
 
 const form = ref({ ...props.subscription });
 
-watch(() => props.subscription, val => {
-    form.value = { ...val };
-}, { immediate: true });
+watch(
+    () => props.subscription,
+    (val) => {
+        form.value = {
+            ...val,
+            price: parseFloat(val.price), // <- convert string to number
+            duration: parseInt(val.duration), // <- ensure number
+            status: Number(val.status), // <- 0/1 as number
+        };
+    },
+    { immediate: true }
+);
 
 const rules: FormRules = {
-    name: [{ required: true, message: 'Name is required', trigger: 'blur' }],
-    price: [{ required: true, message: 'Price is required', trigger: 'blur' }],
-    duration: [{ required: true, message: 'Duration is required', trigger: 'blur' }]
+    name: [
+        {
+            required: true,
+            message: 'Name is required',
+            trigger: ['input', 'blur']
+        }
+    ],
+    price: [
+        {
+            required: true,
+            type: 'number',
+            message: 'Price is required and must be a number',
+            trigger: ['input', 'blur']
+        },
+        {
+            type: 'number',
+            min: 20,
+            message: 'Minimum price is $20',
+            trigger: ['input', 'blur']
+        }
+    ],
+    duration: [
+        {
+            required: true,
+            type: 'number',
+            message: 'Duration is required and must be a number',
+            trigger: ['input', 'blur']
+        },
+        {
+            type: 'number',
+            min: 1,
+            message: 'Duration must be at least 1 day',
+            trigger: ['input', 'blur']
+        }
+    ]
 };
+
 
 const formRef = ref();
 const message = useMessage();

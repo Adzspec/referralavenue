@@ -34,10 +34,17 @@ class SubscriptionController extends Controller
             'price' => 'required|numeric|min:0',
             'duration' => 'required|integer|min:1',
             'features' => 'nullable|array',
+            'status' => 'required|boolean',
         ]);
-        Subscription::create($validated);
-        return redirect()->route('subscriptions.index')->with('success', 'Subscription plan created.');
+
+        try {
+            Subscription::create($validated);
+            return redirect()->route('subscriptions.index')->with('success', 'Subscription plan created.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create subscription. Please try again.'])->withInput();
+        }
     }
+
 
     public function edit(Subscription $subscription): Response
     {
@@ -53,10 +60,17 @@ class SubscriptionController extends Controller
             'price' => 'required|numeric|min:0',
             'duration' => 'required|integer|min:1',
             'features' => 'nullable|array',
+            'status' => 'required|boolean',
         ]);
-        $subscription->update($validated);
-        return redirect()->route('subscriptions.index')->with('success', 'Subscription plan updated.');
+
+        try {
+            $subscription->update($validated);
+            return redirect()->route('subscriptions.index')->with('success', 'Subscription plan updated.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update subscription. Please try again.'])->withInput();
+        }
     }
+
 
     public function destroy(Subscription $subscription)
     {

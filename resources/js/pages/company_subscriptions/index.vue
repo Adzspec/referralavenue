@@ -18,7 +18,7 @@
                 <n-pagination
                     :page="props.companySubscriptions.current_page"
                     :page-count="props.companySubscriptions.last_page"
-                    @update:page="page => $inertia.get('/company-subscriptions', { page })"
+                    @update:page="page => $inertia.get('/company_subscriptions', { page })"
                 />
             </div>
 
@@ -46,8 +46,8 @@
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, router } from '@inertiajs/vue3';
-import { ref, h } from 'vue';
+import { Head, router, usePage } from '@inertiajs/vue3';
+import { ref, h, onMounted } from 'vue';
 import {
     NButton,
     NDataTable,
@@ -163,8 +163,17 @@ const columns = [
 ];
 
 const breadcrumbs: BreadcrumbItemType[] = [
-    { title: 'Company Subscriptions', href: '/company-subscriptions' },
+    { title: 'Company Subscriptions', href: '/company_subscriptions' },
 ];
+const page = usePage();
+
+// const subscriptionWarning = page.props.subscription_warning as string | null;
+
+onMounted(() => {
+    const subscriptionWarning = page.props.subscription_warning as string | null;
+    if (subscriptionWarning) {
+        message.error(subscriptionWarning);
+    }
+});
+
 </script>
-
-

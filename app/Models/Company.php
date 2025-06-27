@@ -22,4 +22,9 @@ class Company extends Model
     {
         return $this->hasOne(CompanyProfile::class);
     }
+
+    public function frontendSetting()
+    {
+        return $this->hasOne(CompanyFrontendSetting::class);
+    }
 }
