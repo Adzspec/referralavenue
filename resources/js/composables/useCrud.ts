@@ -8,7 +8,7 @@ export function useCrud({ baseUrl, reload = true }: { baseUrl: string, reload?: 
     const create = (data: any, options = { onSuccess: () => {}, onError: () => {} }) => {
         router.post(baseUrl, data, {
             onSuccess: () => {
-                message.success('Created successfully');
+                // message.success('Created successfully');
                 if (reload) {
                     router.reload();
                 }
@@ -24,7 +24,7 @@ export function useCrud({ baseUrl, reload = true }: { baseUrl: string, reload?: 
     const update = (id: number, data: any, options = { onSuccess: () => {}, onError: () => {} }) => {
         router.put(`${baseUrl}/${id}`, data, {
             onSuccess: () => {
-                message.success('Updated successfully');
+                // message.success('Updated successfully');
                 if (reload) {
                     router.reload();
                 }

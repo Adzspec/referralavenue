@@ -27,4 +27,9 @@ class Company extends Model
     {
         return $this->hasOne(CompanyFrontendSetting::class);
     }
+
+    public function integrations()
+    {
+        return $this->hasMany(CompanyIntegration::class);
+    }
 }

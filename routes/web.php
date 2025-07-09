@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AddrevenueController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyFrontendSettingsController;
 use App\Http\Controllers\CompanyIntegrationController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
@@ -38,7 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/company/integrations/adtraction', [CompanyIntegrationController::class, 'adtraction']);
     Route::put('/company/integrations/addrevenue', [CompanyIntegrationController::class, 'addrevenue']);
     Route::put('/company/integrations/tradedoubler', [CompanyIntegrationController::class, 'tradedoubler']);
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('stores', StoreController::class);
+    Route::post('/company/addrevenue/fetch', [AddrevenueController::class, 'startSync']);
+    Route::get('/company/addrevenue/getProducts', [AddrevenueController::class, 'getProducts']);
+
 });
 
 Route::post('/stripe/payment-intent', [PaymentController::class, 'createIntent'])->name('stripe.payment-intent');

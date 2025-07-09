@@ -70,6 +70,15 @@
                         <n-space justify="end" class="mt-4">
                             <n-button type="primary" :loading="savingAddrevenue" @click="saveAddrevenue"> Save Addrevenue </n-button>
                         </n-space>
+
+                        <n-card class="mt-2">
+                            <div class="mb-4 flex items-center justify-between">
+                                <span class="text-lg font-medium">Sync Addrevenue</span>
+                                <n-button v-if="addrevenueEnabled" :loading="syncing" @click="syncAddrevenue">
+                                    Fetch from Addrevenue
+                                </n-button>
+                            </div>
+                        </n-card>
                     </n-card>
                 </n-tab-pane>
                 <n-tab-pane name="tradedoubler" tab="Tradedoubler Integrations">
@@ -190,6 +199,28 @@ const saveSettings = async () => {
         );
     } finally {
         saving.value = false;
+    }
+};
+const syncing = ref(false);
+const syncAddrevenue = async () => {
+    syncing.value = true;
+    try {
+        router.post(
+            '/company/addrevenue/fetch',
+            {},
+            {
+                onSuccess: () =>{
+                    message.success('Addrevenue sync started!');
+                },
+                onError: (errors: any) => {
+                    console.log(errors);
+                    const backendMsg = errors?.message || 'Failed to start Addrevenue sync';
+                    message.error(backendMsg);
+                },
+            }
+        );
+    } finally {
+        syncing.value = false;
     }
 };
 </script>

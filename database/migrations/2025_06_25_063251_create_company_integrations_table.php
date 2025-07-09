@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('provider'); // e.g. adtraction, addrevenue
             $table->json('credentials'); // encrypted if needed
-            $table->boolean('active')->default(false);
+            $table->boolean('status')->default(false);
             $table->timestamps();
 
             $table->unique(['company_id', 'provider']);

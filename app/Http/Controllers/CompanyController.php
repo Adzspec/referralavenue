@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\CompanyFrontendSetting;
 use App\Models\CompanyProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -51,6 +52,13 @@ class CompanyController extends Controller
         // Ensure the 'company admin' role exists
         $role = Role::firstOrCreate(['name' => 'company admin']);
         $user->assignRole($role);
+        CompanyFrontendSetting::create([
+            'company_id' => $company->id,
+            'settings' => [
+                'homePage' => 'layout1',
+            ],
+        ]);
+
 
         return redirect()->back()->with('success', 'Company and admin user created successfully.');
     }

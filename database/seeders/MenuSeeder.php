@@ -72,5 +72,26 @@ class MenuSeeder extends Seeder
             ],
         ]);
 
+        Menu::create([
+            'title' => 'Frontend Settings',
+            'href' => '/company/settings',
+            'icon' => 'ChartBarStacked',
+            'permission' => ''
+        ]);
+
+        Menu::create([
+            'title' => 'Categories',
+            'href' => '/categories',
+            'icon' => 'ChartBarStacked',
+            'permission' => ''
+        ]);
+
+        Menu::create([
+            'title' => 'Stores',
+            'href' => '/stores',
+            'icon' => 'Store',
+            'permission' => ''
+        ]);
+
     }
 }
