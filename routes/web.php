@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyFrontendSettingsController;
 use App\Http\Controllers\CompanyIntegrationController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StoreController;
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/company/integrations/tradedoubler', [CompanyIntegrationController::class, 'tradedoubler']);
     Route::resource('categories', CategoryController::class);
     Route::resource('stores', StoreController::class);
+    Route::resource('offers', OfferController::class);
     Route::post('/company/addrevenue/fetch', [AddrevenueController::class, 'startSync']);
     Route::get('/company/addrevenue/getProducts', [AddrevenueController::class, 'getProducts']);
 
