@@ -15,8 +15,8 @@
 
             <!-- Desktop Navigation -->
             <nav class="hidden items-center space-x-4 text-gray-700 md:flex md:space-x-5 lg:space-x-6">
-                <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Home</a>
-                <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">About Us</a>
+                <a :href="route('home')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Home</a>
+                <a :href="route('about')" class="font-medium whitespace-nowrap transition hover:text-blue-600">About Us</a>
                 <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Services</a>
                 <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Company</a>
                 <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Blog</a>
