@@ -24,19 +24,33 @@ class AddrevenueController extends Controller
 
     public function __construct()
     {
-//        $this->apiService = $apiService;
-        $this->company = auth()->user()->company;
+        $user = auth()->user();
+        $this->company = $user?->company;
+
+        if (!$this->company) {
+            // Inertia-friendly response (for actions/pages)
+            redirect()->back()->withErrors(['message' => 'No company found for current user.'])->throwResponse();
+        }
+
         $this->integration = $this->company->integrations()->where('provider', 'addrevenue')->first();
-        $this->channelId = $this->integration->credentials['channel_id'];
+
+        if (!$this->integration) {
+            redirect()->back()->withErrors(['message' => 'No Addrevenue integration found for this company.'])->throwResponse();
+        }
+
+        $this->channelId = $this->integration->credentials['channel_id'] ?? null;
+
+        if (!$this->channelId) {
+            redirect()->back()->withErrors(['message' => 'No channel_id set in Addrevenue integration credentials.'])->throwResponse();
+        }
     }
+
     public function startSync(): RedirectResponse
     {
-//        if (!$this->integration || !$this->integration->status) {
-//            return redirect()->back()->withErrors(['message' => 'No Addrevenue credentials found.']);
-//        }
+        if (!$this->integration || !$this->integration->status) {
+            return redirect()->back()->withErrors(['message' => 'No Addrevenue credentials found.']);
+        }
         SyncAddrevenueMasterJob::dispatch($this->channelId, $this->company->id);
-//        $this->dispatchStoresJobs();
-//        $this->getCampaigns();
 
         return back()->with('success', 'Addrevenue sync started!');
     }
