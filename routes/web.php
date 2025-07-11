@@ -23,6 +23,10 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
+Route::get('/faqs', function () {
+    return Inertia::render('Faqs');
+})->name('faqs');
+
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
