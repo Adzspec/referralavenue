@@ -80,7 +80,7 @@ class SyncAddrevenueProductsJob implements ShouldQueue
             ) {
                 $discount = round((($product['price'] - $product['sale_price']) / $product['price']) * 100);
             }
-            $categoryId = $this->createCategory($store,$product['product_type'],$this->companyId);
+            $categoryId = $this->getCategory($store);
             $title = isset($product['title'])
                 ? ($discount > 0 ? 'Upp till ' . $discount . '% Rabatter ' . $product['title'] : $product['title'])
                 : ($discount > 0 ? 'Upp till ' . $discount . '% Rabatter' : 'Deal');
@@ -117,22 +117,10 @@ class SyncAddrevenueProductsJob implements ShouldQueue
         gc_collect_cycles();
     }
 
-    public function createCategory($store,$productType,$companyId)
+    public function getCategory($store)
     {
-//        if ($productType){
-//            $category = Category::query()->where('name',$productType)->first();
-//            if (!$category){
-//                $parentId = Category::query()->where('name',$store->categoryName)->first()->id;
-//                $category = new Category();
-//                $category->name = $productType;
-//                $category->parent()->associate($parentId);
-//                $category->company()->associate($companyId);
-//                $category->save();
-//            }
-//            return $category->id;
-//        }else{
-//        }
-        return Category::query()->where('name',$store->categoryName)->first()->id;
-
+        return Category::query()
+            ->where('company_id', $this->companyId)
+            ->where('name',$store->categoryName)->first()->id;
     }
 }

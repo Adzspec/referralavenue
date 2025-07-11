@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class ProcessStoreChunkJob implements ShouldQueue
 {
@@ -29,48 +30,46 @@ class ProcessStoreChunkJob implements ShouldQueue
     public function handle()
     {
         foreach ($this->chunk as $app) {
-            if ($app['relationStatus'] == 'active') {
-                $this->createCategory($app['categoryId']);
-                $exists = Store::where('channelId', $this->channelId)
-                    ->where('name', $app['displayName'])->exists();
-                if ($exists) continue;
+            if (($app['relationStatus'] ?? null) !== 'active') continue;
 
-                $formatted = preg_replace('/([a-z])([A-Z])/', '$1 & $2', $app['categoryId']);
-                $formatted = ucwords($formatted);
-                Store::create([
-                    'company_id'   => $this->companyId,
-                    'name'         => $app['displayName'] ?? null,
-                    'image'        => $app['logoImageFilename'],
-                    'status'       => 1,
-                    'channelId'    => $this->channelId ?? null,
-                    'channelName'  => 'VeckansR',
-                    'programId'    => $app['id'],
-                    'categoryName' => $formatted ?? null,
-                ]);
-            }
+            // Format category name and create/find category
+            $formattedCategoryName = Str::headline($app['categoryId'] ?? '');
+            $this->createCategory($app['categoryId'] ?? '');
+
+            // Check for existing store by channelId and name
+            $exists = Store::where('channelId', $this->channelId)
+                ->where('company_id', $this->companyId)
+                ->where('name', $app['displayName'] ?? '')
+                ->exists();
+            if ($exists) continue;
+
+            Store::create([
+                'company_id'   => $this->companyId,
+                'name'         => $app['displayName'] ?? null,
+                'image'        => $app['logoImageFilename'] ?? null,
+                'status'       => 1,
+                'channelId'    => $this->channelId ?? null,
+                'channelName'  => 'VeckansR',
+                'programId'    => $app['id'] ?? null,
+                'categoryName' => $formattedCategoryName,
+                // Optionally link by category_id if you want (recommended):
+                // 'category_id' => $category->id,
+            ]);
         }
     }
 
-    public function createCategory($cagetoryName)
+    public function createCategory(string $categoryName): Category
     {
-        $formatted = preg_replace('/([a-z])([A-Z])/', '$1 & $2', $cagetoryName);
-        $formatted = ucwords($formatted);
-//        $category = IntegrationCategoryMapping::query()
-//            ->where('company_id',$this->companyId)
-//            ->where('provider','addrevenue')
-//            ->where('external_category',$formatted)->first();
-        $category = Category::query()
-            ->where('company_id',$this->companyId)
-            ->where('name',$formatted)->first();
-        if (!$category) {
-            $category = new Category();
-            $category->name = $formatted;
-            $category->company()->associate($this->companyId);
-            $category->save();
-//            $category = new IntegrationCategoryMapping();
-//            $category->external_category = $formatted;
-//            $category->provider = 'addrevenue';
-//            $category->save();
-        }
+        // Format category name to "Title Case" with spaces between words
+        $formatted = Str::headline($categoryName); // e.g., "electronicsHome" → "Electronics Home"
+
+        // Atomically find or create the category for this company
+        return Category::firstOrCreate(
+            [
+                'company_id' => $this->companyId,
+                'name'       => $formatted,
+            ]
+        // Add more default fields as needed, e.g., 'slug' => Str::slug($formatted)
+        );
     }
 }
