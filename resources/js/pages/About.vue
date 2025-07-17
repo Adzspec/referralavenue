@@ -6,6 +6,7 @@
     <OurExperts/>
     <Contact/>
     <SignUp/>
+    <Footer/>
 
 
 
@@ -19,5 +20,6 @@ import Cards from '@/components/about/Cards.vue';
 import OurExperts from '@/components/about/OurExperts.vue';
 import Contact from '@/components/about/Contact.vue';
 import SignUp from '@/components/about/SignUp.vue';
+import Footer from '@/components/common/Footer.vue';
 
 </script>

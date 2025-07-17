@@ -6,6 +6,7 @@
     <Cards/>
     <ContactUs/>
     <SignUp/>
+    <Footer/>
 
 </template>
 <script setup lang="ts">
@@ -16,4 +17,5 @@ import CountUp from '@/components/services/CountUp.vue';
 import Cards from '@/components/services/Cards.vue';
 import ContactUs from '@/components/services/ContactUs.vue';
 import SignUp from '@/components/services/SignUp.vue';
+import Footer from '@/components/common/Footer.vue';
 </script>
