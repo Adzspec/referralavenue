@@ -9,6 +9,7 @@
     <Slider/>
     <startup-section/>
     <signup/>
+    <Footer/>
 
 </template>
 
@@ -24,6 +25,7 @@ import Cards from '@/components/home/Cards.vue';
 import Slider from '@/components/home/Slider.vue';
 import StartupSection from '@/components/home/StartupSection.vue';
 import Signup from '@/components/home/Signup.vue';
+import Footer from '@/components/common/Footer.vue';
 
 </script>
 
