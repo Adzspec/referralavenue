@@ -26,6 +26,18 @@ Route::get('/about', function () {
 Route::get('/faqs', function () {
     return Inertia::render('Faqs');
 })->name('faqs');
+Route::get('/services', function () {
+    return Inertia::render('Services');
+})->name('services');
+Route::get('/company', function () {
+    return Inertia::render('Company');
+})->name('company');
+Route::get('/blog', function () {
+    return Inertia::render('Blog');
+})->name('blog');
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+})->name('contact');
 
 
 Route::get('dashboard', function () {

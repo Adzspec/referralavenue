@@ -1,0 +1,14 @@
+<template>
+    <div class="bg-slate-100 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 py-12 space-y-4 sm:space-y-6">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold">Our Services</h2>
+
+        <div class="flex flex-wrap items-center gap-2 text-sm sm:text-base">
+            <h2 class="text-gray-700">Home</h2>
+            <div class="text-gray-400">></div>
+            <h2 class="text-gray-700">Our services</h2>
+            <div class="text-gray-400">></div>
+            <h2 class="text-gray-400">Web development</h2>
+        </div>
+    </div>
+
+</template>

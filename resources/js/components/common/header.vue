@@ -11,10 +11,10 @@
             <nav class="hidden items-center space-x-4 text-gray-700 md:flex md:space-x-5 lg:space-x-6">
                 <a :href="route('home')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Home</a>
                 <a :href="route('about')" class="font-medium whitespace-nowrap transition hover:text-blue-600">About Us</a>
-                <a :href="route('faqs')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Services</a>
-                <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Company</a>
-                <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Blog</a>
-                <a href="#" class="font-medium whitespace-nowrap transition hover:text-blue-600">Contact</a>
+                <a :href="route('services')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Services</a>
+                <a :href="route('company')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Company</a>
+                <a :href="route('blog')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Blog</a>
+                <a :href="route('contact')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Contact</a>
             </nav>
 
             <!-- Desktop Buttons -->
@@ -83,10 +83,12 @@
             </div>
         </div>
     </header>
+
 </template>
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
+
 
 
 const isMobileMenuOpen = ref(false)
