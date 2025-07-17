@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('offers', OfferController::class);
     Route::post('/company/addrevenue/fetch', [AddrevenueController::class, 'startSync']);
     Route::get('/company/addrevenue/getProducts', [AddrevenueController::class, 'getProducts']);
+    Route::post('/categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulkDelete');
+    Route::post('/categories/bulk-status', [CategoryController::class, 'bulkStatus'])->name('categories.bulkStatus');
+
 
 });
 

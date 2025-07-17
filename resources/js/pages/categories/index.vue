@@ -7,14 +7,29 @@
                 <n-button type="primary" @click="openCreateModal">Add Category</n-button>
             </div>
 
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex gap-2">
+                    <n-button type="error" @click="bulkDelete" :disabled="!selectedRowKeys.length">
+                        Delete Selected
+                    </n-button>
+                    <n-button @click="() => bulkChangeStatus(1)" :disabled="!selectedRowKeys.length">
+                        Mark Active
+                    </n-button>
+                    <n-button @click="() => bulkChangeStatus(0)" :disabled="!selectedRowKeys.length">
+                        Mark Inactive
+                    </n-button>
+                </div>
+            </div>
+
             <n-data-table
                 :columns="columns"
                 :data="categories"
                 :pagination="false"
                 :row-key="row => row.id"
+                checkable
+                v-model:checked-row-keys="selectedRowKeys"
                 class="rounded shadow dark:bg-gray-900"
             />
-
 
             <CreateCategoryModal
                 v-if="showCreateModal"
@@ -32,19 +47,19 @@
                 @close="closeModals"
                 @submit="handleUpdateCategory"
             />
-
         </div>
     </AppLayout>
 </template>
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import { ref, h, computed } from 'vue';
-import { NButton, NDataTable } from 'naive-ui';
+import { NButton, NDataTable, useMessage } from 'naive-ui';
 import type { BreadcrumbItemType } from '@/types';
 import CreateCategoryModal from '@/components/categories/CreateCategoryModal.vue';
 import EditCategoryModal from '@/components/categories/EditCategoryModal.vue';
+import { useCrud } from '@/composables/useCrud';
 
 interface CategoryNode {
     id: number;
@@ -61,9 +76,12 @@ const breadcrumbs: BreadcrumbItemType[] = [
     { title: 'Categories', href: '/categories' },
 ];
 
+const message = useMessage();
+
 const showCreateModal = ref(false);
 const showEditModal = ref(false);
-const selectedCategory = ref<any>(null);
+const selectedCategory = ref<any | null>(null);
+const selectedRowKeys = ref<number[]>([]);
 
 const parentCategories = computed(() =>
     props.categories.map(cat => ({
@@ -71,6 +89,8 @@ const parentCategories = computed(() =>
         name: cat.name,
     }))
 );
+
+const { create, update, destroy } = useCrud({ baseUrl: '/categories' });
 
 const openCreateModal = () => (showCreateModal.value = true);
 
@@ -84,23 +104,25 @@ const closeModals = () => {
     showEditModal.value = false;
     selectedCategory.value = null;
 };
-import { useCrud } from '@/composables/useCrud';
-
-const { create, update, destroy } = useCrud({ baseUrl: '/categories' });
 
 const handleCreateCategory = (data: any) => {
     create(data, {
-        onSuccess: () => showCreateModal.value = false,
-        onError: () => {}
+        onSuccess: () => {
+            showCreateModal.value = false;
+            router.reload();
+        },
+        onError: () => message.error('Failed to create category'),
     });
 };
 
 const handleUpdateCategory = (data: any) => {
     if (!selectedCategory.value) return;
-
     update(selectedCategory.value.id, data, {
-        onSuccess: () => showEditModal.value = false,
-        onError: () => {}
+        onSuccess: () => {
+            showEditModal.value = false;
+            router.reload();
+        },
+        onError: () => message.error('Failed to update category'),
     });
 };
 
@@ -108,12 +130,40 @@ const handleDelete = (id: number) => {
     destroy(id, 'Delete Category', 'Are you sure you want to delete this category?');
 };
 
+const bulkDelete = () => {
+    if (!selectedRowKeys.value.length) return;
+    if (confirm('Are you sure you want to delete selected categories?')) {
+        router.post('/categories/bulk-delete', { ids: selectedRowKeys.value }, {
+            onSuccess: () => {
+                message.success('Selected categories deleted');
+                selectedRowKeys.value = [];
+                router.reload();
+            },
+            onError: () => message.error('Bulk delete failed'),
+        });
+    }
+};
+
+const bulkChangeStatus = (status: number) => {
+    if (!selectedRowKeys.value.length) return;
+    router.post('/categories/bulk-status', { ids: selectedRowKeys.value, status }, {
+        onSuccess: () => {
+            message.success('Status updated');
+            selectedRowKeys.value = [];
+            router.reload();
+        },
+        onError: () => message.error('Bulk status update failed'),
+    });
+};
+
 const columns = [
+    {
+        type: 'selection' as const,
+    },
     {
         title: 'Name',
         key: 'name',
         render: (row: CategoryNode) => `${'—'.repeat(row.level || 0)} ${row.name}`,
-
     },
     {
         title: 'Actions',
@@ -131,8 +181,7 @@ const columns = [
                     onClick: () => handleDelete(row.id),
                 }, { default: () => 'Delete' }),
             ]);
-        }
-    }
+        },
+    },
 ];
 </script>
-

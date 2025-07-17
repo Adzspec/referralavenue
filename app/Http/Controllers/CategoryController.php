@@ -54,4 +54,23 @@ class CategoryController extends Controller
 
         return back()->with('success', 'Category deleted.');
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        Category::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Categories deleted');
+    }
+
+    public function bulkStatus(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        $status = $request->input('status');
+
+        Category::whereIn('id', $ids)->update(['status' => $status]);
+
+        return back()->with('success', 'Status updated');
+    }
+
 }
