@@ -7,21 +7,24 @@
                 <n-button type="primary" @click="openCreateModal">Add Store</n-button>
             </div>
 
-<!--            <n-data-table-->
-<!--                :columns="columns"-->
-<!--                :data="stores"-->
-<!--                :pagination="false"-->
-<!--                :row-key="row => row.id"-->
-<!--                class="rounded shadow dark:bg-gray-900"-->
-<!--            />-->
+            <div class="flex justify-between items-center mb-4">
+                <!-- ...table, etc -->
+                <BulkActions
+                    :selectedKeys="selectedRowKeys"
+                    :actions="actions"
+                    class="mb-4"
+                />
+            </div>
             <n-data-table
                 :columns="columns"
-                :data="props.stores.data"
+                :data="props.stores?.data"
                 :pagination="false"
-                class="rounded shadow"
+                :row-key="row => row.id"
+                checkable
+                v-model:checked-row-keys="selectedRowKeys"
+                class="rounded shadow dark:bg-gray-900"
                 size="small"
             />
-
             <div class="mt-4 flex justify-end">
                 <n-pagination
                     :page="props.stores.current_page"
@@ -58,6 +61,7 @@ import type { BreadcrumbItemType } from '@/types';
 import CreateStoreModal from '@/components/stores/CreateStoreModal.vue';
 import EditStoreModal from '@/components/stores/EditStoreModal.vue';
 import { useCrud } from '@/composables/useCrud';
+import BulkActions from '@/components/common/BulkActions.vue';
 
 interface Store {
     id: number;
@@ -66,7 +70,7 @@ interface Store {
     status: number;
     image?: string | null;
 }
-
+const selectedRowKeys = ref<number[]>([]);
 const props = defineProps<{
     stores: {
         data: Array<any>;
@@ -124,8 +128,15 @@ const handleUpdateStore = (data: any) => {
 const handleDelete = (id: number) => {
     destroy(id, 'Delete Store', 'Are you sure you want to delete this store?');
 };
+import type { DataTableColumn } from 'naive-ui';
 
-const columns = [
+const columns: DataTableColumn<Store>[] = [
+    {
+        type: 'selection',
+        disabled(row: Store) {
+            return false;
+        }
+    },
     {
         title: 'Name',
         key: 'name',
@@ -154,6 +165,47 @@ const columns = [
                 }, { default: () => 'Delete' }),
             ]);
         }
+    }
+];
+
+
+const bulkDelete = (ids: (string | number)[]) => {
+    router.post('/stores/bulk-delete', { ids }, {
+        onSuccess: () => {
+            message.success('Deleted');
+            selectedRowKeys.value = [];
+            router.reload();
+        }
+    });
+};
+
+const bulkChangeStatus = (ids: (string | number)[], status: number) => {
+    router.post('/stores/bulk-status', { ids, status }, {
+        onSuccess: () => {
+            message.success('Status updated');
+            selectedRowKeys.value = [];
+            router.reload();
+        }
+    });
+};
+const actions = [
+    {
+        label: 'Delete',
+        type: 'error',
+        confirm: 'Are you sure you want to delete the selected items?',
+        handler: bulkDelete
+    },
+    {
+        label: 'Set Active',
+        type: 'success',
+        confirm: 'Mark selected as Active?',
+        handler: (ids: (string | number)[]) => bulkChangeStatus(ids, 1)
+    },
+    {
+        label: 'Set Inactive',
+        type: 'warning',
+        confirm: 'Mark selected as Inactive?',
+        handler: (ids: (string | number)[]) => bulkChangeStatus(ids, 0)
     }
 ];
 </script>

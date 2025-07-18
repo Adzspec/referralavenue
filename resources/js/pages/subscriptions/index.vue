@@ -9,18 +9,18 @@
 
             <n-data-table
                 :columns="columns"
-                :data="props.subscriptions.data"
+                :data="tableData"
                 :pagination="false"
                 class="rounded shadow"
                 size="small"
             />
 
             <div class="mt-4 flex justify-end">
-                <n-pagination
-                    :page="props.subscriptions.current_page"
-                    :page-count="props.subscriptions.last_page"
-                    @update:page="(page) => $inertia.get('/subscriptions', { page }, { preserveScroll: true })"
-                />
+<!--                <n-pagination-->
+<!--                    :page="props.subscriptions.current_page"-->
+<!--                    :page-count="props.subscriptions.last_page"-->
+<!--                    @update:page="(page) => $inertia.get('/subscriptions', { page }, { preserveScroll: true })"-->
+<!--                />-->
             </div>
         </div>
 
@@ -41,11 +41,10 @@
 
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3';
-import { ref, h } from 'vue';
+import { ref, h, computed } from 'vue';
 import {
     NButton,
     NDataTable,
-    NPagination,
     useDialog,
     useMessage,
 } from 'naive-ui';
@@ -64,7 +63,7 @@ const props = defineProps<{
     };
     can: { create: boolean; edit: boolean; delete: boolean };
 }>();
-
+const tableData = computed(() => props.subscriptions?.data ?? [])
 const breadcrumbs: BreadcrumbItemType[] = [
     { title: 'Subscriptions', href: '/subscriptions' }
 ];

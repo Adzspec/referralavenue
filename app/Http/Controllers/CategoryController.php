@@ -10,10 +10,20 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('children')->where('company_id', auth()->user()->company_id)->whereNull('parent_id')->get();
+//        $categories = Category::with('children')->where('company_id', auth()->user()->company_id)->whereNull('parent_id')->get();
+//
+//        return Inertia::render('categories/index', [
+//            'categories' => $categories
+//        ]);
 
+        $categories = Category::where('company_id', auth()->user()->company_id)->paginate(10)->withQueryString();
         return Inertia::render('categories/index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'can' => [
+                'create' => auth()->user()->can('create categories'),
+                'edit' => auth()->user()->can('edit categories'),
+                'delete' => auth()->user()->can('delete categories'),
+            ],
         ]);
     }
 

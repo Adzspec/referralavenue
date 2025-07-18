@@ -11,10 +11,14 @@ class StoreController extends Controller
 {
     public function index()
     {
+        $stores = Store::where('company_id', auth()->user()->company_id)->paginate(10)->withQueryString();
         return Inertia::render('stores/index', [
-            'stores' => Store::where('company_id', auth()->user()->company_id)
-                ->paginate(10) // You can change 10 to any desired per-page count
-                ->withQueryString(),
+            'stores' => $stores,
+            'can' => [
+                'create' => auth()->user()->can('create stores'),
+                'edit' => auth()->user()->can('edit stores'),
+                'delete' => auth()->user()->can('delete stores'),
+            ],
         ]);
     }
 
@@ -40,5 +44,23 @@ class StoreController extends Controller
         $store->delete();
 
         return redirect()->back()->with('success', 'Store deleted successfully');
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        Store::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Categories deleted');
+    }
+
+    public function bulkStatus(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        $status = $request->input('status');
+
+        Store::whereIn('id', $ids)->update(['status' => $status]);
+
+        return back()->with('success', 'Status updated');
     }
 }

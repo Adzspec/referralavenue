@@ -6,13 +6,22 @@
                 <h1 class="text-2xl font-semibold">Offers</h1>
                 <n-button type="primary" @click="openCreateModal">Add Offer</n-button>
             </div>
-
+            <div class="flex justify-between items-center mb-4">
+                <!-- ...table, etc -->
+                <BulkActions
+                    :selectedKeys="selectedRowKeys"
+                    :actions="actions"
+                    class="mb-4"
+                />
+            </div>
             <n-data-table
                 :columns="columns"
                 :data="props.offers.data"
                 :pagination="false"
-                class="rounded shadow"
-                size="small"
+                :row-key="row => row.id"
+                checkable
+                v-model:checked-row-keys="selectedRowKeys"
+                class="rounded shadow dark:bg-gray-900"
             />
 
             <div class="mt-4 flex justify-end">
@@ -50,6 +59,7 @@ import type { BreadcrumbItemType } from '@/types';
 import CreateOfferModal from '@/components/offers/CreateOfferModal.vue';
 // import EditOfferModal from '@/components/offers/EditOfferModal.vue';
 import { useCrud } from '@/composables/useCrud';
+import BulkActions from '@/components/common/BulkActions.vue';
 
 interface Offer {
     id: number;
@@ -85,8 +95,8 @@ const showCreateModal = ref(false);
 const showEditModal = ref(false);
 const selectedOffer = ref<Offer | null>(null);
 const message = useMessage();
-
-const { create, update, destroy } = useCrud({ baseUrl: '/offers' });
+const selectedRowKeys = ref<number[]>([]);
+const { create, destroy } = useCrud({ baseUrl: '/offers' });
 
 const openCreateModal = () => (showCreateModal.value = true);
 const openEditModal = (offer: Offer) => {
@@ -110,23 +120,41 @@ const handleCreateOffer = (data: any) => {
     });
 };
 
-const handleUpdateOffer = (data: any) => {
-    if (!selectedOffer.value) return;
-    update(selectedOffer.value.id, data, {
-        onSuccess: () => {
-            message.success('Offer updated successfully');
-            closeModals();
-            router.reload();
-        },
-        onError: () => message.error('Failed to update offer'),
-    });
-};
+// const handleUpdateOffer = (data: any) => {
+//     if (!selectedOffer.value) return;
+//     update(selectedOffer.value.id, data, {
+//         onSuccess: () => {
+//             message.success('Offer updated successfully');
+//             closeModals();
+//             router.reload();
+//         },
+//         onError: () => message.error('Failed to update offer'),
+//     });
+// };
 
 const handleDelete = (id: number) => {
     destroy(id, 'Delete Offer', 'Are you sure you want to delete this offer?');
 };
 
 const columns = [
+    {
+        type: 'selection' as const,
+    },
+    {
+        title: 'Image',
+        key: 'image',
+        render(row:any) {
+            return h('img', {
+                src: row.thumbnail || '/placeholder.png', // fallback if image is null
+                style: {
+                    width: '120px',
+                    height: '90px',
+                    objectFit: 'cover',
+                    borderRadius: '6px',
+                },
+            });
+        },
+    },
     {
         title: 'Title',
         key: 'title',
@@ -185,6 +213,45 @@ const columns = [
                 }, { default: () => 'Delete' }),
             ]);
         }
+    }
+];
+const bulkDelete = (ids: (string | number)[]) => {
+    router.post('/offers/bulk-delete', { ids }, {
+        onSuccess: () => {
+            message.success('Deleted');
+            selectedRowKeys.value = [];
+            router.reload();
+        }
+    });
+};
+
+const bulkChangeStatus = (ids: (string | number)[], status: number) => {
+    router.post('/offers/bulk-status', { ids, status }, {
+        onSuccess: () => {
+            message.success('Status updated');
+            selectedRowKeys.value = [];
+            router.reload();
+        }
+    });
+};
+const actions = [
+    {
+        label: 'Delete',
+        type: 'error',
+        confirm: 'Are you sure you want to delete the selected items?',
+        handler: bulkDelete
+    },
+    {
+        label: 'Set Active',
+        type: 'success',
+        confirm: 'Mark selected as Active?',
+        handler: (ids: (string | number)[]) => bulkChangeStatus(ids, 1)
+    },
+    {
+        label: 'Set Inactive',
+        type: 'warning',
+        confirm: 'Mark selected as Inactive?',
+        handler: (ids: (string | number)[]) => bulkChangeStatus(ids, 0)
     }
 ];
 </script>

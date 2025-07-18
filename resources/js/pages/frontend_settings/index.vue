@@ -10,20 +10,33 @@
                 <n-tab-pane name="homePage" tab="Home Page">
                     <n-card>
                         <n-form label-placement="top" :model="form">
-                            <template v-for="(value, key) in form" :key="key">
-                                <!-- Array: Tags input -->
-                                <n-form-item v-if="Array.isArray(value)" :label="formatLabel(key)" :path="`form.${key}`">
-                                    <n-dynamic-tags v-model:value="form[key]" />
-                                </n-form-item>
-                                <!-- Textarea: description/content/long string -->
-                                <n-form-item v-else-if="isTextarea(key, value)" :label="formatLabel(key)" :path="`form.${key}`">
-                                    <n-input v-model:value="form[key]" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
-                                </n-form-item>
-                                <!-- Default: Text input -->
-                                <n-form-item v-else :label="formatLabel(key)" :path="`form.${key}`">
-                                    <n-input v-model:value="form[key]" />
-                                </n-form-item>
-                            </template>
+                            <n-grid x-gap="12" :cols="3">
+                                <n-gi>
+                                    <n-form-item label="Select Home Page" path="form.home_page">
+                                        <n-select v-model:value="form.homePage" :options="homePageOptions" placeholder="Choose Home Page" />
+                                    </n-form-item>
+                                </n-gi>
+                                <n-gi>
+                                    <n-form-item label="Primary Color" path="color">
+                                        <n-color-picker
+                                            v-model:value="form.primaryColor"
+                                            :show-alpha="false"
+                                            :modes="['hex']"
+                                            :swatches="['#FFFFFF', '#18A058', '#2080F0', '#F0A020']"
+                                        />
+                                    </n-form-item>
+                                </n-gi>
+                                <n-gi>
+                                    <n-form-item label="Company Logo" path="form.logo">
+                                        <n-upload :custom-request="handleLogoUpload" :max="1" :show-file-list="false" accept="image/*">
+                                            <n-button>Upload Logo</n-button>
+                                        </n-upload>
+                                        <div v-if="form.logo" class="mt-2">
+                                            <img :src="form.logo" alt="Logo" class="max-h-16 rounded shadow" />
+                                        </div>
+                                    </n-form-item>
+                                </n-gi>
+                            </n-grid>
                             <n-space justify="end" class="mt-4">
                                 <n-button type="primary" native-type="submit" :loading="saving" @click="saveSettings">Save</n-button>
                             </n-space>
@@ -74,9 +87,7 @@
                         <n-card class="mt-2">
                             <div class="mb-4 flex items-center justify-between">
                                 <span class="text-lg font-medium">Sync Addrevenue</span>
-                                <n-button v-if="addrevenueEnabled" :loading="syncing" @click="syncAddrevenue">
-                                    Fetch from Addrevenue
-                                </n-button>
+                                <n-button v-if="addrevenueEnabled" :loading="syncing" @click="syncAddrevenue"> Fetch from Addrevenue </n-button>
                             </div>
                         </n-card>
                     </n-card>
@@ -129,6 +140,7 @@ import { ref } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItemType } from '@/types';
 
+import { useCrud } from '@/composables/useCrud';
 import { useIntegrationForm } from '@/composables/useIntegrationForm';
 
 const props = defineProps<{
@@ -138,6 +150,12 @@ const props = defineProps<{
     tradedoubler: Record<string, any>;
     can?: { edit?: boolean };
 }>();
+
+const homePageOptions = [
+    { label: 'Home One', value: 'homeOne' },
+    { label: 'Home Two', value: 'homeTwo' },
+    { label: 'Home Three', value: 'homeThree' },
+];
 
 const {
     enabled: adtractionEnabled,
@@ -167,23 +185,11 @@ const {
 } = useIntegrationForm('tradedoubler', props.tradedoubler?.credentials, props.tradedoubler?.status);
 
 const breadcrumbs: BreadcrumbItemType[] = [{ title: 'Frontend Settings', href: '/company/settings' }];
-
+const { upload } = useCrud({ baseUrl: '/company/settings' });
 const message = useMessage();
 const saving = ref(false);
 // Make a reactive copy of settings (never mutate props directly!)
 const form = ref({ ...props.settings });
-console.log(props.adtraction);
-function formatLabel(key: any) {
-    // Convert snake_case/camelCase to Title Case
-    return key
-        .replace(/[_-]/g, ' ')
-        .replace(/([a-z])([A-Z])/g, '$1 $2')
-        .replace(/\b\w/g, (l: string) => l.toUpperCase());
-}
-
-function isTextarea(key: any, value: any) {
-    return typeof value === 'string' && (key.toLowerCase().includes('description') || key.toLowerCase().includes('content') || value.length > 70);
-}
 
 const saveSettings = async () => {
     saving.value = true;
@@ -209,7 +215,7 @@ const syncAddrevenue = async () => {
             '/company/addrevenue/fetch',
             {},
             {
-                onSuccess: () =>{
+                onSuccess: () => {
                     message.success('Addrevenue sync started!');
                 },
                 onError: (errors: any) => {
@@ -217,10 +223,22 @@ const syncAddrevenue = async () => {
                     const backendMsg = errors?.message || 'Failed to start Addrevenue sync';
                     message.error(backendMsg);
                 },
-            }
+            },
         );
     } finally {
         syncing.value = false;
+    }
+};
+
+const handleLogoUpload = async ({ file, onSuccess, onError }: any) => {
+    try {
+        // Define expected response type for clarity
+        type UploadResponse = { logo_url: string };
+        const result = await upload<UploadResponse>('/fileupload', file.file, 'uploadedfile');
+        form.value.logo = result.logo_url;
+        onSuccess();
+    } catch {
+        onError();
     }
 };
 </script>

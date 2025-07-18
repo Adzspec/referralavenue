@@ -61,5 +61,42 @@ export function useCrud({ baseUrl, reload = true }: { baseUrl: string, reload?: 
         });
     };
 
-    return { create, update, destroy };
+    /**
+     * Upload files (single or FormData) to a specific URL.
+     * @param url - upload endpoint
+     * @param fileOrFormData - File, Blob, or FormData
+     * @param fieldName - field name for the file (default: 'file')
+     * @returns Promise<T> - backend response (usually an object)
+     */
+    const upload = async <T = any>(
+        url: string,
+        fileOrFormData: File | Blob | FormData,
+        fieldName: string = 'file'
+    ): Promise<T> => {
+        let formData: FormData;
+        if (fileOrFormData instanceof FormData) {
+            formData = fileOrFormData;
+        } else {
+            formData = new FormData();
+            formData.append(fieldName, fileOrFormData);
+        }
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                }
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Upload failed');
+            message.success('Upload successful!');
+            return data as T;
+        } catch (error: any) {
+            message.error(error.message || 'Upload failed');
+            throw error;
+        }
+    };
+    return { create, update, destroy, upload };
 }

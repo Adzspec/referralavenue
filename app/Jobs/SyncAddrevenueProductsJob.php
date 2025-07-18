@@ -101,6 +101,7 @@ class SyncAddrevenueProductsJob implements ShouldQueue
                 'product_price' => $product['sale_price'] ?? ($product['price'] ?? null),
                 'old_price'     => $product['price'] ?? null,
                 'product_url'   => $product['link'] ?? null,
+                'source'        => 'addrevenue',
                 'status'        => 1,
             ]);
             $deal->store()->associate($store->id);

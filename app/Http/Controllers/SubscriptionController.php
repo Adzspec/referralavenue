@@ -11,7 +11,7 @@ class SubscriptionController extends Controller
 {
     public function index(): Response
     {
-        $subscriptions = Subscription::paginate(10);
+        $subscriptions = Subscription::paginate(10)->withQueryString();
         return Inertia::render('subscriptions/index', [
             'subscriptions' => $subscriptions,
             'can' => [
