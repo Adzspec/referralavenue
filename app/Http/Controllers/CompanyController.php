@@ -55,7 +55,8 @@ class CompanyController extends Controller
         CompanyFrontendSetting::create([
             'company_id' => $company->id,
             'settings' => [
-                'homePage' => 'layout1',
+                'homePage'      => 'homeOne',
+                'primaryColor'  => '#c5497d'
             ],
         ]);
 

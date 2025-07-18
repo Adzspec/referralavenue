@@ -44,6 +44,7 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 //Users Routes
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->except(['show']);
@@ -68,12 +69,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/company/addrevenue/getProducts', [AddrevenueController::class, 'getProducts']);
     Route::post('/categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulkDelete');
     Route::post('/categories/bulk-status', [CategoryController::class, 'bulkStatus'])->name('categories.bulkStatus');
+    Route::post('/stores/bulk-delete', [StoreController::class, 'bulkDelete'])->name('categories.bulkDelete');
+    Route::post('/stores/bulk-status', [StoreController::class, 'bulkStatus'])->name('categories.bulkStatus');
+    Route::post('/offers/bulk-delete', [OfferController::class, 'bulkDelete'])->name('offers.bulkDelete');
+    Route::post('/offers/bulk-status', [OfferController::class, 'bulkStatus'])->name('offers.bulkStatus');
 
 
 });
 
 Route::post('/stripe/payment-intent', [PaymentController::class, 'createIntent'])->name('stripe.payment-intent');
 Route::post('/stripe/webhook', [PaymentController::class, 'webhook'])->name('stripe.webhook');
+Route::post('/fileupload', [CompanyFrontendSettingsController::class, 'fileupload']);
+
 
 
 // Include other route files

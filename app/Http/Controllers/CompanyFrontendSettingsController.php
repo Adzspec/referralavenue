@@ -8,6 +8,7 @@ use App\Models\CompanyIntegration;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use App\Models\CompanyFrontendSetting;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CompanyFrontendSettingsController extends Controller
@@ -72,6 +73,34 @@ class CompanyFrontendSettingsController extends Controller
             $company->frontendSetting->delete();
         }
         return response()->json(['success' => true]);
+    }
+
+    public function fileupload(Request $request)
+    {
+
+        $user = auth()->user();
+        $company = $user->company; // Adjust if your relation is named differently
+
+        // Validation
+        $request->validate([
+            'uploadedfile' => 'required|image|max:2048', // 2MB
+        ]);
+
+        // Make safe folder name from company name (slug)
+        $companyFolder = Str::slug($company->name);
+
+        // Store file in 'logos/{company-name}/'
+        $path = $request->file('uploadedfile')->store("{$companyFolder}", 'public');
+
+        // (Optional) Update company's logo path in database
+        // $company->logo = $path;
+        // $company->save();
+
+        return response()->json([
+            'logo_url' => asset('storage/' . $path),
+            'path' => $path,
+            'success' => true,
+        ]);
     }
 }
 

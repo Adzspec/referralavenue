@@ -8,29 +8,30 @@
             </div>
 
             <div class="flex justify-between items-center mb-4">
-                <div class="flex gap-2">
-                    <n-button type="error" @click="bulkDelete" :disabled="!selectedRowKeys.length">
-                        Delete Selected
-                    </n-button>
-                    <n-button @click="() => bulkChangeStatus(1)" :disabled="!selectedRowKeys.length">
-                        Mark Active
-                    </n-button>
-                    <n-button @click="() => bulkChangeStatus(0)" :disabled="!selectedRowKeys.length">
-                        Mark Inactive
-                    </n-button>
-                </div>
+                <!-- ...table, etc -->
+                <BulkActions
+                    :selectedKeys="selectedRowKeys"
+                    :actions="actions"
+                    class="mb-4"
+                />
             </div>
 
             <n-data-table
                 :columns="columns"
-                :data="categories"
+                :data="props.categories.data"
                 :pagination="false"
                 :row-key="row => row.id"
                 checkable
                 v-model:checked-row-keys="selectedRowKeys"
                 class="rounded shadow dark:bg-gray-900"
             />
-
+            <div class="mt-4 flex justify-end">
+                <n-pagination
+                    :page="props.categories.current_page"
+                    :page-count="props.categories.last_page"
+                    @update:page="(page) => $inertia.get('/categories', { page }, { preserveScroll: true })"
+                />
+            </div>
             <CreateCategoryModal
                 v-if="showCreateModal"
                 :show="showCreateModal"
@@ -55,23 +56,32 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, h, computed } from 'vue';
-import { NButton, NDataTable, useMessage } from 'naive-ui';
+import { NButton, NDataTable, NPagination, useMessage } from 'naive-ui';
 import type { BreadcrumbItemType } from '@/types';
 import CreateCategoryModal from '@/components/categories/CreateCategoryModal.vue';
 import EditCategoryModal from '@/components/categories/EditCategoryModal.vue';
 import { useCrud } from '@/composables/useCrud';
+import BulkActions from '@/components/common/BulkActions.vue';
 
 interface CategoryNode {
     id: number;
     name: string;
+    status: number;
     level?: number;
     children?: CategoryNode[];
 }
 
+// const props = defineProps<{
+//     categories: CategoryNode[];
+// }>();
 const props = defineProps<{
-    categories: CategoryNode[];
+    categories: {
+        data: Array<any>;
+        current_page: number;
+        last_page: number;
+    };
+    can: { create: boolean; edit: boolean; delete: boolean };
 }>();
-
 const breadcrumbs: BreadcrumbItemType[] = [
     { title: 'Categories', href: '/categories' },
 ];
@@ -84,11 +94,12 @@ const selectedCategory = ref<any | null>(null);
 const selectedRowKeys = ref<number[]>([]);
 
 const parentCategories = computed(() =>
-    props.categories.map(cat => ({
+    props.categories.data.map(cat => ({
         id: cat.id,
         name: cat.name,
     }))
 );
+
 
 const { create, update, destroy } = useCrud({ baseUrl: '/categories' });
 
@@ -130,31 +141,6 @@ const handleDelete = (id: number) => {
     destroy(id, 'Delete Category', 'Are you sure you want to delete this category?');
 };
 
-const bulkDelete = () => {
-    if (!selectedRowKeys.value.length) return;
-    if (confirm('Are you sure you want to delete selected categories?')) {
-        router.post('/categories/bulk-delete', { ids: selectedRowKeys.value }, {
-            onSuccess: () => {
-                message.success('Selected categories deleted');
-                selectedRowKeys.value = [];
-                router.reload();
-            },
-            onError: () => message.error('Bulk delete failed'),
-        });
-    }
-};
-
-const bulkChangeStatus = (status: number) => {
-    if (!selectedRowKeys.value.length) return;
-    router.post('/categories/bulk-status', { ids: selectedRowKeys.value, status }, {
-        onSuccess: () => {
-            message.success('Status updated');
-            selectedRowKeys.value = [];
-            router.reload();
-        },
-        onError: () => message.error('Bulk status update failed'),
-    });
-};
 
 const columns = [
     {
@@ -164,6 +150,11 @@ const columns = [
         title: 'Name',
         key: 'name',
         render: (row: CategoryNode) => `${'—'.repeat(row.level || 0)} ${row.name}`,
+    },
+    {
+        title: 'Status',
+        key: 'status',
+        render: (row: CategoryNode) => row.status === 1 ? 'Active' : 'Inactive',
     },
     {
         title: 'Actions',
@@ -184,4 +175,44 @@ const columns = [
         },
     },
 ];
+const bulkDelete = (ids: (string | number)[]) => {
+    router.post('/categories/bulk-delete', { ids }, {
+        onSuccess: () => {
+            message.success('Deleted');
+            selectedRowKeys.value = [];
+            router.reload();
+        }
+    });
+};
+
+const bulkChangeStatus = (ids: (string | number)[], status: number) => {
+    router.post('/categories/bulk-status', { ids, status }, {
+        onSuccess: () => {
+            message.success('Status updated');
+            selectedRowKeys.value = [];
+            router.reload();
+        }
+    });
+};
+const actions = [
+    {
+        label: 'Delete',
+        type: 'error',
+        confirm: 'Are you sure you want to delete the selected items?',
+        handler: bulkDelete
+    },
+    {
+        label: 'Set Active',
+        type: 'success',
+        confirm: 'Mark selected as Active?',
+        handler: (ids: (string | number)[]) => bulkChangeStatus(ids, 1)
+    },
+    {
+        label: 'Set Inactive',
+        type: 'warning',
+        confirm: 'Mark selected as Inactive?',
+        handler: (ids: (string | number)[]) => bulkChangeStatus(ids, 0)
+    }
+];
+
 </script>

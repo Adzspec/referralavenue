@@ -92,6 +92,12 @@ class MenuSeeder extends Seeder
             'icon' => 'Store',
             'permission' => ''
         ]);
+        Menu::create([
+            'title' => 'Offers',
+            'href' => '/offers',
+            'icon' => 'Percent',
+            'permission' => ''
+        ]);
 
     }
 }
