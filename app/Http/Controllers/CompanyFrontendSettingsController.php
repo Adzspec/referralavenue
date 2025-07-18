@@ -17,17 +17,8 @@ class CompanyFrontendSettingsController extends Controller
     public function show()
     {
         $company = auth()->user()->company;
-        return Inertia::render('frontend_settings/index', [
+        return Inertia::render('frontend_settings/homepage', [
             'settings' => $company->frontendSetting ? $company->frontendSetting->settings : [],
-            'adtraction' => CompanyIntegration::where('company_id', auth()->user()->company_id)
-                ->where('provider','adtraction')
-                ->first(),
-            'addrevenue' => CompanyIntegration::where('company_id', auth()->user()->company_id)
-                ->where('provider','addrevenue')
-                ->first(),
-            'tradedoubler' => CompanyIntegration::where('company_id', auth()->user()->company_id)
-                ->where('provider', 'tradedoubler')
-                ->first(),
             'can' => [
                 'create' => auth()->user()->can('create company settings'),
                 'edit' => auth()->user()->can('edit company settings'),

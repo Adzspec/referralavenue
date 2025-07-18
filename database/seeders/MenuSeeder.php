@@ -73,13 +73,6 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([
-            'title' => 'Frontend Settings',
-            'href' => '/company/settings',
-            'icon' => 'ChartBarStacked',
-            'permission' => ''
-        ]);
-
-        Menu::create([
             'title' => 'Categories',
             'href' => '/categories',
             'icon' => 'ChartBarStacked',
@@ -99,5 +92,26 @@ class MenuSeeder extends Seeder
             'permission' => ''
         ]);
 
+        $settings = Menu::create([
+            'title' => 'Company Settings',
+            'href' => '/company/settings',
+            'icon' => 'ChartBarStacked',
+            'permission' => ''
+        ]);
+
+        $settings->children()->createMany([
+            [
+                'title' => 'Homepage Settings',
+                'href' => '/company/home_settings',
+                'icon' => 'List',
+                'permission' => 'manage home settings',
+            ],
+            [
+                'title' => 'Integrations Settings',
+                'href' => '/company/integrations',
+                'icon' => 'NotebookTabs',
+                'permission' => 'manage integrations',
+            ],
+        ]);
     }
 }

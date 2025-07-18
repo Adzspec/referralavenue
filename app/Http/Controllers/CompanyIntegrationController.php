@@ -11,8 +11,26 @@ class CompanyIntegrationController extends Controller
 {
     public function index()
     {
-        return Inertia::render('company_integrations/Index', [
-            'integrations' => CompanyIntegration::where('company_id', auth()->user()->company_id)->get(),
+//        return Inertia::render('company_integrations/Index', [
+//            'integrations' => CompanyIntegration::where('company_id', auth()->user()->company_id)->get(),
+//        ]);
+
+        $company = auth()->user()->company;
+        return Inertia::render('frontend_settings/index', [
+            'adtraction' => CompanyIntegration::where('company_id', auth()->user()->company_id)
+                ->where('provider','adtraction')
+                ->first(),
+            'addrevenue' => CompanyIntegration::where('company_id', auth()->user()->company_id)
+                ->where('provider','addrevenue')
+                ->first(),
+            'tradedoubler' => CompanyIntegration::where('company_id', auth()->user()->company_id)
+                ->where('provider', 'tradedoubler')
+                ->first(),
+            'can' => [
+                'create' => auth()->user()->can('create company settings'),
+                'edit' => auth()->user()->can('edit company settings'),
+                'delete' => auth()->user()->can('delete company settings'),
+            ],
         ]);
     }
 
