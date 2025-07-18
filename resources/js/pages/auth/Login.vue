@@ -90,4 +90,60 @@ const submit = () => {
             </div>
         </form>
     </AuthBase>
-</template>
+    <section class="min-h-screen flex items-center justify-center">
+        <div class="bg-white/30 backdrop-blur-md p-8 rounded-xl max-w-md w-full text-white shadow-2xl border border-white/40">
+            <h2 class="text-2xl font-semibold text-center mb-6">Have an account?</h2>
+
+            <!-- Form -->
+            <form class="space-y-4">
+                <input
+                    type="text"
+                    placeholder="Username"
+                    class="w-full px-4 py-2 rounded-full bg-white/20 border border-white/50 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                />
+                <div class="relative">
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        class="w-full px-4 py-2 rounded-full bg-white/20 border border-white/50 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                    <span class="absolute right-4 top-2.5 text-white/70 cursor-pointer">👁</span>
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full py-2 bg-slate-700 text-white font-semibold rounded-full hover:bg-slate-600 transition"
+                >
+                    SIGN IN
+                </button>
+
+                <div class="flex justify-between text-sm mt-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2 accent-pink-500" />
+                        Remember Me
+                    </label>
+                    <a href="#" class="hover:underline">Forgot Password</a>
+                </div>
+            </form>
+
+            <div class="my-6 text-center text-white/80">— Or Sign In With —</div>
+
+            <div class="flex justify-center gap-4">
+                <button class="bg-white text-black font-medium px-6 py-2 rounded hover:bg-gray-100 transition">
+                    Facebook
+                </button>
+                <button class="bg-white text-black font-medium px-6 py-2 rounded hover:bg-gray-100 transition">
+                    Twitter
+                </button>
+            </div>
+        </div>
+    </section></template>
+<style>
+body {
+    background-image: url('https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+</style>
+
