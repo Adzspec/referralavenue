@@ -4,6 +4,9 @@
         <div class="p-6">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-semibold">Company Subscriptions</h1>
+                <n-button @click="subscribe('price_1RnwDhCTIpgMLNY3CWmdMBTT')" :loading="loading">
+                    Subscribe
+                </n-button>
                 <n-button v-if="props.can.create" type="primary" @click="openCreateModal">Add Subscription</n-button>
             </div>
 
@@ -87,7 +90,22 @@ const closeModals = () => {
     showEditModal.value = false;
     selectedSubscription.value = null;
 };
+const loading = ref(false);
 
+const subscribe = async (priceId:any) => {
+    loading.value = true;
+    try {
+        router.post('/subscriptions/checkout', {price:priceId}, {
+            onSuccess: (res) => {
+                console.log(res)
+            },
+            onFinish: () => loading.value = false
+        })
+
+    } finally {
+        loading.value = false;
+    }
+};
 const handleDelete = (id: number) => {
     dialog.warning({
         title: 'Delete Subscription',

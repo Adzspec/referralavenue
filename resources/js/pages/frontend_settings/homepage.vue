@@ -14,7 +14,17 @@
                                 <n-gi>
                                     <n-form-item label="Primary Color" path="color">
                                         <n-color-picker
-                                            v-model:value="form.primaryColor"
+                                            v-model:value="form.colors.primaryColor"
+                                            :show-alpha="false"
+                                            :modes="['hex']"
+                                            :swatches="['#FFFFFF', '#18A058', '#2080F0', '#F0A020']"
+                                        />
+                                    </n-form-item>
+                                </n-gi>
+                                <n-gi>
+                                    <n-form-item label="Secondary Color" path="color">
+                                        <n-color-picker
+                                            v-model:value="form.colors.secondaryColor"
                                             :show-alpha="false"
                                             :modes="['hex']"
                                             :swatches="['#FFFFFF', '#18A058', '#2080F0', '#F0A020']"
@@ -192,11 +202,19 @@ function getDefaultHomeOne(settings: any) {
     };
 }
 
+function getDefaultColors(settings: any) {
+    return {
+        primaryColor: settings?.colors?.primaryColor || '#c5497d',
+        secondaryColor: settings?.colors?.secondaryColor || '#a76e81',
+    };
+}
+
 const form = ref({
     homePage: props.settings.homePage || 'homeOne',
     homeOne: getDefaultHomeOne(props.settings),
     primaryColor: props.settings.primaryColor || '#18A058',
     logo: props.settings.logo || '',
+    colors: getDefaultColors(props.settings),
 });
 
 

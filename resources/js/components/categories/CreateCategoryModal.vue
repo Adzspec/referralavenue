@@ -4,14 +4,14 @@
             <n-form-item label="Title" path="name">
                 <n-input v-model:value="form.name" placeholder="Category title" />
             </n-form-item>
-            <n-form-item label="Parent Category" path="parent_id">
-                <n-select
-                    v-model:value="form.parent_id"
-                    :options="parentOptions"
-                    placeholder="Select parent (optional)"
-                    clearable
-                />
-            </n-form-item>
+<!--            <n-form-item label="Parent Category" path="parent_id">-->
+<!--                <n-select-->
+<!--                    v-model:value="form.parent_id"-->
+<!--                    :options="parentOptions"-->
+<!--                    placeholder="Select parent (optional)"-->
+<!--                    clearable-->
+<!--                />-->
+<!--            </n-form-item>-->
         </n-form>
         <template #action>
             <n-space justify="end">
@@ -23,10 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import type { FormInst } from 'naive-ui';
 
-const props = defineProps<{
+defineProps<{
     show: boolean;
     parentCategories: { id: number; name: string }[];
 }>();
@@ -44,12 +44,12 @@ const rules = {
     name: { required: true, message: 'Name is required', trigger: ['input', 'blur'] },
 };
 
-const parentOptions = computed(() =>
-    props.parentCategories.map(cat => ({
-        label: cat.name,
-        value: cat.id,
-    }))
-);
+// const parentOptions = computed(() =>
+//     props.parentCategories.map(cat => ({
+//         label: cat.name,
+//         value: cat.id,
+//     }))
+// );
 
 const submit = async () => {
     const valid = await formRef.value?.validate().catch(() => false);

@@ -2,21 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Offer;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\OfferRequest;
 
 class OfferController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $offers = Offer::with('store') // eager load store
-        ->where('company_id', auth()->user()->company_id)
-            ->paginate(10)
-            ->withQueryString();
+        $isInitialLoad = !$request->hasAny(['store_id', 'status', 'is_featured', 'is_exclusive', 'search']);
+        $query = Offer::with('store')
+            ->where('company_id', auth()->user()->company_id);
+
+        if ($request->filled('store_id')) {
+            $query->where('store_id', $request->store_id);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('is_featured')) {
+            $query->where('is_featured', $request->is_featured);
+        }
+
+        if ($request->filled('is_exclusive')) {
+            $query->where('is_exclusive', $request->is_exclusive);
+        }
+
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
         return Inertia::render('offers/index', [
-            'offers' => $offers,
+            'offers' => $query->paginate(10)->withQueryString(),
+            'stores' => Store::select('id', 'name')->where('company_id', auth()->user()->company_id)->get(),
+            'categories' => Category::select('id', 'name')->where('company_id',auth()->user()->company_id)->get(),
+            'filters' => $isInitialLoad
+                ? [
+                    'store_id' => null,
+                    'status' => null,
+                    'is_featured' => null,
+                    'is_exclusive' => null,
+                    'search' => '',
+                ]
+                : $request->only(['store_id', 'status', 'is_featured', 'is_exclusive', 'search']),
             'can' => [
                 'create' => auth()->user()->can('create offers'),
                 'edit' => auth()->user()->can('edit offers'),
@@ -66,4 +98,23 @@ class OfferController extends Controller
 
         return back()->with('success', 'Status updated');
     }
+
+    public function bulkFeatured(Request $request)
+    {
+        Offer::whereIn('id', $request->ids)->update([
+            'is_featured' => $request->status
+        ]);
+
+        return redirect()->back()->with('success', 'Offers updated as featured.');
+    }
+
+    public function bulkExclusive(Request $request)
+    {
+        Offer::whereIn('id', $request->ids)->update([
+            'is_exclusive' => $request->status
+        ]);
+
+        return redirect()->back()->with('success', 'Offers updated as exclusive.');
+    }
+
 }

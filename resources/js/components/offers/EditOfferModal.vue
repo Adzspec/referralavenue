@@ -1,5 +1,5 @@
 <template>
-    <n-modal style="width: 900px" :show="show" title="Create Offer" preset="card" @close="emit('close')">
+    <n-modal style="width: 900px" :show="show" title="Edit Offer" preset="card" @close="emit('close')">
         <n-form ref="formRef" :model="form" :rules="rules" label-placement="top" class="mt-4">
             <n-grid :cols="2" x-gap="12">
                 <n-gi>
@@ -23,6 +23,7 @@
                     </n-form-item>
                 </n-gi>
             </n-grid>
+
             <n-grid :cols="2" x-gap="12">
                 <n-gi>
                     <n-form-item label="Start Date" path="start_date">
@@ -135,57 +136,37 @@
         <template #action>
             <n-space justify="end">
                 <n-button @click="emit('close')">Cancel</n-button>
-                <n-button type="primary" @click="submit">Create</n-button>
+                <n-button type="primary" @click="submit">Update</n-button>
             </n-space>
         </template>
     </n-modal>
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue';
+import { router } from '@inertiajs/vue3';
 import type { FormInst, FormRules } from 'naive-ui';
-import { onMounted, ref } from 'vue';
 
 const emit = defineEmits<{
     (e: 'close'): void;
-    (e: 'submit', payload: Record<string, any>): void;
 }>();
 
-// Props are used in the template
 const props = defineProps<{
     show: boolean;
+    offer: Record<string, any> | null; // ✅ allow null
     stores: { id: number; name: string }[];
     categories: { id: number; name: string }[];
 }>();
+
 const formRef = ref<FormInst | null>(null);
 
 const storeOptions = props.stores.map((s) => ({ label: s.name, value: s.id }));
 const categoryOptions = props.categories.map((c) => ({ label: c.name, value: c.id }));
 
+const form = ref({ ...props.offer });
 
-const form = ref({
-    title: '',
-    description: '',
-    store_id: null,
-    category_id: null,
-    product_url: '',
-    image_url: '',
-    price: null,
-    code: '',
-    start_date: null,
-    end_date: null,
-    link: '',
-    is_featured: false,
-    is_exclusive: false,
-    is_deal: false,
-    path: '',
-    thumbnail: '',
-    sku: '',
-    product_name: '',
-    product_price: null,
-    old_price: null,
-    source: '',
-    external_id: '',
-    status: true,
+watch(() => props.offer, (newVal) => {
+    form.value = { ...newVal };
 });
 
 const rules: FormRules = {
@@ -193,18 +174,15 @@ const rules: FormRules = {
     store_id: [{ required: true, message: 'Store is required', trigger: ['blur', 'change'] }],
 };
 
-onMounted(async () => {
-
-});
-
 const submit = async () => {
     if (!formRef.value) return;
     try {
         await formRef.value.validate();
-        emit('submit', form.value);
+        router.put(`/offers/${form.value.id}`, form.value, {
+            onSuccess: () => emit('close'),
+        });
     } catch (err) {
         console.error(err);
-        // validation failed
     }
 };
 </script>

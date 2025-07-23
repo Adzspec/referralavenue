@@ -11,16 +11,16 @@
                 <n-input v-model:value="form.name" placeholder="Enter category name" />
             </n-form-item>
 
-            <n-form-item label="Parent Category" path="parent_id">
-                <n-select
-                    v-model:value="form.parent_id"
-                    :options="parentCategories"
-                    label-field="name"
-                    value-field="id"
-                    placeholder="Select parent category (optional)"
-                    clearable
-                />
-            </n-form-item>
+<!--            <n-form-item label="Parent Category" path="parent_id">-->
+<!--                <n-select-->
+<!--                    v-model:value="form.parent_id"-->
+<!--                    :options="parentCategories"-->
+<!--                    label-field="name"-->
+<!--                    value-field="id"-->
+<!--                    placeholder="Select parent category (optional)"-->
+<!--                    clearable-->
+<!--                />-->
+<!--            </n-form-item>-->
         </n-form>
 
         <template #action>
@@ -88,6 +88,7 @@ const submit = async () => {
             parent_id: form.value.parent_id,
         });
     } catch (err) {
+        console.log(err)
         // validation failed
     }
 };

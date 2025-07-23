@@ -43,8 +43,18 @@ Route::get('/contact', function () {
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/subscriptions/checkout', [SubscriptionController::class, 'createCheckoutSession']);
+Route::get('/subscriptions/success', function () {
+    return Inertia::render('subscriptions/success');
+});
+Route::post('/stripe/payment-intent', [PaymentController::class, 'createIntent'])->name('stripe.payment-intent');
+Route::post('/webhook', [PaymentController::class, 'handleWebhook'])->name('stripe.webhook');
+Route::post('/fileupload', [CompanyFrontendSettingsController::class, 'fileupload']);
 
 
+Route::get('/subscriptions/cancel', function () {
+    return Inertia::render('Subscriptions/Cancel');
+});
 //Users Routes
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->except(['show']);
@@ -74,13 +84,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/stores/bulk-status', [StoreController::class, 'bulkStatus'])->name('categories.bulkStatus');
     Route::post('/offers/bulk-delete', [OfferController::class, 'bulkDelete'])->name('offers.bulkDelete');
     Route::post('/offers/bulk-status', [OfferController::class, 'bulkStatus'])->name('offers.bulkStatus');
+    Route::post('/offers/bulk-featured', [OfferController::class, 'bulkFeatured']);
+    Route::post('/offers/bulk-exclusive', [OfferController::class, 'bulkExclusive']);
 
 
 });
 
-Route::post('/stripe/payment-intent', [PaymentController::class, 'createIntent'])->name('stripe.payment-intent');
-Route::post('/stripe/webhook', [PaymentController::class, 'webhook'])->name('stripe.webhook');
-Route::post('/fileupload', [CompanyFrontendSettingsController::class, 'fileupload']);
+
+
 
 
 
