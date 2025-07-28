@@ -40,7 +40,7 @@ class PaymentController extends Controller
 
     public function handleWebhook(Request $request)
     {
-        \Log::info('Webhook endpoint hit!');
+
         $payload = $request->getContent();
         $sigHeader = $request->header('stripe-signature');
         $secret = env('STRIPE_WEBHOOK_SECRET');
@@ -55,22 +55,24 @@ class PaymentController extends Controller
             return response('Invalid signature', 400);
         }
 
-        \Log::info('Stripe Webhook called', ['event_type' => $event->type]);
-
         switch ($event->type) {
             case 'checkout.session.completed':
                 $session = $event->data->object;
-                \Log::info('checkout.session.completed received', ['session' => $session]);
+                $planId = $session->metadata->plan_id ?? null;
+                $plan = \App\Models\Subscription::findOrFail($planId);
+//                \Log::info('checkout.session.completed received', ['session' => $session]);
+//                \Log::info('checkout.session.completed received', ['subscription' => $session->subscription]);
                 $user = \App\Models\User::where('email', $session->customer_email)->first();
-                \Log::info('User Lookup', ['email' => $session->customer_email, 'user_found' => $user ? 'yes' : 'no']);
                 if ($user) {
                     try {
                         \App\Models\CompanySubscription::create([
                             'company_id' => $user->company_id,
-                            'subscription_id' => $session->subscription,
+                            'stripe_subscription_id' => $session->subscription,
+                            'subscription_id' => $planId,
+                            'start_date' => now(),
+                            'end_date' => now()->addDays((int)$plan->duration),
                             'status' => 'active',
                         ]);
-                        \Log::info('CompanySubscription created');
                     } catch (\Exception $e) {
                         \Log::error('Subscription create failed', ['message' => $e->getMessage()]);
                     }
@@ -78,22 +80,35 @@ class PaymentController extends Controller
                 break;
 
             case 'invoice.payment_succeeded':
-                $invoice = $event->data->object;
-                $user = User::where('email', $invoice->customer_email)->first();
-                // e.g. invoice.subscription, invoice.amount_paid, invoice.customer_email
-                // Find and update payment record
-                Payment::create([
-                    'company_id' => $user->company_id,
-                    'stripe_invoice_id' => $invoice->id,
-                    'amount' => $invoice->amount_paid / 100,
-                    'status' => 'paid',
-                    // ...other fields
-                ]);
-                break;
+//                $invoice = $event->data->object;
+//                $user = User::where('email', $invoice->customer_email)->first();
+//                // e.g. invoice.subscription, invoice.amount_paid, invoice.customer_email
+//                // Find and update payment record
+//                Payment::create([
+//                    'company_id' => $user->company_id,
+//                    'stripe_invoice_id' => $invoice->id,
+//                    'amount' => $invoice->amount_paid / 100,
+//                    'status' => 'paid',
+//                    // ...other fields
+//                ]);
+//                break;
 
             // Handle other events as needed
             case 'customer.subscription.updated':
             case 'customer.subscription.deleted':
+            $session = $event->data->object;
+            $stripeSubscriptionId = $session->id;
+//            \Log::info('checkout.session.delete received', ['session' => $session]);
+//            \Log::info('checkout.session.delete received', ['subscription' => $stripeSubscriptionId]);
+            $subscription = \App\Models\CompanySubscription::query()->where('stripe_subscription_id', $stripeSubscriptionId)->first();
+//            \Log::info('checkout.session.delete received', ['subscription' => $subscription]);
+            if ($subscription) {
+                $subscription->update([
+                    'status' => 'expired', // or 'canceled', 'inactive'
+                    'end_date' => now(), // Or set to period_end from Stripe if available
+                ]);
+            }
+            break;
                 // Update your CompanySubscription status here
                 break;
         }

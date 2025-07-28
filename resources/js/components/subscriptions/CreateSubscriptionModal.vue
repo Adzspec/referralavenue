@@ -11,7 +11,7 @@
                     <n-form-item label="Price" path="price">
                         <n-input-number v-model:value="form.price">
                             <template #prefix>
-                                $
+                                SEK
                             </template>
                         </n-input-number>
                     </n-form-item>
@@ -19,6 +19,11 @@
                 <n-grid-item>
                     <n-form-item label="Duration (in days)" path="duration">
                         <n-input-number v-model:value="form.duration" placeholder="In days,e.g., 30,60,90,120,365" />
+                    </n-form-item>
+                </n-grid-item>
+                <n-grid-item>
+                    <n-form-item label="Stripe Price Id" path="price_id">
+                        <n-input v-model:value="form.price_id" />
                     </n-form-item>
                 </n-grid-item>
                 <n-grid-item>
@@ -48,6 +53,7 @@ const form = ref({
     name: '',
     price: null as number | null,
     duration: '',
+    price_id: '',
     status: 1
 });
 
@@ -86,7 +92,14 @@ const rules: FormRules = {
             message: 'Duration must be at least 1 day',
             trigger: ['input', 'blur']
         }
-    ]
+    ],
+    price_id: [
+        {
+            required: true,
+            message: 'Price Id is required',
+            trigger: ['input', 'blur']
+        }
+    ],
 };
 
 const formRef = ref();

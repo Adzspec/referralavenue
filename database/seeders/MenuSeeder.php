@@ -101,6 +101,12 @@ class MenuSeeder extends Seeder
 
         $settings->children()->createMany([
             [
+                'title' => 'Company Settings',
+                'href' => '/company/company-settings',
+                'icon' => 'List',
+                'permission' => 'manage company settings',
+            ],
+            [
                 'title' => 'Homepage Settings',
                 'href' => '/company/home_settings',
                 'icon' => 'List',

@@ -22,6 +22,11 @@
                     </n-form-item>
                 </n-grid-item>
                 <n-grid-item>
+                    <n-form-item label="Stripe Price Id" path="price_id">
+                        <n-input v-model:value="form.price_id" />
+                    </n-form-item>
+                </n-grid-item>
+                <n-grid-item>
                     <n-form-item label="Status">
                         <n-switch v-model:value="form.status" :checked-value="1" :unchecked-value="0" />
                     </n-form-item>
@@ -94,7 +99,14 @@ const rules: FormRules = {
             message: 'Duration must be at least 1 day',
             trigger: ['input', 'blur']
         }
-    ]
+    ],
+    price_id: [
+        {
+            required: true,
+            message: 'Price Id is required',
+            trigger: ['input', 'blur']
+        }
+    ],
 };
 
 

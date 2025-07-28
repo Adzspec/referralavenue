@@ -32,4 +32,14 @@ class Company extends Model
     {
         return $this->hasMany(CompanyIntegration::class);
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(CompanySubscription::class);
+    }
+
+    public function latestSubscription()
+    {
+        return $this->hasOne(CompanySubscription::class)->latestOfMany();
+    }
 }

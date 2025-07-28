@@ -12,6 +12,7 @@ class CompanySubscription extends Model
     protected $fillable = [
         'company_id',
         'subscription_id',
+        'stripe_subscription_id',
         'start_date',
         'end_date',
         'status',
@@ -31,4 +32,4 @@ class CompanySubscription extends Model
     {
         return $this->hasMany(Payment::class);
     }
-} 
+}

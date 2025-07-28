@@ -7,8 +7,8 @@
     <KeyFeature/>
    <Cards/>
     <Slider/>
-    <startup-section/>
-    <signup/>
+    <Pricing :plans="plans" :user="user" />
+    <Signup/>
     <Footer/>
 
 </template>
@@ -23,9 +23,19 @@ import Counting from '@/components/home/Counting.vue';
 import KeyFeature from '@/components/home/KeyFeature.vue';
 import Cards from '@/components/home/Cards.vue';
 import Slider from '@/components/home/Slider.vue';
-import StartupSection from '@/components/home/StartupSection.vue';
+import Pricing from '@/components/home/Pricing.vue';
 import Signup from '@/components/home/Signup.vue';
 import Footer from '@/components/common/Footer.vue';
 
+defineProps<{
+    plans: {
+        id: number | string
+        name: string
+        price: number | string
+        currency: string
+        features: string[]
+    }[],
+    user:any,
+}>()
 </script>
 

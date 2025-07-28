@@ -97,4 +97,26 @@ class CompanyController extends Controller
 
         return redirect()->back()->with('success', 'Company deleted.');
     }
+
+    public function companySettings()
+    {
+        $company = Company::with(['profile','latestSubscription.subscription'])
+            ->where('id', auth()->user()->company_id)
+            ->first();
+
+        $subscriptions = \App\Models\CompanySubscription::with('subscription')
+            ->where('company_id', $company->id)
+            ->orderByDesc('start_date')
+            ->paginate(10);
+
+        return Inertia::render('frontend_settings/company', [
+            'company' => $company,
+            'subscriptions' => $subscriptions,
+            'can' => [
+                'create' => auth()->user()->can('create companies'),
+                'edit' => auth()->user()->can('edit companies'),
+                'delete' => auth()->user()->can('delete companies'),
+            ],
+        ]);
+    }
 }

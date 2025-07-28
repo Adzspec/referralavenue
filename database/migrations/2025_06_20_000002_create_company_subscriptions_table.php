@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->foreignId('subscription_id')->constrained('subscriptions')->onDelete('cascade');
+            $table->string('stripe_subscription_id')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status'); // active, cancelled, expired
@@ -23,4 +24,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('company_subscriptions');
     }
-}; 
+};
