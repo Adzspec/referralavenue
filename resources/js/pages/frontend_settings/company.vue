@@ -8,7 +8,7 @@
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
                 <!-- Company Info Card -->
                 <div>
-                    <div class="flex flex-col items-center rounded-2xl bg-white/80 p-6 shadow-md transition hover:shadow-lg h-full">
+                    <div class="flex h-full flex-col items-center rounded-2xl bg-white/80 p-6 shadow-md transition hover:shadow-lg">
                         <h4 class="mb-3 text-center text-xl font-semibold break-all text-blue-800">
                             {{ company.name }}
                         </h4>
@@ -23,49 +23,80 @@
                 </div>
                 <!-- Profile Card (match look) -->
                 <div>
-                    <div class="flex flex-col items-center rounded-2xl bg-white/80 p-6 shadow-md transition hover:shadow-lg h-full">
+                    <div class="flex h-full flex-col items-center rounded-2xl bg-white/80 p-6 shadow-md transition hover:shadow-lg">
                         <h4 class="mb-3 text-center text-xl font-semibold text-blue-700">Company Profile</h4>
                         <ul class="w-full space-y-2">
-                            <ProfileField label="Phone" :value="company.profile?.phone" />
-                            <ProfileField label="Address" :value="company.profile?.address" />
-                            <ProfileField label="City" :value="company.profile?.city" />
-                            <ProfileField label="State" :value="company.profile?.state" />
-                            <ProfileField label="Country" :value="company.profile?.country" />
-                            <ProfileField label="Zipcode" :value="company.profile?.zipcode" />
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Phone:</span>
+                                <span class="truncate text-right">{{ company.profile?.phone || '--' }}</span>
+                            </li>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Address:</span>
+                                <span class="truncate text-right">{{ company.profile?.address || '--' }}</span>
+                            </li>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">City:</span>
+                                <span class="truncate text-right">{{ company.profile?.city || '--' }}</span>
+                            </li>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">State:</span>
+                                <span class="truncate text-right">{{ company.profile?.state || '--' }}</span>
+                            </li>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Country:</span>
+                                <span class="truncate text-right">{{ company.profile?.country || '--' }}</span>
+                            </li>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Zipcode:</span>
+                                <span class="truncate text-right">{{ company.profile?.zipcode || '--' }}</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <!-- Subscription Card (match look) -->
                 <div>
-                    <div class="flex flex-col items-center rounded-2xl bg-white/80 p-6 shadow-md transition hover:shadow-lg h-full">
+                    <div class="flex h-full flex-col items-center rounded-2xl bg-white/80 p-6 shadow-md transition hover:shadow-lg">
                         <h4 class="mb-3 text-center text-xl font-semibold text-orange-700">Subscription Info</h4>
-                        <ul class="w-full space-y-3">
-                            <li>
-                                <span class="font-medium text-gray-700">Current Subscription:</span>
-                                <span class="ml-2 inline-block rounded bg-blue-100 px-2 py-1 text-xs text-blue-700">
-                        {{ company.latest_subscription?.subscription?.name || '—' }}
-                    </span>
+                        <ul class="w-full space-y-2">
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Current Subscription:</span>
+                                <span class="truncate text-right">
+                                    <span class="inline-block rounded bg-blue-100 px-2 py-1 text-xs text-blue-700">
+                                        {{ company.latest_subscription?.subscription?.name || '—' }}
+                                    </span>
+                                </span>
                             </li>
-                            <li>
-                                <span class="font-medium text-gray-700">Start Date:</span>
-                                <span class="ml-2 inline-block rounded bg-green-100 px-2 py-1 text-xs text-green-700">
-                        {{ company.latest_subscription?.start_date || '--' }}
-                    </span>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Start Date:</span>
+                                <span class="truncate text-right">
+                                    <span class="inline-block rounded bg-green-100 px-2 py-1 text-xs text-green-700">
+                                        {{ company.latest_subscription?.start_date || '--' }}
+                                    </span>
+                                </span>
                             </li>
-                            <li>
-                                <span class="font-medium text-gray-700">Expiry Date:</span>
-                                <span class="ml-2 inline-block rounded bg-red-100 px-2 py-1 text-xs text-red-700">
-                        {{ company.latest_subscription?.end_date || '--' }}
-                    </span>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Expiry Date:</span>
+                                <span class="truncate text-right">
+                                    <span class="inline-block rounded bg-red-100 px-2 py-1 text-xs text-red-700">
+                                        {{ company.latest_subscription?.end_date || '--' }}
+                                    </span>
+                                </span>
+                            </li>
+                            <li class="flex items-center justify-between text-gray-600">
+                                <span class="font-medium">Status:</span>
+                                <span class="truncate text-right">
+                                    <span class="inline-block rounded bg-red-100 px-2 py-1 text-xs text-red-700">
+                                        {{ company.latest_subscription?.status || '--' }}
+                                    </span>
+                                </span>
                             </li>
                         </ul>
-                        <div class="mt-6 flex justify-end gap-2 w-full">
-                            <button class="rounded bg-blue-600 px-4 py-1 text-sm font-medium text-white shadow hover:bg-blue-700">
+
+                        <div class="mt-6 flex w-full justify-end gap-2">
+                            <button @click="goHome" class="rounded bg-blue-600 px-4 py-1 text-sm font-medium text-white shadow hover:bg-blue-700">
                                 Upgrade Plan
                             </button>
-                            <button class="rounded bg-red-100 px-4 py-1 text-sm font-medium text-red-600 shadow hover:bg-red-200">
-                                Cancel Plan
-                            </button>
+                            <button v-if="company.latest_subscription?.status==='active'" class="rounded bg-red-100 px-4 py-1 text-sm font-medium text-red-600 shadow hover:bg-red-200" @click="cancelPlan">Cancel Plan</button>
                         </div>
                     </div>
                 </div>
@@ -83,12 +114,8 @@
                     class="rounded-xl shadow"
                     size="small"
                 />
-                <div class="flex justify-end mt-4">
-                    <n-pagination
-                        :page="props.subscriptions.current_page"
-                        :page-count="props.subscriptions.last_page"
-                        @update:page="changePage"
-                    />
+                <div class="mt-4 flex justify-end">
+                    <n-pagination :page="props.subscriptions.current_page" :page-count="props.subscriptions.last_page" @update:page="changePage" />
                 </div>
             </div>
         </div>
@@ -100,18 +127,18 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItemType } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { defineComponent, h } from 'vue';
-
+import { useMessage } from 'naive-ui'
 
 const breadcrumbs: BreadcrumbItemType[] = [{ title: 'Company Settings', href: '/company/company-settings' }];
 const props = defineProps<{
-    company: Record<string, any>
+    company: Record<string, any>;
     subscriptions: {
-        data: any[],
-        current_page: number,
-        last_page: number,
-        total: number
-    }
-}>()
+        data: any[];
+        current_page: number;
+        last_page: number;
+        total: number;
+    };
+}>();
 interface CompanySubscriptionRow {
     id: number;
     start_date: string;
@@ -127,7 +154,7 @@ const subscriptionColumns = [
     {
         title: 'Plan',
         key: 'subscription',
-        render: (row: CompanySubscriptionRow) => row.subscription?.name || '-'
+        render: (row: CompanySubscriptionRow) => row.subscription?.name || '-',
     },
     { title: 'Start Date', key: 'start_date' },
     { title: 'End Date', key: 'end_date' },
@@ -137,20 +164,19 @@ const subscriptionColumns = [
         render: (row: CompanySubscriptionRow) => {
             return row.status === 'active'
                 ? h('span', { class: 'text-green-600 font-semibold' }, 'Active')
-                : h('span', { class: 'text-red-500 font-semibold' }, row.status || 'Inactive')
-        }
+                : h('span', { class: 'text-red-500 font-semibold' }, row.status || 'Inactive');
+        },
     },
     {
         title: 'Price',
         key: 'price',
-        render: (row: CompanySubscriptionRow) => row.subscription ? (row.subscription.currency || '$') + row.subscription.price : '-'
+        render: (row: CompanySubscriptionRow) => (row.subscription ? (row.subscription.currency || '$') + row.subscription.price : '-'),
     },
 ];
 
-
-import { router } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3';
 function changePage(page: number) {
-    router.get('/company/company-settings', { page }, { preserveScroll: true })
+    router.get('/company/company-settings', { page }, { preserveScroll: true });
 }
 
 // InfoTag (inline functional)
@@ -194,20 +220,20 @@ const InfoTag = defineComponent({
     },
 });
 
-// ProfileField (inline functional)
-const ProfileField = defineComponent({
-    props: {
-        label: String,
-        value: String,
-    },
-    setup(props) {
-        return () =>
-            h('div', { class: 'flex items-center text-gray-700 text-sm gap-2' }, [
-                h('span', { class: 'font-medium w-28' }, props.label + ':'),
-                h('span', { class: 'truncate flex-1 text-gray-900' }, props.value || '--'),
-            ]);
-    },
-});
+const message = useMessage()
+
+function cancelPlan() {
+    if (confirm('Are you sure you want to cancel your subscription?')) {
+        router.post('/subscriptions/cancel', {}, {
+            onSuccess: () => message.success('Subscription cancellation requested.'),
+            onError: () => message.error('Failed to cancel subscription.'),
+        })
+    }
+}
+
+function goHome() {
+    router.visit('/#pricing');
+}
 </script>
 
 <!-- No extra style needed! -->

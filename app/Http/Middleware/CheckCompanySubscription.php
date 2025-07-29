@@ -23,7 +23,7 @@ class CheckCompanySubscription
         if ($request->is('login*') || $request->is('register*') || $request->is('logout*') ||
             $request->is('forgot-password*') || $request->is('reset-password*') ||
             $request->is('verify-email*') || $request->is('email/verification-notification*') ||
-            $request->is('confirm-password*')) {
+            $request->is('confirm-password*') || $request->is('subscriptions*')) {
             return $next($request);
         }
 
@@ -39,13 +39,13 @@ class CheckCompanySubscription
                 ->first();
 
             // If no active subscription found, redirect to company_subscriptions page
-            if (!$subscription) {
-                // Don't redirect if already on the company_subscriptions page to avoid redirect loops
-                if (!$request->is('company_subscriptions*')) {
-                    return redirect()->route('company_subscriptions.index')
-                        ->with('warning', 'Your company subscription has expired. Please renew your subscription to continue.');
-                }
-            }
+//            if (!$subscription) {
+//                // Don't redirect if already on the company_subscriptions page to avoid redirect loops
+//                if (!$request->is('/*')) {
+//                    return redirect()->route('home')
+//                        ->with('warning', 'Your company subscription has expired. Please renew your subscription to continue.');
+//                }
+//            }
         }
 
         return $next($request);

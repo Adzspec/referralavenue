@@ -104,7 +104,7 @@ class PaymentController extends Controller
 //            \Log::info('checkout.session.delete received', ['subscription' => $subscription]);
             if ($subscription) {
                 $subscription->update([
-                    'status' => 'expired', // or 'canceled', 'inactive'
+                    'status' => 'canceled', // or 'canceled', 'inactive'
                     'end_date' => now(), // Or set to period_end from Stripe if available
                 ]);
             }

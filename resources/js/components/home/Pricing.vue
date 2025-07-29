@@ -1,6 +1,6 @@
 <template>
     <section class="pt-16 bg-slate-100">
-        <div>
+        <div id="pricing">
             <h2 class="text-center font-bold text-4xl text-gray-700 pt-8">
                 Start saving time today <br />
                 and <span class="text-blue-600">choose</span> your best plan
@@ -18,10 +18,10 @@
                 >
                     <h2 class="text-3xl sm:text-4xl font-bold mb-2 mt-6 sm:mt-8">{{ plan.name }}</h2>
                     <p class="text-blue-600 text-2xl sm:text-3xl pt-3 sm:pt-4 font-bold">
-                        {{ plan.currency }}{{ plan.price }}
+                        {{ plan.currency || 'SEK ' }}{{ plan.price }}
                     </p>
                     <p class="text-gray-500 mb-3 sm:mb-4 pt-3 sm:pt-4 text-sm sm:text-base">
-                        user per month
+
                     </p>
 <!--                    <ul class="text-gray-600 space-y-2 mb-4 sm:mb-6 text-sm sm:text-base">-->
 <!--                        <li v-for="(feature, i) in plan.features" :key="i">✅ {{ feature }}</li>-->

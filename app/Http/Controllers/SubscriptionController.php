@@ -109,4 +109,26 @@ class SubscriptionController extends Controller
             'stripeUrl' => $session->url,
         ]);
     }
+
+    public function cancelSubscription(Request $request)
+    {
+        $user = auth()->user();
+        $company = $user->company;
+
+        $companySubscription = $company->latestSubscription; // or however you fetch it
+        $stripeSubscriptionId = $companySubscription->stripe_subscription_id;
+
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+        $subscription = \Stripe\Subscription::update($stripeSubscriptionId, [
+            'cancel_at_period_end' => true, // recommended: lets user use the plan until the period ends
+        ]);
+
+        // Optionally: Update local status (but webhooks will sync this too)
+        $companySubscription->status = 'cancelling'; // or similar
+        $companySubscription->save();
+
+        return back()->with('success', 'Subscription will be cancelled at period end.');
+    }
+
 }

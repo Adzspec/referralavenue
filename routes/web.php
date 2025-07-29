@@ -42,6 +42,7 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/subscriptions/checkout', [SubscriptionController::class, 'createCheckoutSession']);
+Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancelSubscription']);
 Route::get('/subscriptions/success', function () {
     return Inertia::render('subscriptions/success');
 });
