@@ -17,7 +17,7 @@
                 <div class="relative bg-white shadow-lg pt-32 pb-16 px-8 text-center ">
                     <div class="absolute -top-14 left-1/2 transform -translate-x-1/2">
                         <div class="bg-gradient-to-r from-indigo-900 to-purple-600 text-white px-10 py-8 shadow-xl text-center w-60">
-                            <h2 class="text-md font-semibold tracking-widest">HATCHLING PLAN</h2>
+                            <h2 class="text-sm font-semibold tracking-widest">HATCHLING PLAN</h2>
                             <p class="text-5xl font-bold mt-3">$29</p>
                             <p class="text-sm uppercase tracking-wider mt-2">Per Month</p>
                         </div>
