@@ -119,7 +119,6 @@
                                 <n-form-item label="Section Title">
                                     <n-input v-model:value="form.homeOne.faqSection.title" placeholder="Enter FAQ title" />
                                 </n-form-item>
-
                                 <n-dynamic-input
                                     v-model:value="form.homeOne.faqSection.items"
                                     :on-create="() => ({ question: '', answer: '' })"
@@ -140,7 +139,88 @@
                                         </n-grid>
                                     </template>
                                 </n-dynamic-input>
-
+                            </div>
+                            <div v-if="form.homePage === 'homeTwo'" class="mt-6">
+                                <n-divider><h2 class="text-2xl text-green-400">Hero Section (Home Two)</h2></n-divider>
+                                <n-grid x-gap="12" :cols="3">
+                                    <n-gi>
+                                        <n-form-item label="Main Heading">
+                                            <n-input v-model:value="form.homeTwo.heroSection.mainHeading" placeholder="Enter main heading" />
+                                        </n-form-item>
+                                    </n-gi>
+                                    <n-gi>
+                                        <n-form-item label="Second Heading">
+                                            <n-input v-model:value="form.homeTwo.heroSection.secondHeading" placeholder="Enter second heading" />
+                                        </n-form-item>
+                                    </n-gi>
+<!--                                    <n-gi>-->
+<!--                                        <n-form-item label="Button Text">-->
+<!--                                            <n-input v-model:value="form.homeTwo.heroSection.buttonText" placeholder="Enter button text" />-->
+<!--                                        </n-form-item>-->
+<!--                                    </n-gi>-->
+<!--                                    <n-gi>-->
+<!--                                        <n-form-item label="Hero Image">-->
+<!--                                            <n-upload :custom-request="handleHeroImageUpload" :max="1" :show-file-list="false" accept="image/*">-->
+<!--                                                <n-button>Upload Hero Image</n-button>-->
+<!--                                            </n-upload>-->
+<!--                                            <div v-if="form.homeOne.heroSection.image" class="mt-2">-->
+<!--                                                <img :src="form.homeOne.heroSection.image" alt="Hero" class="max-h-300 rounded shadow" />-->
+<!--                                            </div>-->
+<!--                                        </n-form-item>-->
+<!--                                    </n-gi>-->
+                                </n-grid>
+                                <n-divider><h2 class="text-2xl text-green-400">Banner Section (Home Two)</h2></n-divider>
+                                <n-grid x-gap="12" :cols="3">
+                                    <n-gi>
+                                        <n-form-item label="Main Heading">
+                                            <n-input v-model:value="form.homeTwo.bannerSection.mainHeading" placeholder="Enter main heading" />
+                                        </n-form-item>
+                                    </n-gi>
+                                    <n-gi>
+                                        <n-form-item label="Second Heading">
+                                            <n-input v-model:value="form.homeTwo.bannerSection.secondHeading" placeholder="Enter second heading" />
+                                        </n-form-item>
+                                    </n-gi>
+                                    <n-gi>
+                                        <n-form-item label="Button Text">
+                                            <n-input v-model:value="form.homeTwo.bannerSection.buttonText" placeholder="Enter button text" />
+                                        </n-form-item>
+                                    </n-gi>
+<!--                                    <n-gi>-->
+<!--                                        <n-form-item label="Hero Image">-->
+<!--                                            <n-upload :custom-request="handleHeroImageUpload" :max="1" :show-file-list="false" accept="image/*">-->
+<!--                                                <n-button>Upload Hero Image</n-button>-->
+<!--                                            </n-upload>-->
+<!--                                            <div v-if="form.homeOne.bannerSection.image" class="mt-2">-->
+<!--                                                <img :src="form.homeOne.bannerSection.image" alt="Hero" class="max-h-20 rounded shadow" />-->
+<!--                                            </div>-->
+<!--                                        </n-form-item>-->
+<!--                                    </n-gi>-->
+                                </n-grid>
+                                <n-divider><h2 class="text-2xl text-green-400">FAQ Section (Home Two)</h2></n-divider>
+                                <n-form-item label="Section Title">
+                                    <n-input v-model:value="form.homeTwo.faqSection.title" placeholder="Enter FAQ title" />
+                                </n-form-item>
+                                <n-dynamic-input
+                                    v-model:value="form.homeTwo.faqSection.items"
+                                    :on-create="() => ({ question: '', answer: '' })"
+                                    show-remove
+                                >
+                                    <template #default="{ value, index }">
+                                        <n-grid :cols="1" :x-gap="12">
+                                            <n-gi>
+                                                <n-form-item :label="`Question ${index + 1}`">
+                                                    <n-input v-model:value="value.question" placeholder="Enter question" />
+                                                </n-form-item>
+                                            </n-gi>
+                                            <n-gi>
+                                                <n-form-item :label="`Answer ${index + 1}`">
+                                                    <n-input v-model:value="value.answer" type="textarea" placeholder="Enter answer" />
+                                                </n-form-item>
+                                            </n-gi>
+                                        </n-grid>
+                                    </template>
+                                </n-dynamic-input>
                             </div>
 
                             <n-space justify="end" class="mt-4">
@@ -201,6 +281,28 @@ function getDefaultHomeOne(settings: any) {
         }
     };
 }
+function getDefaultHomeTwo(settings: any) {
+    return {
+        heroSection: {
+            mainHeading: settings?.homeTwo?.heroSection?.mainHeading || '',
+            secondHeading: settings?.homeTwo?.heroSection?.secondHeading || '',
+            // buttonText: settings?.homeOne?.heroSection?.buttonText || '',
+            // image: settings?.homeOne?.heroSection?.image || ''
+        },
+        bannerSection: {
+            mainHeading: settings?.homeTwo?.bannerSection?.mainHeading || '',
+            secondHeading: settings?.homeTwo?.bannerSection?.secondHeading || '',
+            buttonText: settings?.homeTwo?.bannerSection?.buttonText || '',
+            // image: settings?.homeOne?.bannerSection?.image || ''
+        },
+        faqSection: {
+            title: props.settings?.homeTwo?.faqSection?.title || '',
+            items: props.settings?.homeTwo?.faqSection?.items || [
+                { question: '', answer: '' }
+            ]
+        }
+    };
+}
 
 function getDefaultColors(settings: any) {
     return {
@@ -212,6 +314,7 @@ function getDefaultColors(settings: any) {
 const form = ref({
     homePage: props.settings.homePage || 'homeOne',
     homeOne: getDefaultHomeOne(props.settings),
+    homeTwo: getDefaultHomeTwo(props.settings),
     primaryColor: props.settings.primaryColor || '#18A058',
     logo: props.settings.logo || '',
     colors: getDefaultColors(props.settings),

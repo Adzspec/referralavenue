@@ -55,40 +55,6 @@ class AddrevenueController extends Controller
         return back()->with('success', 'Addrevenue sync started!');
     }
 
-//    public function dispatchStoresJobs(): void
-//    {
-//        $response = $this->apiService->request(
-//            endpoint: '/advertisers',
-//            queryParams: ['channelId' => $this->channelId],
-//        );
-//
-//        $stores = $response['results'] ?? [];
-//        foreach (array_chunk($stores, 100) as $chunk) {
-//            ProcessStoreChunkJob::dispatch($this->company->id, $this->integration->credentials, $chunk);
-//        }
-//    }
-
-//    public function getCampaigns()
-//    {
-//        try {
-//            $response = $this->apiService->request(
-//                endpoint: '/campaigns',
-//                queryParams: ['channelId' => $this->channelId]
-//            );
-//
-//            SyncAddrevenueCampaignsJob::dispatch($response['results'], $this->channelId);
-//
-////            return response()->json([
-////                'message' => 'Campaigns sync is in progress. Check back later for updates.'
-////            ]);
-//        } catch (\Exception $e) {
-//            return response()->json([
-//                'error' => 'Failed to start campaign sync.',
-//                'details' => $e->getMessage()
-//            ], 500);
-//        }
-//    }
-
 
     public function getProducts()
     {
@@ -161,5 +127,25 @@ dd($firstResponse);
 //        ]);
     }
 
+    public function transactions()
+    {
+        dd('sss');
+        $company = \App\Models\Company::find($this->company->id);
+        $integration = $company->integrations()->where('provider', 'addrevenue')->first();
+        if (!$integration || empty($integration->credentials['api_token'])) {
+            return;
+        }
+        $token = $integration->credentials['api_token'];
+        $apiService = new AddrevenueApiService($token);
+        $advertiserResponse = $apiService->request(
+            endpoint: '/transactions',
+            queryParams: [
+                'channelId' => $this->channelId,
+            ],
+            method: 'GET',
+            body: []
+        );
+        dd($advertiserResponse);
+    }
 
 }

@@ -7,6 +7,7 @@ use App\Models\CompanyFrontendSetting;
 use App\Models\CompanyProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Hash;
@@ -68,8 +69,16 @@ class CompanyController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => "required|email|unique:companies,email,{$company->id}",
-            'domain' => "required|string|unique:companies,domain,{$company->id}",
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('companies', 'email')->ignore($company->id),
+            ],
+            'domain' => [
+                'required',
+                'string',
+                Rule::unique('companies', 'domain')->ignore($company->id),
+            ],
             'registration_no' => 'nullable|string',
             'vat' => 'nullable|string',
             'status' => 'required|boolean',
@@ -106,7 +115,7 @@ class CompanyController extends Controller
 
         $subscriptions = \App\Models\CompanySubscription::with('subscription')
             ->where('company_id', $company->id)
-            ->orderByDesc('start_date')
+            ->orderByDesc('created_at')
             ->paginate(10);
 
         return Inertia::render('frontend_settings/company', [
@@ -119,4 +128,23 @@ class CompanyController extends Controller
             ],
         ]);
     }
+
+    public function updateCompanyProfile(Request $request, Company $company)
+    {
+        $validated = $request->validate([
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'zipcode' => 'nullable|string|max:255',
+        ]);
+        $company->profile()->updateOrCreate(
+            ['company_id' => $company->id],
+            $validated
+        );
+
+        return redirect()->back()->with('success', 'Profile updated!');
+    }
+
 }

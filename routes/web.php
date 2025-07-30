@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/dedededed', [HomeController::class, 'transactions']);
+
 Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
@@ -37,7 +39,6 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact');
 })->name('contact');
-
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -65,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('company_subscriptions', CompanySubscriptionController::class);
     Route::post('company_subscriptions/{companySubscription}/cancel', [CompanySubscriptionController::class, 'cancel'])->name('company_subscriptions.cancel');
     Route::get('/company/company-settings', [CompanyController::class, 'companySettings'])->name('company.settings');
+    Route::put('/company/update', [CompanyController::class, 'update']);
+    Route::put('/companies/{company}/profile', [CompanyController::class, 'updateCompanyProfile']);
     Route::get('/company/integrations', [CompanyIntegrationController::class, 'index']);
     Route::put('/company/integrations/adtraction', [CompanyIntegrationController::class, 'adtraction']);
     Route::put('/company/integrations/addrevenue', [CompanyIntegrationController::class, 'addrevenue']);
