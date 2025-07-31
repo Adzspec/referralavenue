@@ -7,7 +7,6 @@
                 <n-button type="primary" @click="openCreateModal">Add Offer</n-button>
             </div>
             <div class="mb-4 flex items-center justify-between">
-                <!-- ...table, etc -->
                 <BulkActions :selectedKeys="selectedRowKeys" :actions="actions" class="mb-4" />
             </div>
             <n-data-table
@@ -24,7 +23,7 @@
                 <n-pagination
                     :page="props.offers.current_page"
                     :page-count="props.offers.last_page"
-                    @update:page="(page) => $inertia.get('/offers', { page }, { preserveScroll: true })"
+                    @update:page="handlePageChange"
                 />
             </div>
             <!-- Create Modal -->
@@ -51,21 +50,9 @@
                 :filters="filters"
                 :stores="props.stores"
                 @update:modelValue="showFilterDrawer = $event"
+                @update:filters="handleDrawerFilters"
             />
 
-<!--            <n-button-->
-<!--                type="primary"-->
-<!--                circle-->
-<!--                size="large"-->
-<!--                style="position: fixed; bottom: 50px; right: 20px; z-index: 50; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)"-->
-<!--                @click="showFilterDrawer = true"-->
-<!--            >-->
-<!--                <template #icon>-->
-<!--                    <n-icon size="30">-->
-<!--                        <Filter />-->
-<!--                    </n-icon>-->
-<!--                </template>-->
-<!--            </n-button>-->
             <div>
                 <n-float-button style="height:60px; width: 60px; position: fixed; bottom: 150px; right: 70px; z-index: 50; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)" type="primary" @click="showFilterDrawer = true" shape="circle">
                     <n-icon>
@@ -121,6 +108,7 @@ const props = defineProps<{
     filters: Record<string, any>;
     can: { create: boolean; edit: boolean; delete: boolean };
 }>();
+
 const filters = ref({
     store_id: props.filters.store_id ?? null,
     status: props.filters.status ?? null,
@@ -128,6 +116,7 @@ const filters = ref({
     is_exclusive: props.filters.is_exclusive ?? null,
     search: props.filters.search ?? '',
 });
+
 const breadcrumbs: BreadcrumbItemType[] = [{ title: 'Offers', href: '/offers' }];
 
 const showCreateModal = ref(false);
@@ -147,6 +136,23 @@ const closeModals = () => {
     showCreateModal.value = false;
     showEditModal.value = false;
     selectedOffer.value = null;
+};
+
+const handlePageChange = (page: number) => {
+    const activeFilters = Object.fromEntries(
+        Object.entries(filters.value).filter(([, v]) => v !== null && v !== '')
+    );
+    router.get('/offers', { ...activeFilters, page }, { preserveScroll: true });
+};
+
+// Called when filter drawer "Apply" is clicked
+const handleDrawerFilters = (newFilters: Record<string, any>) => {
+    filters.value = { ...newFilters }; // update filters in parent
+    // always go to page 1 on filter change
+    const activeFilters = Object.fromEntries(
+        Object.entries(filters.value).filter(([, v]) => v !== null && v !== '')
+    );
+    router.get('/offers', { ...activeFilters, page: 1 }, { preserveScroll: true });
 };
 
 const handleCreateOffer = (data: any) => {
@@ -177,15 +183,13 @@ const handleDelete = (id: number) => {
 };
 
 const columns = [
-    {
-        type: 'selection' as const,
-    },
+    { type: 'selection' as const },
     {
         title: 'Image',
         key: 'image',
         render(row: any) {
             return h('img', {
-                src: row.thumbnail || '/placeholder.png', // fallback if image is null
+                src: row.thumbnail || '/placeholder.png',
                 style: {
                     width: '120px',
                     height: '90px',
@@ -195,10 +199,7 @@ const columns = [
             });
         },
     },
-    {
-        title: 'Title',
-        key: 'title',
-    },
+    { title: 'Title', key: 'title' },
     {
         title: 'Store',
         key: 'store',
@@ -263,6 +264,7 @@ const columns = [
         },
     },
 ];
+
 const bulkDelete = (ids: (string | number)[]) => {
     router.post(
         '/offers/bulk-delete',

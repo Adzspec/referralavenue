@@ -214,7 +214,6 @@ const handleHeroImageUpload = async ({ file, onSuccess, onError }: any) => {
 const handleSliderImageUpload = async ({ file, onError }: any) => {
     try {
         const result = await upload<{ logo_url: string }>('/fileupload', file.file, 'uploadedfile');
-        console.log(result);
         // onSuccess();
         return result.logo_url;
     } catch {
