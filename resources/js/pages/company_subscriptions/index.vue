@@ -4,9 +4,9 @@
         <div class="p-6">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-semibold">Company Subscriptions</h1>
-                <n-button @click="subscribe('price_1RnwDhCTIpgMLNY3CWmdMBTT')" :loading="loading">
-                    Subscribe
-                </n-button>
+<!--                <n-button @click="subscribe('price_1RnwDhCTIpgMLNY3CWmdMBTT')" :loading="loading">-->
+<!--                    Subscribe-->
+<!--                </n-button>-->
                 <n-button v-if="props.can.create" type="primary" @click="openCreateModal">Add Subscription</n-button>
             </div>
 

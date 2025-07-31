@@ -242,6 +242,7 @@ const columns = [
         key: 'actions',
         render(row: Offer) {
             return h('div', { class: 'flex gap-2' }, [
+                props.can.edit &&
                 h(
                     NButton,
                     {
@@ -251,6 +252,7 @@ const columns = [
                     },
                     { default: () => 'Edit' },
                 ),
+                props.can.delete &&
                 h(
                     NButton,
                     {

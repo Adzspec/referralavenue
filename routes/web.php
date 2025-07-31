@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/company/company-settings', [CompanyController::class, 'companySettings'])->name('company.settings');
     Route::put('/company/update', [CompanyController::class, 'update']);
     Route::put('/companies/{company}/profile', [CompanyController::class, 'updateCompanyProfile']);
-    Route::get('/company/integrations', [CompanyIntegrationController::class, 'index']);
+    Route::get('/company/integrations', [CompanyIntegrationController::class, 'index'])->middleware(['permission:manage integrations settings']);
     Route::put('/company/integrations/adtraction', [CompanyIntegrationController::class, 'adtraction']);
     Route::put('/company/integrations/addrevenue', [CompanyIntegrationController::class, 'addrevenue']);
     Route::put('/company/integrations/tradedoubler', [CompanyIntegrationController::class, 'tradedoubler']);

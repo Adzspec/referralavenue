@@ -4,7 +4,7 @@
         <div class="p-6">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-semibold">Categories</h1>
-                <n-button type="primary" @click="openCreateModal">Add Category</n-button>
+                <n-button v-if="props.can.create" type="primary" @click="openCreateModal">Add Category</n-button>
             </div>
 
             <div class="flex justify-between items-center mb-4">
@@ -161,11 +161,13 @@ const columns = [
         key: 'actions',
         render(row: CategoryNode) {
             return h('div', { class: 'flex gap-2' }, [
+                props.can.edit &&
                 h(NButton, {
                     size: 'small',
                     type: 'primary',
                     onClick: () => openEditModal(row),
                 }, { default: () => 'Edit' }),
+                props.can.delete &&
                 h(NButton, {
                     size: 'small',
                     type: 'error',

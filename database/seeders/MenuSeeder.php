@@ -76,27 +76,27 @@ class MenuSeeder extends Seeder
             'title' => 'Categories',
             'href' => '/categories',
             'icon' => 'ChartBarStacked',
-            'permission' => ''
+            'permission' => 'manage categories'
         ]);
 
         Menu::create([
             'title' => 'Stores',
             'href' => '/stores',
             'icon' => 'Store',
-            'permission' => ''
+            'permission' => 'manage stores'
         ]);
         Menu::create([
             'title' => 'Offers',
             'href' => '/offers',
             'icon' => 'Percent',
-            'permission' => ''
+            'permission' => 'manage offers'
         ]);
 
         $settings = Menu::create([
             'title' => 'Company Settings',
             'href' => '/company/settings',
             'icon' => 'ChartBarStacked',
-            'permission' => ''
+            'permission' => 'manage company settings',
         ]);
 
         $settings->children()->createMany([
@@ -110,13 +110,13 @@ class MenuSeeder extends Seeder
                 'title' => 'Homepage Settings',
                 'href' => '/company/home_settings',
                 'icon' => 'List',
-                'permission' => 'manage home settings',
+                'permission' => 'manage homepage settings',
             ],
             [
                 'title' => 'Integrations Settings',
                 'href' => '/company/integrations',
                 'icon' => 'NotebookTabs',
-                'permission' => 'manage integrations',
+                'permission' => 'manage integrations settings',
             ],
         ]);
     }
