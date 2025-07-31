@@ -57,12 +57,12 @@ Route::get('/subscriptions/cancel', function () {
 });
 //Users Routes
 Route::middleware('auth')->group(function () {
-    Route::resource('users', UserController::class)->except(['show']);
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
-    Route::resource('menus', MenuController::class);
-    Route::resource('companies', CompanyController::class);
-    Route::resource('subscriptions', SubscriptionController::class);
+    Route::resource('users', UserController::class)->except(['show'])->middleware(['permission:manage users']);
+    Route::resource('roles', RoleController::class)->middleware(['permission:manage roles']);
+    Route::resource('permissions', PermissionController::class)->middleware(['permission:manage permissions']);
+    Route::resource('menus', MenuController::class)->middleware(['permission:manage menus']);
+    Route::resource('companies', CompanyController::class)->middleware(['permission:manage companies']);
+    Route::resource('subscriptions', SubscriptionController::class)->middleware(['permission:manage subscriptions']);
     Route::resource('company_subscriptions', CompanySubscriptionController::class);
     Route::post('company_subscriptions/{companySubscription}/cancel', [CompanySubscriptionController::class, 'cancel'])->name('company_subscriptions.cancel');
     Route::get('/company/company-settings', [CompanyController::class, 'companySettings'])->name('company.settings');
