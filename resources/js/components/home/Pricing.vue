@@ -12,13 +12,17 @@
         </div>
 
         <!-- Pricing Cards -->
-        <section class="px-4 py-20 ">
+        <section class="px-4 py-20">
             <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
                 <div
                     v-for="(plan, idx) in props.plans"
                     :key="plan.id"
-                    class="relative bg-white px-8 pt-32 pb-16 text-center shadow-lg rounded-[5%]"
+                    :class="[
+            'relative bg-white px-8 pt-32 pb-16 py-5 text-center shadow-lg rounded-[5%]',
+            idx === 3 ? 'mt-10' : ''
+          ]"
                 >
+                    <!-- Floating Label -->
                     <div class="absolute -top-14 left-1/2 -translate-x-1/2 transform">
                         <div
                             class="w-60 px-10 py-8 text-center text-white shadow-xl rounded-4xl"
@@ -35,7 +39,7 @@
                     </div>
 
                     <!-- Features -->
-                    <div class="mt-10 space-y-4 text-left text-gray-700 ">
+                    <div class="mt-10 space-y-4 text-left text-gray-700">
                         <p
                             v-for="(feature, i) in plan.features"
                             :key="i"
@@ -55,12 +59,6 @@
                         CHOOSE PLAN
                     </button>
                 </div>
-            </div>
-
-            <!-- Full Line + Offer Text -->
-            <div class="mt-16 text-center">
-                <hr class="border-t-2 border-gray-300 w-full mb-4" />
-                <p class="text-lg font-semibold text-gray-700">Offer</p>
             </div>
         </section>
     </section>
