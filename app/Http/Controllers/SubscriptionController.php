@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanySubscription;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -86,8 +87,29 @@ class SubscriptionController extends Controller
     {
         $user = auth()->user();
         $plan = \App\Models\Subscription::findOrFail($request->plan_id);
-//        $priceId = $request->price; // Pass this from frontend
+        if ($plan->price == 0) {
+            $alreadyFree = CompanySubscription::query()
+                ->where('company_id', $user->company_id)
+                ->where('subscription_id', $plan->id)
+                ->where('status', 1)
+                ->exists();
 
+            if (!$alreadyFree) {
+                CompanySubscription::query()
+                    ->where('company_id', $user->company_id)
+                    ->where('status', 1)
+                    ->update(['status' => 0]);
+
+                CompanySubscription::create([
+                    'company_id' => $user->company_id,
+                    'subscription_id' => 1,
+                    'start_date' => now(),
+                    'status' => 1,
+                ]);
+            }
+
+            return redirect()->route('subscriptions.success')->with('success', 'Free plan activated!');
+        }
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = StripeSession::create([
@@ -99,7 +121,7 @@ class SubscriptionController extends Controller
             ]],
             'mode' => 'subscription',
             'success_url' => url('/subscriptions/success?session_id={CHECKOUT_SESSION_ID}'),
-            'cancel_url' => url('/subscriptions/cancel'),
+            'cancel_url' => url('/'),
             'metadata' => [
                 'plan_id' => $plan->id, // <-- THIS LINE is the key!
             ],

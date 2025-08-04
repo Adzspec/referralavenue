@@ -5,7 +5,7 @@
             <n-result
                 status="success"
                 title="Thank you for your purchase!"
-                description="Your subscription is being activated. You will receive access shortly."
+                description="Your subscription is activated."
             />
             <n-button
                 type="primary"

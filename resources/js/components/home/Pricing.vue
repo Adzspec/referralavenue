@@ -1,84 +1,55 @@
 <template>
-    <section class="pt-16 bg-slate-100">
+    <section class="bg-slate-100 pt-16">
         <div id="pricing">
-            <h2 class="text-center font-bold text-4xl text-gray-700 pt-8">
+            <h2 class="pt-8 text-center text-4xl font-bold text-gray-700">
                 Start saving time today <br />
                 and <span class="text-blue-600">choose</span> your best plan
             </h2>
-            <p class="text-gray-400 text-center pt-4 text-xl">
+            <p class="pt-4 text-center text-xl text-gray-400">
                 Best for freelance developers who need to <br />save their time
             </p>
         </div>
-        <section class=" py-20 px-4">
-
-            <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-
-                <!-- Plan 1 -->
-                <div class="relative bg-white shadow-lg pt-32 pb-16 px-8 text-center ">
-                    <div class="absolute -top-14 left-1/2 transform -translate-x-1/2">
-                        <div class="bg-gradient-to-r from-indigo-900 to-purple-600 text-white px-10 py-8 shadow-xl text-center w-60">
-                            <h2 class="text-sm font-semibold tracking-widest">HATCHLING PLAN</h2>
-                            <p class="text-5xl font-bold mt-3">$29</p>
-                            <p class="text-sm uppercase tracking-wider mt-2">Per Month</p>
+        <section class="px-4 py-20">
+            <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                    v-for="(plan, idx) in props.plans"
+                    :key="plan.id"
+                    class="relative bg-white px-8 pt-32 pb-16 text-center shadow-lg"
+                >
+                    <div class="absolute -top-14 left-1/2 -translate-x-1/2 transform">
+                        <div
+                            class="w-60 px-10 py-8 text-center text-white shadow-xl"
+                            :class="getPlanGradient(idx)"
+                        >
+                            <h2 class="text-sm font-semibold tracking-widest uppercase">
+                                {{ plan.name }}
+                            </h2>
+                            <p class="mt-3 text-3xl font-bold">
+                                {{ plan.currency || 'SEK ' }}{{ plan.price }}
+                            </p>
+                            <p class="mt-2 text-sm tracking-wider uppercase">Per Month</p>
                         </div>
                     </div>
-                    <div class="space-y-4 text-left text-gray-700 mt-10">
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> Unlimited Support</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> 5GB Server Space</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> 2 Users per Project</p>
-                        <p class="flex items-center"><span class="text-red-500 mr-2">✘</span> Email Integration</p>
-                        <p class="flex items-center"><span class="text-red-500 mr-2">✘</span> Unlimited Download</p>
+                    <div class="mt-10 space-y-4 text-left text-gray-700">
+                        <p
+                            v-for="(feature, i) in plan.features"
+                            :key="i"
+                            class="flex items-center"
+                        >
+                            <span class="mr-2 text-green-500">✔</span>
+                            {{ feature }}
+                        </p>
                     </div>
-                    <button class="mt-8 w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 rounded">
+                    <button
+                        class="mt-8 w-full rounded py-2 font-semibold text-white"
+                        :class="getPlanButtonColor(idx)"
+                        @click="purchasePlan(plan.id)"
+                    >
                         CHOOSE PLAN
                     </button>
                 </div>
-
-                <!-- Plan 2 -->
-                <div class="relative bg-white shadow-lg pt-32 pb-16 px-8 text-center">
-                    <div class="absolute -top-14 left-1/2 transform -translate-x-1/2">
-                        <div class="bg-gradient-to-r from-green-700 to-lime-500 text-white px-10 py-8 shadow-xl text-center w-60">
-                            <h2 class="text-md font-semibold tracking-widest">BABY PLAN</h2>
-                            <p class="text-5xl font-bold mt-3">$69</p>
-                            <p class="text-sm uppercase tracking-wider mt-2">Per Month</p>
-                        </div>
-                    </div>
-                    <div class="space-y-4 text-left text-gray-700 mt-10">
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> Unlimited Support</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> 10GB Server Space</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> 5 Users per Project</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> Email Integration</p>
-                        <p class="flex items-center"><span class="text-red-500 mr-2">✘</span> Unlimited Download</p>
-                    </div>
-                    <button class="mt-8 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
-                        CHOOSE PLAN
-                    </button>
-                </div>
-
-                <!-- Plan 3 -->
-                <div class="relative bg-white shadow-lg pt-32 pb-16 px-8 text-center">
-                    <div class="absolute -top-14 left-1/2 transform -translate-x-1/2">
-                        <div class="bg-gradient-to-r from-orange-700 to-orange-500 text-white px-10 py-8 shadow-xl text-center w-60">
-                            <h2 class="text-md font-semibold tracking-widest">PREMIUM PLAN</h2>
-                            <p class="text-5xl font-bold mt-3">$99</p>
-                            <p class="text-sm uppercase tracking-wider mt-2">Per Month</p>
-                        </div>
-                    </div>
-                    <div class="space-y-4 text-left text-gray-700 mt-10">
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> Unlimited Support</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> 25GB Server Space</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> 10 Users per Project</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> Email Integration</p>
-                        <p class="flex items-center"><span class="text-green-500 mr-2">✔</span> Unlimited Download</p>
-                    </div>
-                    <button class="mt-8 w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded">
-                        CHOOSE PLAN
-                    </button>
-                </div>
-
             </div>
         </section>
-
     </section>
 </template>
 
@@ -86,23 +57,41 @@
 import { router } from '@inertiajs/vue3';
 
 interface Plan {
-    id: number | string
-    name: string
-    price: number | string
-    currency: string
-    features: string[]
+    id: number | string;
+    name: string;
+    price: number | string;
+    currency?: string;
+    features: string[];
 }
 
 const props = defineProps<{
-    plans: Plan[],
-    user?: any
-}>()
+    plans: Plan[];
+    user?: any;
+}>();
+
 function purchasePlan(planId: number | string) {
     if (!props.user) {
-        router.visit('/register') // or '/login' as preferred
-        return
+        router.visit('/register');
+        return;
     }
-    router.post('/subscriptions/checkout', { plan_id: planId })
+    router.post('/subscriptions/checkout', { plan_id: planId });
 }
-console.log(props.plans)
+
+// Frontend color logic: Plan index OR name ke hisaab se
+function getPlanGradient(idx: number) {
+    // Prefer index, but you can use name.toLowerCase() as well
+    if (idx === 0) return 'bg-gradient-to-r from-indigo-900 to-purple-600';
+    if (idx === 1) return 'bg-gradient-to-r from-green-700 to-lime-500';
+    if (idx === 2) return 'bg-gradient-to-r from-orange-700 to-orange-500';
+    // fallback
+    return 'bg-gradient-to-r from-slate-700 to-slate-400';
+}
+
+function getPlanButtonColor(idx: number) {
+    if (idx === 0) return 'bg-purple-700 hover:bg-purple-800';
+    if (idx === 1) return 'bg-green-600 hover:bg-green-700';
+    if (idx === 2) return 'bg-orange-500 hover:bg-orange-600';
+    // fallback
+    return 'bg-gray-600 hover:bg-gray-700';
+}
 </script>

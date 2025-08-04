@@ -42,11 +42,14 @@ Route::get('/contact', function () {
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/subscriptions/checkout', function () {
+    return redirect()->route('home');
+});
 Route::post('/subscriptions/checkout', [SubscriptionController::class, 'createCheckoutSession']);
 Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancelSubscription']);
 Route::get('/subscriptions/success', function () {
     return Inertia::render('subscriptions/success');
-});
+})->name('subscriptions.success');
 Route::post('/stripe/payment-intent', [PaymentController::class, 'createIntent'])->name('stripe.payment-intent');
 Route::post('/webhook', [PaymentController::class, 'handleWebhook'])->name('stripe.webhook');
 Route::post('/fileupload', [CompanyFrontendSettingsController::class, 'fileupload']);
