@@ -1,5 +1,6 @@
 <template>
     <section class="bg-slate-100 pt-16">
+        <!-- Heading -->
         <div id="pricing">
             <h2 class="pt-8 text-center text-4xl font-bold text-gray-700">
                 Start saving time today <br />
@@ -9,16 +10,18 @@
                 Best for freelance developers who need to <br />save their time
             </p>
         </div>
-        <section class="px-4 py-20">
+
+        <!-- Pricing Cards -->
+        <section class="px-4 py-20 ">
             <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
                 <div
                     v-for="(plan, idx) in props.plans"
                     :key="plan.id"
-                    class="relative bg-white px-8 pt-32 pb-16 text-center shadow-lg"
+                    class="relative bg-white px-8 pt-32 pb-16 text-center shadow-lg rounded-[5%]"
                 >
                     <div class="absolute -top-14 left-1/2 -translate-x-1/2 transform">
                         <div
-                            class="w-60 px-10 py-8 text-center text-white shadow-xl"
+                            class="w-60 px-10 py-8 text-center text-white shadow-xl rounded-4xl"
                             :class="getPlanGradient(idx)"
                         >
                             <h2 class="text-sm font-semibold tracking-widest uppercase">
@@ -30,7 +33,9 @@
                             <p class="mt-2 text-sm tracking-wider uppercase">Per Month</p>
                         </div>
                     </div>
-                    <div class="mt-10 space-y-4 text-left text-gray-700">
+
+                    <!-- Features -->
+                    <div class="mt-10 space-y-4 text-left text-gray-700 ">
                         <p
                             v-for="(feature, i) in plan.features"
                             :key="i"
@@ -40,14 +45,22 @@
                             {{ feature }}
                         </p>
                     </div>
+
+                    <!-- Button -->
                     <button
-                        class="mt-8 w-full rounded py-2 font-semibold text-white"
+                        class="mt-8 w-full rounded-2xl py-2 font-semibold text-white"
                         :class="getPlanButtonColor(idx)"
                         @click="purchasePlan(plan.id)"
                     >
                         CHOOSE PLAN
                     </button>
                 </div>
+            </div>
+
+            <!-- Full Line + Offer Text -->
+            <div class="mt-16 text-center">
+                <hr class="border-t-2 border-gray-300 w-full mb-4" />
+                <p class="text-lg font-semibold text-gray-700">Offer</p>
             </div>
         </section>
     </section>
@@ -77,13 +90,10 @@ function purchasePlan(planId: number | string) {
     router.post('/subscriptions/checkout', { plan_id: planId });
 }
 
-// Frontend color logic: Plan index OR name ke hisaab se
 function getPlanGradient(idx: number) {
-    // Prefer index, but you can use name.toLowerCase() as well
     if (idx === 0) return 'bg-gradient-to-r from-indigo-900 to-purple-600';
     if (idx === 1) return 'bg-gradient-to-r from-green-700 to-lime-500';
     if (idx === 2) return 'bg-gradient-to-r from-orange-700 to-orange-500';
-    // fallback
     return 'bg-gradient-to-r from-slate-700 to-slate-400';
 }
 
@@ -91,7 +101,6 @@ function getPlanButtonColor(idx: number) {
     if (idx === 0) return 'bg-purple-700 hover:bg-purple-800';
     if (idx === 1) return 'bg-green-600 hover:bg-green-700';
     if (idx === 2) return 'bg-orange-500 hover:bg-orange-600';
-    // fallback
     return 'bg-gray-600 hover:bg-gray-700';
 }
 </script>
