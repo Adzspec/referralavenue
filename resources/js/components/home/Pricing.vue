@@ -13,14 +13,11 @@
 
         <!-- Pricing Cards -->
         <section class="px-4 py-20">
-            <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
                 <div
                     v-for="(plan, idx) in props.plans"
                     :key="plan.id"
-                    :class="[
-            'relative bg-white px-8 pt-32 pb-16 py-5 text-center shadow-lg rounded-[5%]',
-            idx === 3 ? 'mt-10' : ''
-          ]"
+                    class="relative bg-white px-8 pt-32 pb-16 my-10 text-center shadow-lg rounded-[5%]"
                 >
                     <!-- Floating Label -->
                     <div class="absolute -top-14 left-1/2 -translate-x-1/2 transform">
