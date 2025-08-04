@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -32,18 +33,40 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                'unique:users,email',
+            ],
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+                'regex:/[A-Z]/', // At least one uppercase
+                'regex:/[0-9]/', // At least one number
+                'regex:/[@$!%*?&#^()_+\-=\[\]{};\'\\:"|,.<>\/?]/', // At least one special character
+            ],
+        ], [
+            'password.regex' => 'Password must be at least 8 characters and contain an uppercase letter, a number, and a special character.',
+        ]);
+        $company = Company::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'status' => 1,
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->name.' Admin',
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'company_id' => $company->id,
         ]);
+        $user->assignRole('company admin');
 
         event(new Registered($user));
-
         Auth::login($user);
 
         return to_route('dashboard');

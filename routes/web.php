@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class)->middleware(['permission:manage roles']);
     Route::resource('permissions', PermissionController::class)->middleware(['permission:manage permissions']);
     Route::resource('menus', MenuController::class)->middleware(['permission:manage menus']);
-    Route::resource('companies', CompanyController::class)->middleware(['permission:manage companies']);
+    Route::resource('companies', CompanyController::class);
     Route::resource('subscriptions', SubscriptionController::class)->middleware(['permission:manage subscriptions']);
     Route::resource('company_subscriptions', CompanySubscriptionController::class);
     Route::post('company_subscriptions/{companySubscription}/cancel', [CompanySubscriptionController::class, 'cancel'])->name('company_subscriptions.cancel');

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(MenuSeeder::class);
         $this->call(SuperAdminSeeder::class);
+        $this->call(SubscriptionSeeder::class);
 
     }
 }

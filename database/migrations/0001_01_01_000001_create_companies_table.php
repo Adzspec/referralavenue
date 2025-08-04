@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('vat')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('domain')->unique();
+            $table->string('domain')->nullable()->unique();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
