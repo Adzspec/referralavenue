@@ -1,21 +1,22 @@
 <template>
     <div class="bg-slate-100 font-sans px-4 py-16">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-center gap-8">
 
             <!-- Left: Heading -->
-            <div class="md:w-1/2">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center md:text-left">
-                    We are <span class="text-blue-600">awesome team</span> <br />
-                    for your business dream
-                </h2>
+            <div>
+                <p
+                    class="font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 leading-snug"
+                >
+                    What <span class="text-blue-600">Our </span><br />
+                    Users Say
+                </p>
             </div>
 
-            <!-- Right: Description -->
-            <div class="md:w-1/2 text-gray-600 space-y-3 text-center md:text-left text-base">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Sed luctus eget justo et iaculis. Quisque vitae nulla malesuada.</p>
-                <p>Auctor arcu vitae, luctus nisi. Sed elementum vitae ligula id.</p>
-                <p>Imperdiet.</p>
+            <div class="space-y-2 text-gray-500 text-base sm:text-md max-w-md">
+                <p>“This platform helped us launch a fully branded affiliate site in a single day. The publisher tools and reporting are game-changers.”</p>
+                <p>— Marketing Lead, Cartero Digital Marketing</p>
+                <p>“We cut onboarding time by 80% and doubled active publishers in the first month.”</p>
+                <p>— Head of Growth, Lunar media</p>
             </div>
 
         </div>
@@ -81,3 +82,5 @@
         </div>
     </div>
 </template>
+<script setup lang="ts">
+</script>
