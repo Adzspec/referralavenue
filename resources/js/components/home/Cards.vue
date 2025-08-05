@@ -6,16 +6,16 @@
             <p
                 class="font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 leading-snug"
             >
-                We are <span class="text-blue-600">awesome team</span><br />
-                for your business dream
+                What <span class="text-blue-600">Our </span><br />
+                Users Say
             </p>
         </div>
 
         <div class="space-y-2 text-gray-500 text-base sm:text-md max-w-md">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Sed luctus eget justo et iaculis Quisque vitae nulla malesuada,.</p>
-            <p>auctor arcu vitae, luctus nisi Sed elementum vitae ligula id.</p>
-            <p>imperdiet.</p>
+            <p>“This platform helped us launch a fully branded affiliate site in a single day. The publisher tools and reporting are game-changers.”</p>
+            <p>— Marketing Lead, Cartero Digital Marketing</p>
+            <p>“We cut onboarding time by 80% and doubled active publishers in the first month.”</p>
+            <p>— Head of Growth, Lunar media</p>
         </div>
     </div>
 

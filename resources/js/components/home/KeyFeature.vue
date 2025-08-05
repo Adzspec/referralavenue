@@ -35,7 +35,7 @@
                     </div>
                     <div>
                         <h3 class="text-base md:text-lg font-semibold text-gray-800">
-                            Expand Your Reach
+                            Who is it for?
                         </h3>
                         <p class="text-gray-500 text-xs md:text-sm">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -64,7 +64,7 @@
                     </div>
                     <div>
                         <h3 class="text-base md:text-lg font-semibold text-gray-800">
-                            Annualized Growth
+                            Key features at a glance
                         </h3>
                         <p class="text-gray-500 text-xs md:text-sm">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -93,7 +93,7 @@
                     </div>
                     <div>
                         <h3 class="text-base md:text-lg font-semibold text-gray-800">
-                            Book Your Providers
+                            Use Cases
                         </h3>
                         <p class="text-gray-500 text-xs md:text-sm">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
