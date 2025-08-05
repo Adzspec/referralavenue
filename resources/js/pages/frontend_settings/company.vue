@@ -45,7 +45,7 @@
                             <InfoTag label="Current Subscription" type="info" :value="company.latest_subscription?.subscription?.name" />
                             <InfoTag label="Start Date" type="success" :value="company.latest_subscription?.start_date" />
                             <InfoTag label="Expiry Date" type="error" :value="company.latest_subscription?.end_date" />
-                            <InfoTag label="Status" type="error" :value="company.latest_subscription?.status" />
+                            <InfoTag label="Status" type="success" :value="company.latest_subscription?.status ? 'Active' : 'Inactive'" />
                         </ul>
                         <div class="mt-6 flex w-full justify-end gap-2">
                             <n-button type="info" @click="goHome">
@@ -277,7 +277,7 @@ const subscriptionColumns = [
         title: 'Status',
         key: 'status',
         render: (row: CompanySubscriptionRow) => {
-            return row.status === 'active'
+            return row.status === '1'
                 ? h('span', { class: 'text-green-600 font-semibold' }, 'Active')
                 : h('span', { class: 'text-red-500 font-semibold' }, row.status || 'Inactive');
         },
