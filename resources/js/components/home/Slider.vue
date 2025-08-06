@@ -8,11 +8,7 @@
                 <span class="text-blue-600">Complex</span><br />
                 Connections
             </h2>
-            <p class="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
-                Lorem ipsum dolor sit amet,<br />
-                consectetur adipiscing elit.<br />
-                Sed luctus eget justo et iaculis.
-            </p>
+
         </div>
 
         <!-- Right Slider -->
@@ -37,7 +33,7 @@
                         />
                         <h3 class="text-lg font-semibold">{{ slide.title }}</h3>
                         <p class="text-sm text-gray-500">{{ slide.subtitle }}</p>
-                        <a href="#" class="text-blue-600 text-sm">View Details</a>
+
                     </div>
                 </SwiperSlide>
             </Swiper>
@@ -55,23 +51,23 @@ import { Navigation } from 'swiper/modules'
 const slides = [
     {
         img: 'https://wp.alithemes.com/html/monst/assets/imgs/placeholders/img-4.jpg',
-        title: 'User Growth',
-        subtitle: 'Harvard University',
+        title: 'Fast and easy growth',
+
     },
     {
         img: 'https://wp.alithemes.com/html/monst/assets/imgs/placeholders/img-2.jpg',
-        title: 'Product Launch',
-        subtitle: 'CocaCola, Co',
+        title: 'All affiliate programs in one place',
+
     },
     {
         img: 'https://wp.alithemes.com/html/monst/assets/imgs/placeholders/img-3.jpg',
         title: 'Product Launch',
-        subtitle: 'CocaCola, Co',
+
     },
     {
         img: 'https://wp.alithemes.com/html/monst/assets/imgs/placeholders/img-5.jpg',
         title: 'Analytics',
-        subtitle: 'Google Inc',
+
     },
 ]
 </script>

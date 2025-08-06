@@ -37,9 +37,11 @@
                         <h3 class="text-base md:text-lg font-semibold text-gray-800">
                             Who is it for?
                         </h3>
+                        <h1 class="text-gray-500 text-xs md:text-sm">
+                            ✅ Instant Affiliate Site Setup
+                        </h1>
                         <p class="text-gray-500 text-xs md:text-sm">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Veritatis expedita animi.
+                            Launch a fully functional, custom-branded affiliate marketplace in minutes—no coding required.
                         </p>
                     </div>
                 </div>
@@ -66,10 +68,12 @@
                         <h3 class="text-base md:text-lg font-semibold text-gray-800">
                             Key features at a glance
                         </h3>
+
+                        <h1 class="text-gray-500 text-xs md:text-sm">
+                            ✅ Dynamic Web Pages
+                        </h1>
                         <p class="text-gray-500 text-xs md:text-sm">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Veritatis expedita animi.
-                        </p>
+                            Visually rich, mobile-friendly, and SEO-optimized pages that showcase offers, categories, and affiliate content.                        </p>
                     </div>
                 </div>
 
@@ -95,10 +99,11 @@
                         <h3 class="text-base md:text-lg font-semibold text-gray-800">
                             Use Cases
                         </h3>
+                        <h1 class="text-gray-500 text-xs md:text-sm">
+                            ✅ Multi-Network Integration
+                        </h1>
                         <p class="text-gray-500 text-xs md:text-sm">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Veritatis expedita animi.
-                        </p>
+                            Connect with hundreds of affiliate networks and consolidate offers in one powerful system.                        </p>
                     </div>
                 </div>
             </div>
@@ -116,3 +121,5 @@
 
 
 </template>
+<script setup lang="ts">
+</script>

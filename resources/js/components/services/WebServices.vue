@@ -41,9 +41,9 @@
                             1
                         </div>
                         <div class="mt-4">
-                            <h4 class="font-bold text-lg sm:text-xl">Web design UX/UI</h4>
+                            <h4 class="font-bold text-lg sm:text-xl">Instant Affiliate Site Setup</h4>
                             <p class="text-sm sm:text-md text-gray-400 mt-2 leading-relaxed">
-                                Lorem ipsum dolor, sit amet consectetur adipiscing elit. Veritatis expedita animi.
+                                Launch a fully functional, custom-branded affiliate marketplace in minutes—no coding required.
                             </p>
                         </div>
                     </div>
@@ -53,9 +53,9 @@
                             2
                         </div>
                         <div class="mt-4">
-                            <h4 class="font-bold text-lg sm:text-xl">React Develop</h4>
+                            <h4 class="font-bold text-lg sm:text-xl">Dynamic Web Pages</h4>
                             <p class="text-sm sm:text-md text-gray-400 mt-2 leading-relaxed">
-                                Lorem ipsum dolor, sit amet consectetur adipiscing elit. Veritatis expedita animi.
+                                Visually rich, mobile-friendly, and SEO-optimized pages that showcase offers, categories, and affiliate content.
                             </p>
                         </div>
                     </div>
@@ -65,10 +65,9 @@
                             3
                         </div>
                         <div class="mt-4">
-                            <h4 class="font-bold text-lg sm:text-xl">Ecommerce Build</h4>
+                            <h4 class="font-bold text-lg sm:text-xl">Automated Publisher Sign-Up</h4>
                             <p class="text-sm sm:text-md text-gray-400 mt-2 leading-relaxed">
-                                Lorem ipsum dolor, sit amet consectetur adipiscing elit. Veritatis expedita animi.
-                            </p>
+                                Simplify onboarding with self-service registration, approvals, and integrated KYC workflows.                            </p>
                         </div>
                     </div>
 
@@ -77,14 +76,38 @@
                             4
                         </div>
                         <div class="mt-4">
-                            <h4 class="font-bold text-lg sm:text-xl">CMS Develop</h4>
+                            <h4 class="font-bold text-lg sm:text-xl">Real-Time Reporting & Analytics</h4>
                             <p class="text-sm sm:text-md text-gray-400 mt-2 leading-relaxed">
-                                Lorem ipsum dolor, sit amet consectetur adipiscing elit. Veritatis expedita animi.
+                                Monitor clicks, conversions, commissions, and ROI in one centralized dashboard.                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="bg-blue-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold">
+                            5
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-bold text-lg sm:text-xl">Full Branding Control</h4>
+                            <p class="text-sm sm:text-md text-gray-400 mt-2 leading-relaxed">
+                                Your domain. Your logo. Your look. Customize every aspect of your affiliate marketplace.
                             </p>
                         </div>
                     </div>
+                    <div class="flex flex-col">
+                        <div class="bg-blue-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold">
+                            6
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-bold text-lg sm:text-xl"> Multi-Network Integration</h4>
+                            <p class="text-sm sm:text-md text-gray-400 mt-2 leading-relaxed">
+                                Connect with hundreds of affiliate networks and consolidate offers in one powerful system.                            </p>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
     </div>
 </template>
+<script setup lang="ts">
+</script>
