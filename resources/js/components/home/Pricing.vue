@@ -3,11 +3,11 @@
         <!-- Heading -->
         <div id="pricing">
             <h2 class="pt-8 text-center text-4xl font-bold text-gray-700">
-                Start saving time today <br />
-                and <span class="text-blue-600">choose</span> your best plan
+                Multi-Network  Aggregation Centralize<br />
+                Offers  <span class="text-blue-600">from Across</span>  the Affiliate World
             </h2>
             <p class="pt-4 text-center text-xl text-gray-400">
-                Best for freelance developers who need to <br />save their time
+                Seamlessly integrate with hundreds of affiliate networks  <br /> and automatically pull in new offers. Create one central hub for publishers, regardless of network source.
             </p>
         </div>
 
@@ -59,6 +59,143 @@
             </div>
         </section>
     </section>
+
+
+
+    <div class="max-w-7xl mx-auto px-4 py-16 overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden rounded-xl">
+                <table class="min-w-full table-fixed text-sm text-left">
+                    <thead class="bg-white text-gray-800">
+                    <tr>
+                        <th class="w-1/4 p-4 text-2xl font-semibold text-left">Features</th>
+
+                        <!-- Basic -->
+                        <th class="w-1/4 p-4 text-center">
+                            <div class="text-lg font-semibold">Basic</div>
+                            <div class="mt-2">
+                                <button class="bg-gray-100 text-gray-800 font-medium px-5 py-2 rounded-md text-xs">Start for free</button>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">Best diffing tools<br/>available for free forever</div>
+                        </th>
+
+                        <!-- Pro + Desktop -->
+                        <th class="w-1/4 p-4 text-center relative">
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2">
+                                <span class="text-xs font-bold bg-green-100 text-green-700 px-3 py-2 rounded-full uppercase">Most Popular</span>
+                            </div>
+                            <div class="text-lg font-semibold mt-8">Pro <span class="text-green-600">+ Desktop</span></div>
+                            <div class="mt-2">
+                                <button class="bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md text-xs">Upgrade now</button>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 leading-tight">
+                                <div>Pro <span class="text-gray-400">via browser</span></div>
+                                <div>Desktop <span class="text-gray-400">for Win/Mac/Linux</span></div>
+                            </div>
+                        </th>
+
+                        <!-- Enterprise -->
+                        <th class="w-1/4 p-4 text-center">
+                            <div class="text-lg font-semibold">Enterprise</div>
+                            <div class="mt-2">
+                                <button class="bg-gray-800 text-white font-medium px-5 py-2 rounded-md text-xs">Upgrade now</button>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 leading-tight">All Pro and Desktop<br/>features tailored for teams</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white">
+
+                    <!-- Feature Rows -->
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Text and image diff tools</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Word and PDF diff tools</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Folder diff tools</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Advanced text modifiers</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Real-time diff</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Diff merging</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Syntax highlighting</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">PDF exports</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Secure offline mode</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Sharing and commenting</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">AI assist in understanding diffs</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Ads-free experience</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg  mx-auto">✔️</div></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">

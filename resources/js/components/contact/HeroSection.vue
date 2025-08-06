@@ -6,17 +6,21 @@
 
                 <!-- Text Content -->
                 <div class="w-full md:w-1/2 min-w-0 text-center md:text-left">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800">
-                        Committed to <span class="text-blue-600">People</span>,
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800">
+                        Launch, Manage, and <span class="text-blue-600">Grow</span>,
                     </h1>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mt-2">
-                        Committed to the <br class="hidden sm:inline" /> Future
+                    <h2
+                        class="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800 mt-2"
+                    >
+                        Your Affiliate Business  <br class="hidden sm:inline" />
+                        All in One Place
                     </h2>
                     <p class="mt-4 text-gray-500 text-base">
-                        We are <span class="text-blue-600 font-semibold">Monst</span>, a Creative Design Social Marketing
+                        We provide <span class="text-blue-600 font-semibold">everything</span>, a
+                        you need to build and run a fully branded, high-performing affiliate site
                     </p>
                     <p class="text-gray-500 text-base mt-2">
-                        Helping you maximize operations management with digitization
+                        without the need for developers or complex integrations.
                     </p>
                     <div class="mt-6 flex flex-col sm:flex-row sm:justify-center md:justify-start gap-4">
                         <button class="bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-700">
@@ -132,3 +136,5 @@
         </section>
     </section>
 </template>
+<script setup lang="ts">
+</script>

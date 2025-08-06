@@ -2,10 +2,10 @@
     <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-0 dark:bg-[#0a0a0a]">
         <!-- Hero Section -->
         <section class="px-4 py-16 text-center sm:px-8 md:px-16 lg:px-20">
-            <h1 class="text-3xl leading-tight font-bold text-gray-800 sm:text-4xl md:text-5xl">Committed to People</h1>
-            <h2 class="mt-2 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl">Committed <span class="text-blue-600">to the Future</span></h2>
+            <h1 class="text-3xl leading-tight font-bold text-gray-800 sm:text-4xl md:text-5xl">Launch, Manage, and Grow </h1>
+            <h2 class="mt-2 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl">Your Affiliate Business <span class="text-blue-600">All in One Place</span></h2>
             <p class="mx-auto mt-4 max-w-2xl text-base text-gray-500 sm:text-lg">
-                We are <span class="font-semibold text-blue-600">Monst</span>, a Creative Design Social Marketing
+                We provide <span class="font-semibold text-blue-600">everything</span> you need to build and run a fully branded, high-performing affiliate site—without the need for developers or complex integrations
             </p>
             <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <button class="rounded-md bg-blue-600 px-6 py-3 text-base text-white shadow transition hover:bg-blue-700">Key Features</button>

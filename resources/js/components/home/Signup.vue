@@ -13,13 +13,7 @@
             style="enable-background: new 0 0 1113.6 655.4"
             xml:space="preserve"
         >
-<!--        <style type="text/css">-->
-<!--          .st0 {-->
-<!--              fill-rule: evenodd;-->
-<!--              clip-rule: evenodd;-->
-<!--              fill: #f3f3f3;-->
-<!--          }-->
-<!--        </style>-->
+
             <g>
           <path
               class="st0"
@@ -1768,3 +1762,12 @@
         </div>
     </section>
 </template>
+<style type="text/css">
+.st0 {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #f3f3f3;
+}
+</style>
+<script setup lang="ts">
+</script>
