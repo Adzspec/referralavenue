@@ -65,7 +65,13 @@ class MenuSeeder extends Seeder
                 'permission' => 'manage subscriptions',
             ],
             [
-                'title' => 'Company Subscriptions	',
+                'title' => 'Subscription Features',
+                'href' => '/feature-matrix',
+                'icon' => 'ListChecks',
+                'permission' => '',
+            ],
+            [
+                'title' => 'Company Subscriptions',
                 'href' => '/company_subscriptions',
                 'icon' => 'NotebookTabs',
                 'permission' => 'manage company subscriptions',
