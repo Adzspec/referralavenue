@@ -62,115 +62,124 @@
 
 
 
-    <!-- Mobile view: cards layout -->
-    <div class="sm:hidden px-4 py-10 space-y-8">
-        <!-- Feature names -->
-        <div class="space-y-6">
-            <div class="bg-white rounded-xl p-4 shadow">
-                <h3 class="text-xl font-bold text-gray-800">Basic</h3>
-                <p class="text-sm text-gray-500">Best diffing tools available for free forever</p>
-                <button class="mt-4 bg-gray-100 text-gray-800 font-medium px-4 py-2 rounded-md text-xs">Start for free</button>
-                <ul class="mt-4 text-sm text-gray-600 space-y-1">
-                    <li>✔️ Text and image diff tools</li>
-                    <li>✔️ Word and PDF diff tools</li>
-                    <li>❌ Folder diff tools</li>
-                    <li>❌ Advanced text modifiers</li>
-                    <li>❌ Real-time diff</li>
-                    <li>❌ Diff merging</li>
-                    <li>❌ Syntax highlighting</li>
-                    <li>❌ PDF exports</li>
-                    <li>❌ Secure offline mode</li>
-                    <li>✔️ Sharing and commenting</li>
-                    <li>✔️ AI assist in understanding diffs</li>
-                    <li>❌ Ads-free experience</li>
-                </ul>
-            </div>
-
-            <div class="bg-white rounded-xl p-4 shadow relative">
-                <div class="absolute top-2 right-2 text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-full">Most Popular</div>
-                <h3 class="text-xl font-bold text-gray-800">Pro + Desktop</h3>
-                <p class="text-sm text-gray-500">Pro via browser, Desktop for Win/Mac/Linux</p>
-                <button class="mt-4 bg-green-500 text-white font-medium px-4 py-2 rounded-md text-xs">Upgrade now</button>
-                <ul class="mt-4 text-sm text-gray-600 space-y-1">
-                    <li>✔️ Text and image diff tools</li>
-                    <li>✔️ Word and PDF diff tools</li>
-                    <li>✔️ Folder diff tools</li>
-                    <li>✔️ Advanced text modifiers</li>
-                    <li>✔️ Real-time diff</li>
-                    <li>✔️ Diff merging</li>
-                    <li>✔️ Syntax highlighting</li>
-                    <li>✔️ PDF exports</li>
-                    <li>✔️ Secure offline mode</li>
-                    <li>✔️ Sharing and commenting</li>
-                    <li>✔️ AI assist in understanding diffs</li>
-                    <li>✔️ Ads-free experience</li>
-                </ul>
-            </div>
-
-            <div class="bg-white rounded-xl p-4 shadow">
-                <h3 class="text-xl font-bold text-gray-800">Enterprise</h3>
-                <p class="text-sm text-gray-500">All Pro and Desktop features tailored for teams</p>
-                <button class="mt-4 bg-gray-800 text-white font-medium px-4 py-2 rounded-md text-xs">Upgrade now</button>
-                <ul class="mt-4 text-sm text-gray-600 space-y-1">
-                    <li>✔️ Text and image diff tools</li>
-                    <li>✔️ Word and PDF diff tools</li>
-                    <li>✔️ Folder diff tools</li>
-                    <li>✔️ Advanced text modifiers</li>
-                    <li>✔️ Real-time diff</li>
-                    <li>✔️ Diff merging</li>
-                    <li>✔️ Syntax highlighting</li>
-                    <li>✔️ PDF exports</li>
-                    <li>✔️ Secure offline mode</li>
-                    <li>✔️ Sharing and commenting</li>
-                    <li>✔️ AI assist in understanding diffs</li>
-                    <li>✔️ Ads-free experience</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Desktop view: comparison table -->
-    <div class="hidden sm:block max-w-7xl mx-auto px-4 py-16 overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-4 py-16 overflow-x-auto">
         <div class="inline-block min-w-full align-middle">
-            <div class="overflow-hidden ">
+            <div class="overflow-hidden rounded-xl">
                 <table class="min-w-full table-fixed text-sm text-left">
                     <thead class="bg-white text-gray-800">
                     <tr>
-                        <th class="w-1/4 p-4 text-xl font-semibold">Features</th>
+                        <th class="w-1/4 p-4 text-xl sm:text-2xl font-semibold text-left">Features</th>
+
+                        <!-- Basic -->
                         <th class="w-1/4 p-4 text-center">
-                            <div class="text-lg font-semibold">Basic</div>
-                            <button class="mt-2 bg-gray-100 text-gray-800 font-medium px-4 py-1.5 rounded-md text-xs">Start for free</button>
+                            <div class="text-base sm:text-lg font-semibold">Basic</div>
+                            <div class="mt-2">
+                                <button class="w-full sm:w-auto bg-gray-100 text-gray-800 font-medium px-4 py-2 sm:px-5 rounded-md text-xs sm:text-sm">Start for free</button>
+                            </div>
                             <div class="text-xs text-gray-500 mt-2">Best diffing tools<br />available for free forever</div>
                         </th>
+
+                        <!-- Pro + Desktop -->
                         <th class="w-1/4 p-4 text-center relative">
-                            <div class="absolute top-2 left-1/2 -translate-x-1/2 z-10">
-                                <span class="text-[10px] md:text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-full uppercase">Most Popular</span>
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2">
+                                <span class="text-[10px] sm:text-xs font-bold bg-green-100 text-green-700 px-2 py-1 sm:px-3 sm:py-2 rounded-full uppercase">Most Popular</span>
                             </div>
-                            <div class="text-lg font-semibold mt-10">Pro <span class="text-green-600">+ Desktop</span></div>
-                            <button class="mt-2 bg-green-500 text-white font-medium px-4 py-1.5 rounded-md text-xs">Upgrade now</button>
-                            <div class="text-xs text-gray-500 mt-2">Pro via browser<br />Desktop for Win/Mac/Linux</div>
+                            <div class="text-base sm:text-lg font-semibold mt-8">Pro <span class="text-green-600">+ Desktop</span></div>
+                            <div class="mt-2">
+                                <button class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 sm:px-5 rounded-md text-xs sm:text-sm">Upgrade now</button>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 leading-tight">
+                                <div>Pro <span class="text-gray-400">via browser</span></div>
+                                <div>Desktop <span class="text-gray-400">for Win/Mac/Linux</span></div>
+                            </div>
                         </th>
+
+                        <!-- Enterprise -->
                         <th class="w-1/4 p-4 text-center">
-                            <div class="text-lg font-semibold">Enterprise</div>
-                            <button class="mt-2 bg-gray-800 text-white font-medium px-4 py-1.5 rounded-md text-xs">Upgrade now</button>
-                            <div class="text-xs text-gray-500 mt-2">All Pro and Desktop<br />features tailored for teams</div>
+                            <div class="text-base sm:text-lg font-semibold">Enterprise</div>
+                            <div class="mt-2">
+                                <button class="w-full sm:w-auto bg-gray-800 text-white font-medium px-4 py-2 sm:px-5 rounded-md text-xs sm:text-sm">Upgrade now</button>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 leading-tight">All Pro and Desktop<br />features tailored for teams</div>
                         </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white">
-                    <!-- List all features here -->
-                    <tr><td class="p-4">Text and image diff tools</td><td class="text-center">✔️</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Word and PDF diff tools</td><td class="text-center">✔️</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Folder diff tools</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Advanced text modifiers</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Real-time diff</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Diff merging</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Syntax highlighting</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">PDF exports</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Secure offline mode</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Sharing and commenting</td><td class="text-center">✔️</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">AI assist in understanding diffs</td><td class="text-center">✔️</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
-                    <tr><td class="p-4">Ads-free experience</td><td class="text-center">❌</td><td class="text-center">✔️</td><td class="text-center">✔️</td></tr>
+
+                    <!-- Feature Rows -->
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Text and image diff tools</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Word and PDF diff tools</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Folder diff tools</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Advanced text modifiers</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Real-time diff</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Diff merging</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Syntax highlighting</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">PDF exports</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Secure offline mode</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Sharing and commenting</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">AI assist in understanding diffs</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4"><div class="border-b w-4/5">Ads-free experience</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">&nbsp;</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                        <td class="text-center"><div class="border-b w-2/5 text-lg mx-auto">✔️</div></td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>
