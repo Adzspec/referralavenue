@@ -51,7 +51,7 @@
                             <n-button type="info" @click="goHome">
                                 Upgrade Plan
                             </n-button>
-                            <n-button v-if="company.latest_subscription?.status==='active'" type="error"  @click="cancelPlan">Cancel Plan</n-button>
+                            <n-button v-if="company.latest_subscription?.status==1" type="error"  @click="cancelPlan">Cancel Plan</n-button>
                         </div>
                     </div>
                 </div>
@@ -279,7 +279,7 @@ const subscriptionColumns = [
         render: (row: CompanySubscriptionRow) => {
             return row.status === '1'
                 ? h('span', { class: 'text-green-600 font-semibold' }, 'Active')
-                : h('span', { class: 'text-red-500 font-semibold' }, row.status || 'Inactive');
+                : h('span', { class: 'text-red-500 font-semibold' }, 'Inactive');
         },
     },
     {

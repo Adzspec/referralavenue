@@ -65,13 +65,25 @@ class PaymentController extends Controller
                 $user = \App\Models\User::where('email', $session->customer_email)->first();
                 if ($user) {
                     try {
+                        $already = CompanySubscription::query()
+                            ->where('company_id', $user->company_id)
+//                            ->where('subscription_id', $plan->id)
+                            ->where('status', 1)
+                            ->exists();
+
+                        if ($already) {
+                            CompanySubscription::query()
+                                ->where('company_id', $user->company_id)
+                                ->where('status', 1)
+                                ->update(['status' => 0]);
+                        }
                         \App\Models\CompanySubscription::create([
                             'company_id' => $user->company_id,
                             'stripe_subscription_id' => $session->subscription,
                             'subscription_id' => $planId,
                             'start_date' => now(),
                             'end_date' => now()->addDays((int)$plan->duration),
-                            'status' => 'active',
+                            'status' => 1,
                         ]);
                     } catch (\Exception $e) {
                         \Log::error('Subscription create failed', ['message' => $e->getMessage()]);
