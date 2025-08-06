@@ -38,8 +38,9 @@ class Company extends Model
         return $this->hasMany(CompanySubscription::class);
     }
 
+    // Company.php
     public function latestSubscription()
     {
-        return $this->hasOne(CompanySubscription::class)->latestOfMany();
+        return $this->hasOne(CompanySubscription::class)->latestOfMany()->with('subscriptionPlan.featureValues.feature');
     }
 }

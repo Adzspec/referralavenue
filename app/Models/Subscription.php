@@ -28,4 +28,16 @@ class Subscription extends Model
             ->withPivot(['start_date', 'end_date', 'status'])
             ->withTimestamps();
     }
+
+    // SubscriptionPlan.php
+    public function features(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Feature::class, 'subscription_feature');
+    }
+
+    public function featureValues()
+    {
+        return $this->hasMany(SubscriptionFeatureValue::class);
+    }
+
 }

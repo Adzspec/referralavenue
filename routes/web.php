@@ -11,6 +11,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\SubscriptionFeatureController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
@@ -92,6 +93,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/offers/bulk-status', [OfferController::class, 'bulkStatus'])->name('offers.bulkStatus');
     Route::post('/offers/bulk-featured', [OfferController::class, 'bulkFeatured']);
     Route::post('/offers/bulk-exclusive', [OfferController::class, 'bulkExclusive']);
+    Route::get('/feature-matrix', [SubscriptionFeatureController::class, 'index'])->name('feature-matrix.index');
+    Route::post('/feature-matrix', [SubscriptionFeatureController::class, 'update'])->name('feature-matrix.update');
 
 
 });

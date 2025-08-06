@@ -7,7 +7,7 @@
     <KeyFeature/>
    <Cards/>
     <Slider/>
-    <Pricing :plans="plans" :user="user" />
+    <Pricing :plans="plans" :user="user" :features="features" />
     <Signup/>
     <Footer/>
 
@@ -35,7 +35,13 @@ defineProps<{
         currency: string
         features: string[]
     }[],
-    user:any,
+    features: {
+        id: number
+        name: string
+        key: string
+        is_value_based: boolean
+    }[],
+    user: any,
 }>()
 </script>
 

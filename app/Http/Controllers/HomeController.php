@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Feature;
 use App\Models\Subscription;
 use App\Services\AddrevenueApiService;
 use Inertia\Inertia;
@@ -9,9 +10,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $plans = Subscription::query()->where('status',1)->get();
+//        $plans = Subscription::query()->where('status',1)->get();
+//        dd(Subscription::with(['featureValues.feature'])->get());
         return Inertia::render('Welcome', [
-            'plans' => $plans,
+            'plans' => Subscription::with(['featureValues.feature'])->get(),
+            'features' => Feature::orderBy('id')->get(),
             'user' => auth()->user(),
         ]);
     }
