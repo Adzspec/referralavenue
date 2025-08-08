@@ -11,26 +11,20 @@ class CompanyIntegrationController extends Controller
 {
     public function index()
     {
-//        return Inertia::render('company_integrations/Index', [
-//            'integrations' => CompanyIntegration::where('company_id', auth()->user()->company_id)->get(),
-//        ]);
-
         $company = auth()->user()->company;
+        $integrations = CompanyIntegration::where('company_id', $company->id)
+            ->get()
+            ->keyBy('provider')
+            ->toArray();
+        $planLimit = $company->latestSubscription->subscription->getFeatureValue('affiliate_network_integrations');
         return Inertia::render('frontend_settings/index', [
-            'adtraction' => CompanyIntegration::where('company_id', auth()->user()->company_id)
-                ->where('provider','adtraction')
-                ->first(),
-            'addrevenue' => CompanyIntegration::where('company_id', auth()->user()->company_id)
-                ->where('provider','addrevenue')
-                ->first(),
-            'tradedoubler' => CompanyIntegration::where('company_id', auth()->user()->company_id)
-                ->where('provider', 'tradedoubler')
-                ->first(),
+            ...$integrations,
             'can' => [
                 'create' => auth()->user()->can('create company settings'),
                 'edit' => auth()->user()->can('edit company settings'),
                 'delete' => auth()->user()->can('delete company settings'),
             ],
+            'canUseAffiliateNetwork' => count($integrations) < $planLimit,
         ]);
     }
 

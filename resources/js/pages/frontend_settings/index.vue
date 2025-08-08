@@ -7,27 +7,6 @@
             </div>
 
             <n-tabs type="card" animated placement="left">
-                <n-tab-pane name="adtraction" tab="Adtraction Integrations">
-                    <n-card>
-                        <n-card class="mb-2">
-                            <div class="mb-4 flex items-center justify-between">
-                                <span class="text-lg font-medium">{{ adtractionEnabled ? 'Disable' : 'Enable' }} Adtraction</span>
-                                <n-switch v-model:value="adtractionEnabled" />
-                            </div>
-                        </n-card>
-                        <n-form ref="adtractionFormRef" v-if="adtractionEnabled" :model="adtractionForm" :rules="adtractionRules">
-                            <n-form-item label="Api Token" path="api_token">
-                                <n-input placeholder="Enter api token here" v-model:value="adtractionForm.api_token" />
-                            </n-form-item>
-                            <n-form-item label="Channel ID" path="channel_id">
-                                <n-input placeholder="Enter channel id here" v-model:value="adtractionForm.channel_id" />
-                            </n-form-item>
-                        </n-form>
-                        <n-space justify="end" class="mt-4">
-                            <n-button type="primary" :loading="savingAdtraction" @click="saveAdtraction"> Save Adtraction </n-button>
-                        </n-space>
-                    </n-card>
-                </n-tab-pane>
                 <n-tab-pane name="addrevenue" tab="Addrevenue Integrations">
                     <n-card>
                         <n-card class="mb-2">
@@ -54,6 +33,27 @@
                                 <n-button v-if="addrevenueEnabled" :loading="syncing" @click="syncAddrevenue"> Fetch from Addrevenue </n-button>
                             </div>
                         </n-card>
+                    </n-card>
+                </n-tab-pane>
+                <n-tab-pane name="adtraction" tab="Adtraction Integrations">
+                    <n-card>
+                        <n-card class="mb-2">
+                            <div class="mb-4 flex items-center justify-between">
+                                <span class="text-lg font-medium">{{ adtractionEnabled ? 'Disable' : 'Enable' }} Adtraction</span>
+                                <n-switch v-model:value="adtractionEnabled" />
+                            </div>
+                        </n-card>
+                        <n-form ref="adtractionFormRef" v-if="adtractionEnabled" :model="adtractionForm" :rules="adtractionRules">
+                            <n-form-item label="Api Token" path="api_token">
+                                <n-input placeholder="Enter api token here" v-model:value="adtractionForm.api_token" />
+                            </n-form-item>
+                            <n-form-item label="Channel ID" path="channel_id">
+                                <n-input placeholder="Enter channel id here" v-model:value="adtractionForm.channel_id" />
+                            </n-form-item>
+                        </n-form>
+                        <n-space justify="end" class="mt-4">
+                            <n-button type="primary" :loading="savingAdtraction" @click="saveAdtraction"> Save Adtraction </n-button>
+                        </n-space>
                     </n-card>
                 </n-tab-pane>
                 <n-tab-pane name="tradedoubler" tab="Tradedoubler Integrations">
@@ -109,6 +109,7 @@ const props = defineProps<{
     addrevenue: Record<string, any>;
     tradedoubler: Record<string, any>;
     can?: { edit?: boolean };
+    canUseAffiliateNetwork: boolean;
 }>();
 
 const {

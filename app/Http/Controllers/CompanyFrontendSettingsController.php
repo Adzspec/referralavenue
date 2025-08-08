@@ -16,9 +16,13 @@ class CompanyFrontendSettingsController extends Controller
     // Display settings
     public function show()
     {
-        $company = auth()->user()->company;
+//        $company = auth()->user()->company;
+        $company = auth()->user()->company()->with('latestSubscription.subscription')->first();
+
+        $customHome = $company->latestSubscription->subscription->getFeatureValue('home_data_customize');
         return Inertia::render('frontend_settings/homepage', [
             'settings' => $company->frontendSetting ? $company->frontendSetting->settings : [],
+            'customHome' => (bool)((int)$customHome),
             'can' => [
                 'create' => auth()->user()->can('create company settings'),
                 'edit' => auth()->user()->can('edit company settings'),

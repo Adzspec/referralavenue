@@ -40,4 +40,13 @@ class Subscription extends Model
         return $this->hasMany(SubscriptionFeatureValue::class);
     }
 
+    public function getFeatureValue(string $key)
+    {
+        $featureValue = $this->featureValues
+            ->firstWhere(fn($fv) => $fv->feature->key === $key);
+        if (!$featureValue) {
+            return false;
+        }
+        return $featureValue->value;
+    }
 }

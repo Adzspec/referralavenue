@@ -20,7 +20,7 @@ class FeaturesSeeder extends Seeder
 //            ['is_value_based' => 1, 'key' => 'multi_language_support', 'name' => 'Multi-language support'],
             ['is_value_based' => 0, 'key' => 'custom_ui_styling', 'name' => 'Custom UI styling (CSS override)'],
             ['is_value_based' => 1, 'key' => 'deals_limit', 'name' => 'Number of deals limit'],
-            ['is_value_based' => 1, 'key' => 'revunue_share', 'name' => 'Revenue share'],
+            ['is_value_based' => 1, 'key' => 'revunue_share', 'name' => 'Revenue share %'],
         ];
 
         DB::table('features')->insert($features);

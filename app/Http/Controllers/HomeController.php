@@ -10,8 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-//        $plans = Subscription::query()->where('status',1)->get();
-//        dd(Subscription::with(['featureValues.feature'])->get());
+
         return Inertia::render('Welcome', [
             'plans' => Subscription::with(['featureValues.feature'])->get(),
             'features' => Feature::orderBy('id')->get(),

@@ -16,7 +16,7 @@
                         <n-button type="primary" native-type="submit" :loading="saving" @click="saveSettings">Save</n-button>
                     </n-space>
                 </n-tab-pane>
-                <n-tab-pane name="homePage" tab="Home Page">
+                <n-tab-pane v-if="customHome" name="homePage" tab="Home Page">
                     <n-card>
                         <n-form label-placement="top" :model="form">
                             <n-grid x-gap="12" :cols="3">
@@ -73,6 +73,7 @@ import FrontendSettingsHomeThree from '@/components/settings/FrontendSettingsHom
 
 const props = defineProps<{
     settings: Record<string, any>;
+    customHome?: Record<string, any>;
     can?: { edit?: boolean };
 }>();
 

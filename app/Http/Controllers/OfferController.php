@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Feature;
 use App\Models\Offer;
 use App\Models\Store;
+use App\Models\SubscriptionFeatureValue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\OfferRequest;
@@ -14,32 +16,44 @@ class OfferController extends Controller
     public function index(Request $request)
     {
         $isInitialLoad = !$request->hasAny(['store_id', 'status', 'is_featured', 'is_exclusive', 'search']);
+
+        $company = auth()->user()->company()->with('latestSubscription.subscription')->first();
+
+        $offerLimitRaw = $company->latestSubscription->subscription->getFeatureValue('deals_limit');
+        $offerLimit = (
+            $offerLimitRaw === 'unlimited' ||
+            $offerLimitRaw === null ||
+            (is_numeric($offerLimitRaw) && (int)$offerLimitRaw === -1)
+        ) ? null : (int) $offerLimitRaw;
+
         $query = Offer::with('store')
-            ->where('company_id', auth()->user()->company_id);
+            ->where('company_id', $company->id);
 
-        if ($request->filled('store_id')) {
-            $query->where('store_id', $request->store_id);
-        }
+        $query->when($request->filled('store_id'), fn ($q) => $q->where('store_id', $request->store_id))
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('is_featured'), fn ($q) => $q->where('is_featured', $request->is_featured))
+            ->when($request->filled('is_exclusive'), fn ($q) => $q->where('is_exclusive', $request->is_exclusive))
+            ->when($request->filled('search'), fn ($q) => $q->where('title', 'like', '%' . $request->search . '%'));
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
+        $limitedIds = $offerLimit
+            ? $query->clone()->take($offerLimit)->pluck('id')
+            : $query->clone()->pluck('id');
 
-        if ($request->filled('is_featured')) {
-            $query->where('is_featured', $request->is_featured);
-        }
+        $offers = Offer::with('store')
+            ->whereIn('id', $limitedIds)
+            ->paginate(10)
+            ->withQueryString();
 
-        if ($request->filled('is_exclusive')) {
-            $query->where('is_exclusive', $request->is_exclusive);
-        }
+        $stores = Store::select('id', 'name')
+            ->where('company_id', $company->id)->get();
 
-        if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
-        }
+        $categories = Category::select('id', 'name')
+            ->where('company_id', $company->id)->get();
+
         return Inertia::render('offers/index', [
-            'offers' => $query->paginate(10)->withQueryString(),
-            'stores' => Store::select('id', 'name')->where('company_id', auth()->user()->company_id)->get(),
-            'categories' => Category::select('id', 'name')->where('company_id',auth()->user()->company_id)->get(),
+            'offers' => $offers,
+            'stores' => $stores,
+            'categories' => $categories,
             'filters' => $isInitialLoad
                 ? [
                     'store_id' => null,
@@ -56,6 +70,7 @@ class OfferController extends Controller
             ],
         ]);
     }
+
 
     public function store(OfferRequest $request)
     {
