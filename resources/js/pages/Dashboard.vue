@@ -2,7 +2,12 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
+import { computed } from 'vue';
+
+const props = defineProps<{
+    type: string;
+    counts: Record<string, number>;
+}>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -10,6 +15,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
+
+const stats = computed(() => Object.entries(props.counts));
 </script>
 
 <template>
@@ -18,18 +25,16 @@ const breadcrumbs: BreadcrumbItem[] = [
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
+                <div
+                    v-for="[label, value] in stats"
+                    :key="label"
+                    class="relative flex flex-col items-center justify-center overflow-hidden rounded-xl border border-sidebar-border/70 p-4 text-center dark:border-sidebar-border"
+                >
+                    <div class="text-2xl font-bold">{{ value }}</div>
+                    <div class="mt-2 capitalize text-muted-foreground">
+                        {{ label.replace('_', ' ') }}
+                    </div>
                 </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
-            </div>
-            <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                <PlaceholderPattern />
             </div>
         </div>
     </AppLayout>
