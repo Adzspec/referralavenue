@@ -160,7 +160,8 @@ export default {
                 { message: "This platform helped us launch a fully branded affiliate site in a single day. The publisher tools and reporting are game-changers.", image: "https://cdn-icons-png.flaticon.com/512/149/149071.png", name: "Cartero Digital Marketing", location: "Marketing Lead" },
                 { message: "" },
                 { message: "" },
-                { message: "" },            ]
+                { message: "" },
+            ]
         };
     },
     computed: {
