@@ -99,9 +99,11 @@ class OfferController extends Controller
     public function bulkDelete(Request $request)
     {
         $ids = $request->input('ids', []);
-        Offer::whereIn('id', $ids)->delete();
+        Offer::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $ids)
+            ->delete();
 
-        return back()->with('success', 'Categories deleted');
+        return back()->with('success', 'Offers deleted');
     }
 
     public function bulkStatus(Request $request)
@@ -109,25 +111,31 @@ class OfferController extends Controller
         $ids = $request->input('ids', []);
         $status = $request->input('status');
 
-        Offer::whereIn('id', $ids)->update(['status' => $status]);
+        Offer::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $ids)
+            ->update(['status' => $status]);
 
         return back()->with('success', 'Status updated');
     }
 
     public function bulkFeatured(Request $request)
     {
-        Offer::whereIn('id', $request->ids)->update([
-            'is_featured' => $request->status
-        ]);
+        Offer::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $request->ids)
+            ->update([
+                'is_featured' => $request->status,
+            ]);
 
         return redirect()->back()->with('success', 'Offers updated as featured.');
     }
 
     public function bulkExclusive(Request $request)
     {
-        Offer::whereIn('id', $request->ids)->update([
-            'is_exclusive' => $request->status
-        ]);
+        Offer::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $request->ids)
+            ->update([
+                'is_exclusive' => $request->status,
+            ]);
 
         return redirect()->back()->with('success', 'Offers updated as exclusive.');
     }

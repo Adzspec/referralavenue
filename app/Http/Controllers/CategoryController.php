@@ -68,7 +68,9 @@ class CategoryController extends Controller
     public function bulkDelete(Request $request)
     {
         $ids = $request->input('ids', []);
-        Category::whereIn('id', $ids)->delete();
+        Category::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $ids)
+            ->delete();
 
         return back()->with('success', 'Categories deleted');
     }
@@ -78,7 +80,9 @@ class CategoryController extends Controller
         $ids = $request->input('ids', []);
         $status = $request->input('status');
 
-        Category::whereIn('id', $ids)->update(['status' => $status]);
+        Category::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $ids)
+            ->update(['status' => $status]);
 
         return back()->with('success', 'Status updated');
     }
