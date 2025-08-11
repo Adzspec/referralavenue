@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyFrontendSettingsController;
 use App\Http\Controllers\CompanyIntegrationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OfferController;
@@ -40,9 +41,9 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact');
 })->name('contact');
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 Route::get('/subscriptions/checkout', function () {
     return redirect()->route('home');
 });
