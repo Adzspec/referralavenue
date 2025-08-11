@@ -49,9 +49,11 @@ class StoreController extends Controller
     public function bulkDelete(Request $request)
     {
         $ids = $request->input('ids', []);
-        Store::whereIn('id', $ids)->delete();
+        Store::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $ids)
+            ->delete();
 
-        return back()->with('success', 'Categories deleted');
+        return back()->with('success', 'Stores deleted');
     }
 
     public function bulkStatus(Request $request)
@@ -59,7 +61,9 @@ class StoreController extends Controller
         $ids = $request->input('ids', []);
         $status = $request->input('status');
 
-        Store::whereIn('id', $ids)->update(['status' => $status]);
+        Store::where('company_id', auth()->user()->company_id)
+            ->whereIn('id', $ids)
+            ->update(['status' => $status]);
 
         return back()->with('success', 'Status updated');
     }

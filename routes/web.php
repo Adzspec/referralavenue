@@ -87,8 +87,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/company/addrevenue/getProducts', [AddrevenueController::class, 'getProducts']);
     Route::post('/categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulkDelete');
     Route::post('/categories/bulk-status', [CategoryController::class, 'bulkStatus'])->name('categories.bulkStatus');
-    Route::post('/stores/bulk-delete', [StoreController::class, 'bulkDelete'])->name('categories.bulkDelete');
-    Route::post('/stores/bulk-status', [StoreController::class, 'bulkStatus'])->name('categories.bulkStatus');
+    Route::post('/stores/bulk-delete', [StoreController::class, 'bulkDelete'])->name('stores.bulkDelete');
+    Route::post('/stores/bulk-status', [StoreController::class, 'bulkStatus'])->name('stores.bulkStatus');
     Route::post('/offers/bulk-delete', [OfferController::class, 'bulkDelete'])->name('offers.bulkDelete');
     Route::post('/offers/bulk-status', [OfferController::class, 'bulkStatus'])->name('offers.bulkStatus');
     Route::post('/offers/bulk-featured', [OfferController::class, 'bulkFeatured']);
