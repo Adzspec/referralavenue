@@ -106,7 +106,9 @@ class SyncAddrevenueProductsJob implements ShouldQueue
             ]);
             $deal->store()->associate($store->id);
             $deal->company()->associate($this->companyId);
-            $deal->category()->associate($categoryId);
+            if ($categoryId !== null) {
+                $deal->category()->associate($categoryId);
+            }
 
             try {
                 $deal->save();
@@ -120,8 +122,11 @@ class SyncAddrevenueProductsJob implements ShouldQueue
 
     public function getCategory($store)
     {
-        return Category::query()
+        $category = Category::query()
             ->where('company_id', $this->companyId)
-            ->where('name',$store->categoryName)->first()->id;
+            ->where('name', $store->categoryName)
+            ->first();
+
+        return $category?->id;
     }
 }
