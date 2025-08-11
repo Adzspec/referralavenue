@@ -49,7 +49,7 @@ export function useIntegrationForm(
             saving.value = true;
             try {
                 router.put(`/company/integrations/${provider}`, {
-                    credentials: {},
+                    credentials: form.value,
                     status: enabled.value,
                 }, {
                     onSuccess: () => message.success(`${provider} disabled`),

@@ -11,20 +11,23 @@ class CompanyIntegrationController extends Controller
 {
     public function index()
     {
-        $company = auth()->user()->company;
-        $integrations = CompanyIntegration::where('company_id', $company->id)
+        $user = auth()->user();
+        $query = CompanyIntegration::query()->where('company_id', $user->company->id);
+        $integrations = $query
             ->get()
             ->keyBy('provider')
             ->toArray();
-        $planLimit = $company->latestSubscription->subscription->getFeatureValue('affiliate_network_integrations');
+        $activeIntegrations = $query->where('status', true)->count();
+        $planLimit = $user->company->latestSubscription->subscription->getFeatureValue('affiliate_network_integrations');
         return Inertia::render('frontend_settings/index', [
             ...$integrations,
             'can' => [
-                'create' => auth()->user()->can('create company settings'),
-                'edit' => auth()->user()->can('edit company settings'),
-                'delete' => auth()->user()->can('delete company settings'),
+                'create' => $user->can('create company settings'),
+                'edit' => $user->can('edit company settings'),
+                'delete' => $user->can('delete company settings'),
             ],
-            'canUseAffiliateNetwork' => count($integrations) < $planLimit,
+            'canUseAffiliateNetwork' => $activeIntegrations < $planLimit,
+            'affiliateNetworkLimit' => (int)$planLimit,
         ]);
     }
 
@@ -67,7 +70,7 @@ class CompanyIntegrationController extends Controller
         $provider = 'adtraction';
 
         $validated = $request->validate([
-            'credentials' => 'required|array',
+            'credentials' => 'required',
             'status' => 'required|boolean',
         ]);
 

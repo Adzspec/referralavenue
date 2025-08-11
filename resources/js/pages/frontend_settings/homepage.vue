@@ -7,7 +7,7 @@
             </div>
 
             <n-tabs type="card" animated placement="left">
-                <n-tab-pane name="colors" tab="Colors & Logo">
+                <n-tab-pane v-if="customStyling" name="colors" tab="Colors & Logo">
                     <FrontendSettingsColors
                         v-model="form"
                         :handleLogoUpload="handleLogoUpload"
@@ -73,7 +73,8 @@ import FrontendSettingsHomeThree from '@/components/settings/FrontendSettingsHom
 
 const props = defineProps<{
     settings: Record<string, any>;
-    customHome?: Record<string, any>;
+    customHome?: boolean;
+    customStyling?: boolean;
     can?: { edit?: boolean };
 }>();
 
