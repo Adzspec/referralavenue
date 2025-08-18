@@ -78,7 +78,137 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="py-12 rounded-xl max-w-7xl mx-auto px-4 relative">
+        <!-- Top -->
+        <div class="text-center mb-10">
+            <p class="uppercase text-gray-400 tracking-widest text-sm">Testimonial</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
+                What Our Users Say
+            </h2>
+        </div>
+
+        <!-- Slider Wrapper -->
+        <div class="relative">
+            <div class="swiper pb-12">
+                <div class="swiper-wrapper">
+                    <div
+                        v-for="(t, index) in testimonials"
+                        :key="index"
+                        class="swiper-slide bg-white rounded-xl border border-gray-200 shadow p-6 flex flex-col justify-between relative min-h-[250px]"
+                    >
+
+                    <div class="text-4xl mb-4" :class="index % 2 === 0 ? 'text-yellow-500' : 'text-sky-500'">“</div>
+                        <p class="text-gray-600 mb-6">{{ t.message }}</p>
+                        <div class="flex items-center mt-auto">
+                            <img :src="t.image" class="w-10 h-10 rounded-full object-cover mr-3" />
+                            <div>
+                                <p class="font-bold text-gray-900">{{ t.name }}</p>
+                                <p class="text-sm text-gray-500">{{ t.location }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation arrows -->
+            <div class="swiper-button-prev flex absolute left-2 top-1/2 -translate-y-1/2 md:!left-[-2.5rem]"></div>
+            <div class="swiper-button-next flex absolute right-2 top-1/2 -translate-y-1/2 md:!right-[-2.5rem]"></div>
+
+            <!-- Custom Pagination -->
+            <div class="flex justify-center gap-2 mt-4 ">
+                <button
+                    v-for="n in totalGroups"
+                    :key="n"
+                    @click="goToGroup(n - 1)"
+                    :class="[
+          'w-3 h-3 rounded-full transition-colors duration-300',
+          currentGroup === (n - 1) ? 'bg-gray-800' : 'bg-gray-700'
+        ]"
+                ></button>
+            </div>
+        </div>
+    </section>
 </template>
+
+<script lang="ts">
+import Swiper from 'swiper/bundle';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+export default {
+    name: "TestimonialSlider",
+    data() {
+        return {
+            swiperInstance: null,
+
+            currentGroup: 0,
+            testimonials: [
+                { message: "This platform helped us launch a fully branded affiliate site in a single day. The publisher tools and reporting are game-changers.",image: "https://cdn-icons-png.flaticon.com/512/149/149071.png", name: "Cartero Digital Marketing", location: "Marketing Lead" },
+                { message: "We cut onboarding time by 80% and doubled active publishers in the first month.", image: "https://cdn-icons-png.flaticon.com/512/149/149071.png", name: "Lunar media", location: "Head of Growth" },
+                { message: "This platform helped us launch a fully branded affiliate site in a single day. The publisher tools and reporting are game-changers.", image: "https://cdn-icons-png.flaticon.com/512/149/149071.png", name: "Cartero Digital Marketing", location: "Marketing Lead" },
+                { message: "" },
+                { message: "" },
+                { message: "" },
+            ]
+        };
+    },
+    computed: {
+        totalGroups() {
+            return Math.ceil(this.testimonials.length / 3);
+        }
+    },
+    mounted() {
+        this.swiperInstance = new Swiper('.swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: false,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            breakpoints: {
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            },
+            on: {
+                slideChange: () => {
+                    const index = this.swiperInstance.activeIndex;
+                    this.currentGroup = Math.floor(index / 3);
+                }
+            }
+        });
+    },
+    methods: {
+        goToGroup(groupIndex) {
+            if (this.swiperInstance) {
+                this.swiperInstance.slideTo(groupIndex * 3);
+            }
+        }
+    }
+};
+
+</script>
+
+<style scoped>
+::v-deep(.swiper-button-prev),
+::v-deep(.swiper-button-next) {
+    color: #1f2937; /* Tailwind gray-800 */
+}
+</style>
+
 <style>
 @keyframes smoothBounce {
     0%,
@@ -93,5 +223,5 @@
 .smooth-bounce {
     animation: smoothBounce 2.5s ease-in-out infinite;
 }
-</style>
 
+</style>
