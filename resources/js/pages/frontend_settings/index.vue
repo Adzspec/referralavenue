@@ -98,6 +98,14 @@
                             </n-button>
                         </n-space>
                     </n-card>
+                    <n-card class="mt-2">
+                        <div class="mb-4 flex items-center justify-between">
+                            <span class="text-lg font-medium">Sync Adtraction</span>
+                            <n-button v-if="adtractionEnabled" :loading="syncing" @click="syncAdtraction">
+                                Fetch from Adtraction
+                            </n-button>
+                        </div>
+                    </n-card>
                 </n-tab-pane>
 
                 <!-- Tradedoubler -->
@@ -267,6 +275,20 @@ const syncAddrevenue = async () => {
             onSuccess: () => message.success('Addrevenue sync started!'),
             onError: (errors: any) => {
                 const backendMsg = errors?.message || 'Failed to start Addrevenue sync';
+                message.error(backendMsg);
+            }
+        });
+    } finally {
+        syncing.value = false;
+    }
+};
+const syncAdtraction = async () => {
+    syncing.value = true;
+    try {
+        router.post('/company/adtraction/fetch', {}, {
+            onSuccess: () => message.success('Adtraction sync started!'),
+            onError: (errors: any) => {
+                const backendMsg = errors?.message || 'Failed to start Adtraction sync';
                 message.error(backendMsg);
             }
         });

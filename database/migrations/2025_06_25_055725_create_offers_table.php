@@ -27,13 +27,13 @@ return new class extends Migration
             $table->date('start_date')->nullable()->index();
             $table->date('end_date')->nullable()->index();
 
-            $table->string('link')->nullable();
+            $table->longText('link')->nullable();
             $table->boolean('is_featured')->default(false)->index();
             $table->boolean('is_exclusive')->default(false)->index();
             $table->boolean('is_deal')->default(false)->index();
 
             $table->string('path')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->longText('thumbnail')->nullable();
             $table->string('sku')->nullable();
             $table->string('product_name')->nullable();
             $table->decimal('product_price', 10, 2)->nullable();

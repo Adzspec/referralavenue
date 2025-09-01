@@ -49,7 +49,7 @@ class ProcessStoreChunkJob implements ShouldQueue
                 'image'        => $app['logoImageFilename'] ?? null,
                 'status'       => 1,
                 'channelId'    => $this->channelId ?? null,
-                'channelName'  => 'VeckansR',
+                'channelName'  => 'addrevenue',
                 'programId'    => $app['id'] ?? null,
                 'categoryName' => $formattedCategoryName,
                 // Optionally link by category_id if you want (recommended):

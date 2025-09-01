@@ -9,32 +9,16 @@ class AdtractionApiService
     protected string $baseUrl;
     protected string $token;
 
-    public function __construct()
+    public function __construct($token = null)
     {
-        $this->baseUrl = rtrim(config('services.adtraction.baseUrlV2'), '/');
-        $this->token = config('services.adtraction.token');
+        $this->baseUrl = 'https://api.adtraction.com/v2';
+        $this->token = $token;
     }
-
-//    public function request(string $endpoint, array $queryParams = [], string $method = 'GET', array $body = []): array
-//    {
-//        $queryParams['token'] = $this->token;
-//        $fullUrl = "{$this->baseUrl}{$endpoint}";
-//
-//        $response = Http::withHeaders([
-//            'Content-Type' => 'application/json;charset=UTF-8',
-//        ])
-//            ->send($method, $fullUrl, [
-//                'query' => $queryParams,
-//                'json' => $body,
-//            ]);
-//
-//        return $response->json();
-//    }
 
     public function request(string $endpoint, array $queryParams = [], string $method = 'GET', array $body = [],$version = 'v2'): array
     {
         if ($version === 'v3'){
-            $this->baseUrl = rtrim(config('services.adtraction.baseUrlV3'), '/');
+            $this->baseUrl = 'https://api.adtraction.com/v3';
         }
         $queryParams['token'] = $this->token;
         $fullUrl = "{$this->baseUrl}{$endpoint}";

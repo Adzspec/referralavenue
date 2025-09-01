@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddrevenueController;
+use App\Http\Controllers\AdtractionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyFrontendSettingsController;
@@ -85,6 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('stores', StoreController::class);
     Route::resource('offers', OfferController::class);
     Route::post('/company/addrevenue/fetch', [AddrevenueController::class, 'startSync']);
+    Route::post('/company/adtraction/fetch', [AdtractionController::class, 'startSync']);
     Route::get('/company/addrevenue/getProducts', [AddrevenueController::class, 'getProducts']);
     Route::post('/categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulkDelete');
     Route::post('/categories/bulk-status', [CategoryController::class, 'bulkStatus'])->name('categories.bulkStatus');
