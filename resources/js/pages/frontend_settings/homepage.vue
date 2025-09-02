@@ -53,6 +53,14 @@
                         </n-form>
                     </n-card>
                 </n-tab-pane>
+                <n-tab-pane name="contact" tab="Contact Us">
+                    <ContactUsTab
+                        v-model="form"
+                    />
+                    <n-space justify="end" class="mt-4">
+                        <n-button type="primary" native-type="submit" :loading="saving" @click="saveSettings">Save</n-button>
+                    </n-space>
+                </n-tab-pane>
             </n-tabs>
         </div>
     </AppLayout>
@@ -69,6 +77,7 @@ import FrontendSettingsColors from '@/components/settings/SettingsTabColors.vue'
 import FrontendSettingsHomeOne from '@/components/settings/FrontendSettingsHomeOne.vue';
 import FrontendSettingsHomeTwo from '@/components/settings/FrontendSettingsHomeTwo.vue';
 import FrontendSettingsHomeThree from '@/components/settings/FrontendSettingsHomeThree.vue';
+import ContactUsTab from '@/components/settings/ContactUsTab.vue';
 
 
 const props = defineProps<{
@@ -169,6 +178,13 @@ const form = ref({
     primaryColor: props.settings.primaryColor || '#18A058',
     logo: props.settings.logo || '',
     colors: getDefaultColors(props.settings),
+    contactUs: props.settings.contactUs || {
+        email1: '',
+        email2: '',
+        phone1: '',
+        phone2: '',
+        address: '',
+    },
 });
 
 
