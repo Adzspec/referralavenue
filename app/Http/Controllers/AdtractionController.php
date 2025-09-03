@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\ProcessStoreChunkJob;
-use App\Jobs\SyncAddrevenueCampaignsJob;
-use App\Jobs\SyncAddrevenueMasterJob;
-use App\Jobs\SyncAddrevenueProductsJob;
 use App\Jobs\SyncAdtractionMasterJob;
-use App\Jobs\SyncOffersAdtraction;
-use App\Models\Coupon;
-use App\Models\Offer;
+//use App\Models\Coupon;
 use App\Models\Store;
-use App\Services\AddrevenueApiService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Carbon;
-
 
 class AdtractionController extends Controller
 {
@@ -55,45 +46,6 @@ class AdtractionController extends Controller
         SyncAdtractionMasterJob::dispatch($this->channelId, $this->company->id);
 
         return back()->with('success', 'Adtraction sync started!');
-    }
-
-    public function getProductFeed()
-    {
-        try {
-            ini_set('max_execution_time', 300);
-            $stores = Store::query()
-                ->where('channelName','adtraction')
-                ->whereNotNull('productFeedId')
-                ->get();
-            foreach ($stores as $store) {
-                $response = $this->apiService->request(
-                    endpoint: '/partner/products/feed/',
-                    queryParams: [],
-                    method: 'POST',
-                    body: [
-                        'programId' => $store->programId,
-                        'channelId' => $this->channelId,
-                        'feedId'=> $store->productFeedId,
-                        'setEpi'    => true,
-                        'gt'=>false,
-                    ],
-                    version: 'v3'
-                );
-                if ($response){
-                    foreach ($response as $product) {
-                        $this->createDeals($product,$store->programId,$store);
-                    }
-                }
-            }
-
-//            return response()->json($response);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'error' => true,
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ], 500);
-        }
     }
 
 }

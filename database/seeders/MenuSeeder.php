@@ -109,13 +109,13 @@ class MenuSeeder extends Seeder
             [
                 'title' => 'Company Settings',
                 'href' => '/company/company-settings',
-                'icon' => 'List',
+                'icon' => 'Cog',
                 'permission' => 'manage company settings',
             ],
             [
-                'title' => 'Homepage Settings',
+                'title' => 'Frontend Settings',
                 'href' => '/company/home_settings',
-                'icon' => 'List',
+                'icon' => 'MonitorCog',
                 'permission' => 'manage homepage settings',
             ],
             [
