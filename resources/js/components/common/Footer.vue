@@ -38,7 +38,8 @@
                 <div class="w-full md:w-auto text-center md:text-left">
                     <h3 class="font-bold mb-2 text-xl">Contacts</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        (+01) 234 568<br />
+                        <a href="tel:+46731785828">+46 73 178 58 28</a>
+                        <br />
                         <a
                             href="mailto:contact@monst.com"
                             class="text-blue-600 hover:underline"
