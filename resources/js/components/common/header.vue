@@ -1,19 +1,27 @@
 <template>
     <header class="sticky top-0 z-50 w-full bg-[#FDFDFC] dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-700">
-        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6 md:px-6 lg:px-8">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-4 md:px-4 lg:px-6">
             <!-- Logo -->
             <div class="flex flex-shrink-0 items-center space-x-2">
                 <!--                <div class="h-6 w-6 rounded-full bg-blue-600"></div>-->
-                <span class="text-xl font-semibold text-gray-800">Referalavenue</span>
+                <span class="text-xl font-semibold text-gray-800">
+                    <a :href="route('home')">
+                        <img style="width: 300px; height: auto" src="/logo.png" alt="logo" class="h-10 w-10"/>
+                    </a>
+                </span>
             </div>
 
             <!-- Desktop Navigation -->
             <nav class="hidden items-center space-x-4 text-gray-700 md:flex md:space-x-5 lg:space-x-6">
-                <a :href="route('home')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Home</a>
+
+                <!--                <a :href="route('home/#pricing')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Home</a>-->
                 <a :href="route('about')" class="font-medium whitespace-nowrap transition hover:text-blue-600">About Us</a>
                 <a :href="route('services')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Services</a>
-                <a :href="route('company')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Company</a>
-                <a :href="route('blog')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Blog</a>
+                <Link :href="route('home') + '#pricing'" class="font-medium whitespace-nowrap transition hover:text-blue-600">
+                    Pricing
+                </Link>
+                <!--                <a :href="route('company')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Company</a>-->
+<!--                <a :href="route('blog')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Blog</a>-->
                 <a :href="route('contact')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Contact</a>
             </nav>
 

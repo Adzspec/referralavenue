@@ -5,9 +5,7 @@
         <div class="flex flex-wrap justify-center items-center gap-2 text-sm sm:text-base">
             <h2 class="text-gray-700">Home</h2>
             <div class="text-gray-400">></div>
-            <h2 class="text-gray-700">contact Us</h2>
-            <div class="text-gray-400">></div>
-            <h2 class="text-gray-400">Web development</h2>
+            <h2 class="text-gray-700">Contact Us</h2>
         </div>
     </div>
 </template>

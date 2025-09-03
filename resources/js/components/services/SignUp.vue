@@ -33,7 +33,7 @@
                 <button
                     class="bg-white rounded-md hover:bg-blue-700 hover:text-white border hover:border-blue-300 transition duration-700 text-blue-700 px-6 py-3 text-sm w-full sm:w-auto"
                 >
-                    Sign Up
+                    Subscribe
                 </button>
             </div>
         </div>

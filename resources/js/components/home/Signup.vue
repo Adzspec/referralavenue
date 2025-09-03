@@ -1,5 +1,5 @@
 <template>
-    <section class="relative w-full bg-no-repeat bg-center bg-cover pt-16">
+    <section class="relative w-full bg-no-repeat bg-center bg-cover pt-6">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -1709,7 +1709,7 @@
             <g></g>
       </svg>
         <div
-            class="absolute inset-0 flex flex-col items-center justify-center space-y-6 text-center px-4 sm:px-6 md:px-0 py-12"
+            class="absolute inset-0 flex flex-col items-center justify-center space-y-6 text-center px-4 sm:px-6 md:px-0 py-4"
         >
             <p
                 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-700 max-w-xl mx-auto leading-tight"
@@ -1756,7 +1756,7 @@
                     type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm sm:text-base w-full sm:w-auto"
                 >
-                    Sign Up
+                    Subscribe
                 </button>
             </form>
         </div>

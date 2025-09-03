@@ -14,15 +14,15 @@
                     class="flex flex-col md:flex-row md:items-center md:space-x-6 w-full md:w-auto"
                 >
                     <div class="flex items-center space-x-3 flex-shrink-0">
-                        <div class="bg-blue-600 w-6 h-6 rounded-sm"></div>
-                        <h1 class="text-2xl font-semibold">Monst</h1>
+                        <a :href="route('home')">
+                            <img style="width: 300px; height: auto" src="/logo.png" alt="logo" class="h-10 w-10"/>
+                        </a>
                     </div>
                     <p
                         class="mt-4 md:mt-0 text-center md:text-left text-gray-400 max-w-xs md:max-w-sm"
                     >
-                        Helping you
-                        <span class="text-blue-600 font-semibold">maximize</span> operations
-                        management with digitization
+                        Launch, Manage, and
+                        <span class="text-blue-600 font-semibold">Grow</span> Your Affiliate Business All in One Place
                     </p>
                 </div>
 
@@ -65,16 +65,18 @@
 
             <!-- Bottom Text -->
             <div class="text-center mt-12 text-gray-500 text-sm sm:text-base">
-                © 2021. All rights reserved. Designed by
+                © 2025. All rights reserved. Designed by
                 <a
-                    href="https://alithemes.com"
+                    href="https://adzspec.com"
                     class="underline hover:text-gray-700"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Alithemes.com
+                    Adzspec.com
                 </a>
             </div>
         </div>
     </footer>
 </template>
+<script setup lang="ts">
+</script>

@@ -2,9 +2,6 @@
     <section class="bg-white py-16 px-4 md:px-20">
         <!-- Heading -->
         <div class="text-center mb-10">
-            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs mb-4">
-                Contact Us
-            </button>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
                 We will <span class="text-blue-600">be glad</span> to hear <br />
                 from you!
