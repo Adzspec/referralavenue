@@ -24,16 +24,12 @@
                 <div
                     class="mt-6 flex flex-col sm:flex-row sm:justify-center md:justify-start gap-4"
                 >
-                    <button
-                        class="bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-700"
-                    >
+                    <a href="http://referralavenue.test/Key%20Features"
+                       class="bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-700 inline-block">
                         Key Features
-                    </button>
-                    <button
-                        class="bg-blue-100 text-blue-700 px-6 py-3 rounded-md hover:bg-blue-200"
-                    >
-                        How We Work?
-                    </button>
+                    </a>
+
+
                 </div>
             </div>
 

@@ -30,9 +30,9 @@ Route::get('/about', function () {
 Route::get('/faqs', function () {
     return Inertia::render('Faqs');
 })->name('faqs');
-Route::get('/services', function () {
-    return Inertia::render('Services');
-})->name('services');
+Route::get('/Key Features', function () {
+    return Inertia::render('Key Features');
+})->name('Key Features');
 Route::get('/company', function () {
     return Inertia::render('Company');
 })->name('company');

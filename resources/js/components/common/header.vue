@@ -16,7 +16,7 @@
 
                 <!--                <a :href="route('home/#pricing')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Home</a>-->
                 <a :href="route('about')" class="font-medium whitespace-nowrap transition hover:text-blue-600">About Us</a>
-                <a :href="route('services')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Services</a>
+                <a :href="route('Key Features')" class="font-medium whitespace-nowrap transition hover:text-blue-600">Key Features</a>
                 <Link :href="route('home') + '#pricing'" class="font-medium whitespace-nowrap transition hover:text-blue-600">
                     Pricing
                 </Link>
