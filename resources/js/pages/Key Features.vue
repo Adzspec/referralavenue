@@ -3,6 +3,7 @@
     <HeaderSection/>
 <!--    <WebServices/>-->
     <CountUp/>
+  <cards/>
 
     <ContactUs/>
     <SignUp/>
@@ -18,4 +19,5 @@ import CountUp from '@/components/Key Features/CountUp.vue';
 import ContactUs from '@/components/Key Features/ContactUs.vue';
 import SignUp from '@/components/Key Features/SignUp.vue';
 import Footer from '@/components/common/Footer.vue';
+import Cards from '@/components/Key Features/cards.vue';
 </script>
