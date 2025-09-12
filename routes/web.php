@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyFrontendSettingsController;
 use App\Http\Controllers\CompanyIntegrationController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
@@ -48,6 +49,9 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 Route::get('/subscriptions/checkout', function () {
     return redirect()->route('home');
 });
+Route::post('/contact', [ContactUsController::class, 'store'])
+    ->middleware(['throttle:6,1']) // 6/min per IP
+    ->name('contact.store');
 Route::post('/subscriptions/checkout', [SubscriptionController::class, 'createCheckoutSession']);
 Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancelSubscription']);
 Route::get('/subscriptions/success', function () {
@@ -98,6 +102,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/offers/bulk-exclusive', [OfferController::class, 'bulkExclusive']);
     Route::get('/feature-matrix', [SubscriptionFeatureController::class, 'index'])->name('feature-matrix.index');
     Route::post('/feature-matrix', [SubscriptionFeatureController::class, 'update'])->name('feature-matrix.update');
+    Route::get('/contact-matrix', [ContactUsController::class, 'index'])->name('contact-matrix.index');
+    Route::delete('/contact-messages/{contactMessage}', [ContactUsController::class, 'destroy'])
+        ->name('contact-messages.destroy');
 
 
 });
