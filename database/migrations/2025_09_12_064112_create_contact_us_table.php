@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('contact_us', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->enum('department', ['support', 'sales'])->default('support');
             $table->string('subject', 160)->nullable();
             $table->string('name', 120);
@@ -21,7 +22,6 @@ return new class extends Migration
             $table->string('attachment_path')->nullable();
             $table->string('ip', 45)->nullable();
             $table->string('user_agent')->nullable();
-            $table->unsignedBigInteger('company_id')->nullable()->after('id');
             $table->index('company_id');
             $table->timestamps();
             $table->index(['email', 'created_at']);
