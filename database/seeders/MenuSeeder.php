@@ -125,5 +125,11 @@ class MenuSeeder extends Seeder
                 'permission' => 'manage integrations settings',
             ],
         ]);
+        Menu::create([
+            'title' => 'Contact Us',
+            'href' => '/contact-matrix',
+            'icon' => 'NotebookTabs',
+            'permission' => ''
+        ]);
     }
 }
