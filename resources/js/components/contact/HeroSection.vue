@@ -6,11 +6,11 @@
             <!-- Left content -->
             <div>
                 <!-- Breadcrumb -->
-                <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                    <span class="hover:text-indigo-600 cursor-pointer">Home</span>
-                    <span class="text-gray-400">></span>
-                    <span class="font-medium text-gray-800">Contact Us</span>
-                </div>
+<!--                <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">-->
+<!--                    <span class="hover:text-indigo-600 cursor-pointer">Home</span>-->
+<!--                    <span class="text-gray-400">></span>-->
+<!--                    <span class="font-medium text-gray-800">Contact Us</span>-->
+<!--                </div>-->
 
                 <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
                     Get in <span class="text-indigo-600">Touch</span> With Us
