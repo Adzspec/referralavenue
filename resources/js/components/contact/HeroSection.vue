@@ -6,11 +6,11 @@
             <!-- Left content -->
             <div>
                 <!-- Breadcrumb -->
-                <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                    <span class="hover:text-indigo-600 cursor-pointer">Home</span>
-                    <span class="text-gray-400">></span>
-                    <span class="font-medium text-gray-800">Contact Us</span>
-                </div>
+<!--                <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">-->
+<!--                    <span class="hover:text-indigo-600 cursor-pointer">Home</span>-->
+<!--                    <span class="text-gray-400">></span>-->
+<!--                    <span class="font-medium text-gray-800">Contact Us</span>-->
+<!--                </div>-->
 
                 <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
                     Get in <span class="text-indigo-600">Touch</span> With Us
@@ -25,7 +25,7 @@
                     <a href="#form" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold shadow-md">
                         Send Message
                     </a>
-                    <a href="mailto:support@example.com" class="bg-white border border-gray-300 px-6 py-3 rounded-full font-semibold text-gray-700 hover:bg-gray-50">
+                    <a href="mailto:hello@referralavenue.com" class="bg-white border border-gray-300 px-6 py-3 rounded-full font-semibold text-gray-700 hover:bg-gray-50">
                         Email Us
                     </a>
                 </div>

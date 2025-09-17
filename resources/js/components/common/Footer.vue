@@ -3,7 +3,6 @@
         <!-- ✅ Full-width top line -->
         <hr class="w-full h-[1px] bg-gray-300 border-none">
 
-
         <!-- Footer content with padding -->
         <div class="py-10 px-6 sm:px-10 md:px-20">
             <div
@@ -41,10 +40,9 @@
                         <a href="tel:+46731785828">+46 73 178 58 28</a>
                         <br />
                         <a
-                            href="mailto:contact@monst.com"
+                            href="mailto:hello@referralavenue.com"
                             class="text-blue-600 hover:underline"
-                        >contact@monst.com</a
-                        >
+                        >hello@referralavenue.com</a>
                     </p>
                 </div>
 
@@ -79,5 +77,6 @@
         </div>
     </footer>
 </template>
+
 <script setup lang="ts">
 </script>
