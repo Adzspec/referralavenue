@@ -37,7 +37,7 @@
                         <div>
                             <div class="font-semibold text-slate-700">Email Us</div>
                             <div class="text-sm text-slate-500">
-                                support@yourdomain.tld<br/>hello@yourdomain.tld
+                                hello@referralavenue.com<br/>
                             </div>
                         </div>
                     </li>
@@ -59,7 +59,7 @@
                         <div>
                             <div class="font-semibold text-slate-700">Call Us</div>
                             <div class="text-sm text-slate-500">
-                                Phone : +6221.2002.2012<br/>Fax : +6221.2002.2013
+                                Phone : +46 73 178 58 28<br/>
                             </div>
                         </div>
                     </li>
@@ -127,3 +127,5 @@
         </div>
     </div>
 </template>
+<script setup lang="ts">
+</script>
