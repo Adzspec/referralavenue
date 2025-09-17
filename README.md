@@ -93,6 +93,6 @@ Password: 12345678
 
 Use this to explore user/role/permission management.
 
-📄 License
+📄 Licenses
 This project is open-sourced software licensed under the MIT license.
 
