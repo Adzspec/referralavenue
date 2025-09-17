@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-50 py-20 px-4">
+    <div id="form" class="bg-gray-50 py-20 px-4">
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[40%_60%] gap-8">
 
             <!-- LEFT PANEL: Info -->
