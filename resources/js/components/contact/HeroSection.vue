@@ -22,13 +22,16 @@
 
                 <!-- Buttons -->
                 <div class="mt-6 flex flex-wrap gap-4">
-                    <a href="#form" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold shadow-md">
+                    <a href="#Footer"
+                       class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold shadow-md">
                         Send Message
                     </a>
-                    <a href="mailto:support@example.com" class="bg-white border border-gray-300 px-6 py-3 rounded-full font-semibold text-gray-700 hover:bg-gray-50">
+                    <a href="mailto:hello@referralavenue.com"
+                       class="bg-white border border-gray-300 px-6 py-3 rounded-full font-semibold text-gray-700 hover:bg-gray-50">
                         Email Us
                     </a>
                 </div>
+
 
                 <!-- Stats -->
                 <div class="mt-10 grid grid-cols-2 gap-6">
