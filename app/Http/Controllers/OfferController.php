@@ -49,16 +49,12 @@ class OfferController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        $stores = Store::select('id', 'name')
-            ->where('status', 1)
-            ->where('company_id', $company->id)->get();
-
         $categories = Category::select('id', 'name')
             ->where('company_id', $company->id)->get();
 
         return Inertia::render('offers/index', [
             'offers' => $offers,
-            'stores' => $stores,
+            'stores' => Store::select('id','name')->where('company_id', $company->id)->where('status', 1)->get(),
             'categories' => $categories,
             'filters' => $isInitialLoad
                 ? [
