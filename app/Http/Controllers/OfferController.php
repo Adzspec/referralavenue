@@ -50,6 +50,7 @@ class OfferController extends Controller
             ->withQueryString();
 
         $stores = Store::select('id', 'name')
+            ->where('status', 1)
             ->where('company_id', $company->id)->get();
 
         $categories = Category::select('id', 'name')
