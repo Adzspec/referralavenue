@@ -8,8 +8,8 @@
                 We provide <span class="font-semibold text-blue-600">everything</span> you need to build and run a fully branded, high-performing affiliate site—without the need for developers or complex integrations
             </p>
             <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <button class="rounded-md bg-blue-600 px-6 py-3 text-base text-white shadow transition hover:bg-blue-700">Key Features</button>
-                <button class="rounded-md bg-blue-100 px-6 py-3 text-base text-blue-700 transition hover:bg-blue-200">How We Work?</button>
+                <a :href="route('key-features')"><button class="cursor-pointer rounded-md bg-blue-600 px-6 py-3 text-base text-white shadow transition hover:bg-blue-700">Key Features</button></a>
+                <a :href="route('key-features')"><button class="cursor-pointer rounded-md bg-blue-100 px-6 py-3 text-base text-blue-700 transition hover:bg-blue-200">How We Work?</button></a>
             </div>
         </section>
 

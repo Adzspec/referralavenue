@@ -30,6 +30,32 @@
                     </n-form-item>
                 </n-gi>
             </n-grid>
+            <n-divider><h2 class="text-2xl text-green-400">Exclusive Section</h2></n-divider>
+            <n-grid x-gap="12" :cols="3">
+                <n-gi>
+                    <n-form-item label="Main Heading">
+                        <n-input v-model:value="localForm.exclusiveSection.mainHeading" placeholder="Enter section heading" />
+                    </n-form-item>
+                </n-gi>
+                <n-gi>
+                    <n-form-item label="Button Text">
+                        <n-input v-model:value="localForm.exclusiveSection.buttonText" placeholder="Enter text fo button" />
+                    </n-form-item>
+                </n-gi>
+            </n-grid>
+            <n-divider><h2 class="text-2xl text-green-400">Popular Section</h2></n-divider>
+            <n-grid x-gap="12" :cols="3">
+                <n-gi>
+                    <n-form-item label="Main Heading">
+                        <n-input v-model:value="localForm.popularSection.mainHeading" placeholder="Enter section heading" />
+                    </n-form-item>
+                </n-gi>
+                <n-gi>
+                    <n-form-item label="Button Text">
+                        <n-input v-model:value="localForm.popularSection.buttonText" placeholder="Enter text fo button" />
+                    </n-form-item>
+                </n-gi>
+            </n-grid>
             <!-- Banner Section -->
             <n-divider><h2 class="text-2xl text-green-400">Banner Section</h2></n-divider>
             <n-grid x-gap="12" :cols="3">
@@ -88,6 +114,14 @@ interface HeroSection {
     buttonText: string;
     image?: string;
 }
+interface ExclusiveSection {
+    mainHeading: string;
+    buttonText: string;
+}
+interface PopularSection {
+    mainHeading: string;
+    buttonText: string;
+}
 interface BannerSection {
     mainHeading: string;
     secondHeading: string;
@@ -101,6 +135,8 @@ interface HomeOneForm {
     heroSection: HeroSection;
     bannerSection: BannerSection;
     faqSection: FaqSection;
+    exclusiveSection: ExclusiveSection;
+    popularSection: PopularSection;
 }
 
 const props = defineProps<{

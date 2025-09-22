@@ -148,7 +148,7 @@ const columns = [
     {
         title: 'Status',
         key: 'status',
-        render: (row: any) => row.status.charAt(0).toUpperCase() + row.status.slice(1),
+        render: (row: any) => row.status ? 'Active' : 'Inactive'
     },
     {
         title: 'Actions',

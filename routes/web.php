@@ -31,9 +31,9 @@ Route::get('/about', function () {
 Route::get('/faqs', function () {
     return Inertia::render('Faqs');
 })->name('faqs');
-Route::get('/Key Features', function () {
+Route::get('/key-features', function () {
     return Inertia::render('Key Features');
-})->name('Key Features');
+})->name('key-features');
 Route::get('/company', function () {
     return Inertia::render('Company');
 })->name('company');

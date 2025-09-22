@@ -105,6 +105,14 @@ function getDefaultHomeOne(settings: any) {
             buttonText: settings?.homeOne?.heroSection?.buttonText || '',
             image: settings?.homeOne?.heroSection?.image || ''
         },
+        exclusiveSection: {
+            mainHeading: settings?.homeOne?.exclusiveSection?.mainHeading || '',
+            buttonText: settings?.homeOne?.heroSection?.buttonText || '',
+        },
+        popularSection: {
+            mainHeading: settings?.homeOne?.popularSection?.mainHeading || '',
+            buttonText: settings?.homeOne?.popularSection?.buttonText || '',
+        },
         bannerSection: {
             mainHeading: settings?.homeOne?.bannerSection?.mainHeading || '',
             secondHeading: settings?.homeOne?.bannerSection?.secondHeading || '',
@@ -127,6 +135,14 @@ function getDefaultHomeTwo(settings: any) {
             // buttonText: settings?.homeOne?.heroSection?.buttonText || '',
             // image: settings?.homeOne?.heroSection?.image || ''
         },
+        exclusiveSection: {
+            mainHeading: settings?.homeTwo?.exclusiveSection?.mainHeading || '',
+            buttonText: settings?.homeTwo?.heroSection?.buttonText || '',
+        },
+        popularSection: {
+            mainHeading: settings?.homeTwo?.popularSection?.mainHeading || '',
+            buttonText: settings?.homeTwo?.popularSection?.buttonText || '',
+        },
         bannerSection: {
             mainHeading: settings?.homeTwo?.bannerSection?.mainHeading || '',
             secondHeading: settings?.homeTwo?.bannerSection?.secondHeading || '',
@@ -147,6 +163,14 @@ function getDefaultHomeThree(settings: any) {
         heroSection: {
             mainHeading: settings?.homeThree?.heroSection?.mainHeading || '',
             secondHeading: settings?.homeThree?.heroSection?.secondHeading || '',
+        },
+        exclusiveSection: {
+            mainHeading: settings?.homeThree?.exclusiveSection?.mainHeading || '',
+            buttonText: settings?.homeThree?.heroSection?.buttonText || '',
+        },
+        popularSection: {
+            mainHeading: settings?.homeThree?.popularSection?.mainHeading || '',
+            buttonText: settings?.homeThree?.popularSection?.buttonText || '',
         },
         bannerSection: {
             mainHeading: settings?.homeThree?.bannerSection?.mainHeading || '',

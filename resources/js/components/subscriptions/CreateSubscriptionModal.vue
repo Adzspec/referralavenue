@@ -9,9 +9,9 @@
                 </n-grid-item>
                 <n-grid-item>
                     <n-form-item label="Price" path="price">
-                        <n-input-number v-model:value="form.price">
+                        <n-input-number :min="0" v-model:value="form.price">
                             <template #prefix>
-                                SEK
+                                $
                             </template>
                         </n-input-number>
                     </n-form-item>
@@ -74,8 +74,8 @@ const rules: FormRules = {
         },
         {
             type: 'number',
-            min: 20,
-            message: 'Minimum price is $20',
+            min: 0,
+            message: 'Minimum price is $0',
             trigger: ['input', 'blur']
         }
     ],

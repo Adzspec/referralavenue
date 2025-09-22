@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
 
         return Inertia::render('Welcome', [
-            'plans' => Subscription::with(['featureValues.feature'])->get(),
+            'plans' => Subscription::with(['featureValues.feature'])->where('status',1)->get(),
             'features' => Feature::orderBy('id')->get(),
             'user' => auth()->user(),
         ]);
