@@ -19,6 +19,7 @@ class OfferController extends Controller
 
         $company = auth()->user()->company()->with('latestSubscription.subscription')->first();
 
+        //$storesIds = Store::query()->where('company_id', $company->id)->where('status',1)->pluck('id');
         $offerLimitRaw = $company->latestSubscription->subscription->getFeatureValue('deals_limit');
         $offerLimit = (
             $offerLimitRaw === 'unlimited' ||
@@ -27,6 +28,10 @@ class OfferController extends Controller
         ) ? null : (int) $offerLimitRaw;
 
         $query = Offer::with('store')
+            ->whereHas('store', function ($q) {
+                $q->where('status', 1);
+            })
+            //->whereIn('store_id', $storesIds)
             ->where('company_id', $company->id);
 
         $query->when($request->filled('store_id'), fn ($q) => $q->where('store_id', $request->store_id))
