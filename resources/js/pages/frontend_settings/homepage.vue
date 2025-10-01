@@ -61,6 +61,14 @@
                         <n-button type="primary" native-type="submit" :loading="saving" @click="saveSettings">Save</n-button>
                     </n-space>
                 </n-tab-pane>
+                <n-tab-pane name="header&footer" tab="Header & Footer">
+                    <HeaderFooter
+                        v-model="form"
+                    />
+                    <n-space justify="end" class="mt-4">
+                        <n-button type="primary" native-type="submit" :loading="saving" @click="saveSettings">Save</n-button>
+                    </n-space>
+                </n-tab-pane>
             </n-tabs>
         </div>
     </AppLayout>
@@ -78,6 +86,7 @@ import FrontendSettingsHomeOne from '@/components/settings/FrontendSettingsHomeO
 import FrontendSettingsHomeTwo from '@/components/settings/FrontendSettingsHomeTwo.vue';
 import FrontendSettingsHomeThree from '@/components/settings/FrontendSettingsHomeThree.vue';
 import ContactUsTab from '@/components/settings/ContactUsTab.vue';
+import HeaderFooter from '@/components/settings/HeaderFooter.vue';
 
 
 const props = defineProps<{
@@ -209,6 +218,27 @@ const form = ref({
         phone2: '',
         address: '',
     },
+    headerFooter: props.settings.headerFooter || {
+        header: {
+            home: { text: 'Home', link: '/' },
+            categories: { text: 'Categories', link: '/categories' },
+            browse: { text: 'Browse', link: '/browse' },
+            contact: { text: 'Contact', link: '/contact' }
+        },
+        footer: {
+            usefulLinks: { mainHeading: '',
+                categories: { text: 'Categories', link: '/categories' },
+                discounts: { text: 'Discounts', link: '/browse' },
+                contact: { text: 'Contact', link: '/contact' }
+            },
+            businessLinks: { mainHeading: '',
+                termOfService: { text: 'Terms of Service', link: '' },
+                privacyPolicy: { text: 'Privacy Policy', link: '' },
+                cookiePolicy: { text: 'Cookie Policy', link: '' }
+            },
+            newsLetter: { mainHeading: 'Newsletter',subHeading: 'Stay up to date with the latest news, updates and offers by subscribing to our newsletter.' }
+        }
+    }
 });
 
 
