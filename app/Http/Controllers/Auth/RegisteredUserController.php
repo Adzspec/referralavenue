@@ -63,7 +63,7 @@ class RegisteredUserController extends Controller
             'company_id' => $company->id,
             'subscription_id' => 1,
             'start_date' => now(),
-            'status' => 1,
+            'status' => 'active',
         ]);
 
         $user = User::create([

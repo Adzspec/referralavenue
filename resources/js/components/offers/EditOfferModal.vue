@@ -157,7 +157,7 @@ const props = defineProps<{
     stores: { id: number; name: string }[];
     categories: { id: number; name: string }[];
 }>();
-
+console.log(props.offer);
 const formRef = ref<FormInst | null>(null);
 
 const storeOptions = props.stores.map((s) => ({ label: s.name, value: s.id }));
@@ -171,7 +171,7 @@ watch(() => props.offer, (newVal) => {
 
 const rules: FormRules = {
     title: [{ required: true, message: 'Title is required', trigger: ['blur'] }],
-    store_id: [{ required: true, message: 'Store is required', trigger: ['blur', 'change'] }],
+    store_id: [{ required: true, type: 'number', message: 'Store is required', trigger: ['blur', 'change'] }],
 };
 
 const submit = async () => {
