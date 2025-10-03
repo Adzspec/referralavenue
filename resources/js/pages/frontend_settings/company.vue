@@ -277,9 +277,9 @@ const subscriptionColumns = [
         title: 'Status',
         key: 'status',
         render: (row: CompanySubscriptionRow) => {
-            return row.status === '1'
+            return row.status === 'active'
                 ? h('span', { class: 'text-green-600 font-semibold' }, 'Active')
-                : h('span', { class: 'text-red-500 font-semibold' }, 'Inactive');
+                : h('span', { class: 'text-red-500 font-semibold' }, row.status);
         },
     },
     {
